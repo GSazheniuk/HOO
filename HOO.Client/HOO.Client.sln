@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOO.Core", "..\HOO.Core\HOO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOO.Admin", "..\HOO.Admin\HOO.Admin.csproj", "{534630F1-A785-4315-874D-054C8271A4E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOO.DB", "..\HOO.DB\HOO.DB.csproj", "{860CC894-C73E-4F79-8BDB-686A526B2795}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{534630F1-A785-4315-874D-054C8271A4E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{534630F1-A785-4315-874D-054C8271A4E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{534630F1-A785-4315-874D-054C8271A4E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{860CC894-C73E-4F79-8BDB-686A526B2795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{860CC894-C73E-4F79-8BDB-686A526B2795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{860CC894-C73E-4F79-8BDB-686A526B2795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{860CC894-C73E-4F79-8BDB-686A526B2795}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
