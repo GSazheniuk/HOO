@@ -40,6 +40,8 @@
             this.tbZ = new System.Windows.Forms.TextBox();
             this.tbY = new System.Windows.Forms.TextBox();
             this.tbX = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lClass = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panel3
@@ -140,6 +142,23 @@
             this.tbX.Size = new System.Drawing.Size(38, 20);
             this.tbX.TabIndex = 7;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(495, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Random Star Class:";
+            // 
+            // lClass
+            // 
+            this.lClass.AutoSize = true;
+            this.lClass.Location = new System.Drawing.Point(601, 23);
+            this.lClass.Name = "lClass";
+            this.lClass.Size = new System.Drawing.Size(0, 13);
+            this.lClass.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,6 +168,8 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnGo);
+            this.Controls.Add(this.lClass);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelN);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -178,6 +199,8 @@
         private System.Windows.Forms.TextBox tbZ;
         private System.Windows.Forms.TextBox tbY;
         private System.Windows.Forms.TextBox tbX;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lClass;
     }
 }
 
