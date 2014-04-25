@@ -69,17 +69,20 @@ namespace HOO.Admin
                 int y = ((rnd.Next(2) == 0) ? 1 : -1) * rnd.Next(b);
                 int z = ((rnd.Next(2) == 0) ? 1 : -1) * rnd.Next(c);
                 double d = Math.Pow(x, 2) / Math.Pow(a, 2) + Math.Pow(y, 2) / Math.Pow(b, 2) + Math.Pow(z, 2) / Math.Pow(c, 2);
+                double dc = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2) + Math.Pow(z, 2));
 
-                if (d <= 1)
+                if (d <= 1 && dc > 10)
                 {
-                    l.Add(new Point3D { X = x, Y = y, Z = z });
-                    n--;
+                    if (!l.Exists(p => Math.Sqrt(Math.Pow(x - p.X, 2) + Math.Pow(y - p.Y, 2) + Math.Pow(z - p.Z, 2)) <= 10))
+                    {
+                        l.Add(new Point3D {X = x, Y = y, Z = z});
+                        n--;
+                        panel1.Refresh();
+                        panel2.Refresh();
+                        panel3.Refresh();
+                    }
                 }
             }
-
-            panel1.Invalidate();
-            panel2.Invalidate();
-            panel3.Invalidate();
         }
     }
 }
