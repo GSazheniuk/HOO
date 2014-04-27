@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Configuration\ConstantParameters.cs" />
+    <Compile Include="Model\Configuration\Enums\PlanetSize.cs" />
+    <Compile Include="Model\Configuration\Enums\PlanetType.cs" />
     <Compile Include="Model\Configuration\Enums\StarClass.cs" />
     <Compile Include="Model\Configuration\Enums\StarSize.cs" />
     <Compile Include="Model\Configuration\MrRandom.cs" />

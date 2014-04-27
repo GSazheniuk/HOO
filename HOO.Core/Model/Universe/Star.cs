@@ -14,6 +14,7 @@ namespace HOO.Core.Model.Universe
         public int TemperatureLevel { get; set; }
         public StarSize Size { get; set; }
         public Galaxy Galaxy { get; set; }
+        public string StarSystemName { get; set; }
 
         public string ClassName
         {
