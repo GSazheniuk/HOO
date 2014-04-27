@@ -40,13 +40,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Configuration\ConstantParameters.cs" />
+    <Compile Include="Model\Configuration\Enums\AsteroidDensity.cs" />
     <Compile Include="Model\Configuration\Enums\PlanetSize.cs" />
     <Compile Include="Model\Configuration\Enums\PlanetType.cs" />
     <Compile Include="Model\Configuration\Enums\StarClass.cs" />
     <Compile Include="Model\Configuration\Enums\StarSize.cs" />
     <Compile Include="Model\Configuration\MrRandom.cs" />
+    <Compile Include="Model\Universe\AsteroidBelt.cs" />
     <Compile Include="Model\Universe\BlackHole.cs" />
     <Compile Include="Model\Universe\Galaxy.cs" />
+    <Compile Include="Model\Universe\GasGiant.cs" />
     <Compile Include="Model\Universe\Planet.cs" />
     <Compile Include="Model\Universe\Star.cs" />
     <Compile Include="Model\Universe\StarOrbitalBody.cs" />
