@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5928C43E-507A-4C68-847D-E0E64AA82BCC}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{DD2CF3E1-6445-443C-87CE-61A330D63195}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HOO.Core</RootNamespace>
-    <AssemblyName>HOO.Core</AssemblyName>
+    <RootNamespace>HOO.Service</RootNamespace>
+    <AssemblyName>HOO.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,33 +34,43 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Configuration\ConstantParameters.cs" />
-    <Compile Include="Model\Configuration\Enums\AsteroidDensity.cs" />
-    <Compile Include="Model\Configuration\Enums\PlanetSize.cs" />
-    <Compile Include="Model\Configuration\Enums\PlanetType.cs" />
-    <Compile Include="Model\Configuration\Enums\StarClass.cs" />
-    <Compile Include="Model\Configuration\Enums\StarSize.cs" />
-    <Compile Include="Model\Configuration\MrRandom.cs" />
-    <Compile Include="Model\Player\Player.cs" />
-    <Compile Include="Model\Player\Race.cs" />
-    <Compile Include="Model\Universe\AsteroidBelt.cs" />
-    <Compile Include="Model\Universe\BlackHole.cs" />
-    <Compile Include="Model\Universe\Galaxy.cs" />
-    <Compile Include="Model\Universe\GasGiant.cs" />
-    <Compile Include="Model\Universe\Planet.cs" />
-    <Compile Include="Model\Universe\Star.cs" />
-    <Compile Include="Model\Universe\StarOrbitalBody.cs" />
-    <Compile Include="Model\Universe\Universe.cs" />
+    <Compile Include="HOOBehavior.cs" />
+    <Compile Include="HOOCycleHandlerService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HOOCycleHandlerService.Designer.cs">
+      <DependentUpon>HOOCycleHandlerService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HOOCycleHandlerService.resx">
+      <DependentUpon>HOOCycleHandlerService.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HOO.ComLib\HOO.ComLib.csproj">
+      <Project>{5d59ed9c-c661-4154-879b-6c9f41395d1e}</Project>
+      <Name>HOO.ComLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HOO.SvcLib\HOO.SvcLib.csproj">
+      <Project>{9d28e876-59aa-4ff6-90cc-300d18ef8c34}</Project>
+      <Name>HOO.SvcLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5928C43E-507A-4C68-847D-E0E64AA82BCC}</ProjectGuid>
+    <ProjectGuid>{5D59ED9C-C661-4154-879B-6C9F41395D1E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HOO.Core</RootNamespace>
-    <AssemblyName>HOO.Core</AssemblyName>
+    <RootNamespace>HOO.ComLib</RootNamespace>
+    <AssemblyName>HOO.ComLib</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,26 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Configuration\ConstantParameters.cs" />
-    <Compile Include="Model\Configuration\Enums\AsteroidDensity.cs" />
-    <Compile Include="Model\Configuration\Enums\PlanetSize.cs" />
-    <Compile Include="Model\Configuration\Enums\PlanetType.cs" />
-    <Compile Include="Model\Configuration\Enums\StarClass.cs" />
-    <Compile Include="Model\Configuration\Enums\StarSize.cs" />
-    <Compile Include="Model\Configuration\MrRandom.cs" />
-    <Compile Include="Model\Player\Player.cs" />
-    <Compile Include="Model\Player\Race.cs" />
-    <Compile Include="Model\Universe\AsteroidBelt.cs" />
-    <Compile Include="Model\Universe\BlackHole.cs" />
-    <Compile Include="Model\Universe\Galaxy.cs" />
-    <Compile Include="Model\Universe\GasGiant.cs" />
-    <Compile Include="Model\Universe\Planet.cs" />
-    <Compile Include="Model\Universe\Star.cs" />
-    <Compile Include="Model\Universe\StarOrbitalBody.cs" />
-    <Compile Include="Model\Universe\Universe.cs" />
+    <Compile Include="IHOOService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

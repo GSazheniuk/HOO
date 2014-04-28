@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5928C43E-507A-4C68-847D-E0E64AA82BCC}</ProjectGuid>
+    <ProjectGuid>{9D28E876-59AA-4FF6-90CC-300D18EF8C34}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HOO.Core</RootNamespace>
-    <AssemblyName>HOO.Core</AssemblyName>
+    <RootNamespace>HOO.SvcLib</RootNamespace>
+    <AssemblyName>HOO.SvcLib</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,26 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Configuration\ConstantParameters.cs" />
-    <Compile Include="Model\Configuration\Enums\AsteroidDensity.cs" />
-    <Compile Include="Model\Configuration\Enums\PlanetSize.cs" />
-    <Compile Include="Model\Configuration\Enums\PlanetType.cs" />
-    <Compile Include="Model\Configuration\Enums\StarClass.cs" />
-    <Compile Include="Model\Configuration\Enums\StarSize.cs" />
-    <Compile Include="Model\Configuration\MrRandom.cs" />
-    <Compile Include="Model\Player\Player.cs" />
-    <Compile Include="Model\Player\Race.cs" />
-    <Compile Include="Model\Universe\AsteroidBelt.cs" />
-    <Compile Include="Model\Universe\BlackHole.cs" />
-    <Compile Include="Model\Universe\Galaxy.cs" />
-    <Compile Include="Model\Universe\GasGiant.cs" />
-    <Compile Include="Model\Universe\Planet.cs" />
-    <Compile Include="Model\Universe\Star.cs" />
-    <Compile Include="Model\Universe\StarOrbitalBody.cs" />
-    <Compile Include="Model\Universe\Universe.cs" />
+    <Compile Include="HOOService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HOO.ComLib\HOO.ComLib.csproj">
+      <Project>{5d59ed9c-c661-4154-879b-6c9f41395d1e}</Project>
+      <Name>HOO.ComLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
