@@ -39,6 +39,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\CreateDB.sql" />
+    <Content Include="Scripts\Tables\Galaxies.sql" />
+    <Content Include="Scripts\Tables\GalaxyDictionary.sql" />
+    <Content Include="Scripts\Tables\Stars.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
