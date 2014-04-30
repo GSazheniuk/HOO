@@ -15,10 +15,19 @@ namespace HOO.Admin
 
     public class DBHelper
     {
+        #region Private Fields
+        private DataGate _dg;
+        #endregion
+
         #region Constructors
         public DBHelper()
         {
 
+        }
+
+        public DBHelper(string connStr)
+        {
+            _dg = new DataGate(connStr);
         }
         #endregion
 
