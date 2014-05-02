@@ -46,6 +46,7 @@
     <Compile Include="Model\Configuration\Enums\StarClass.cs" />
     <Compile Include="Model\Configuration\Enums\StarSize.cs" />
     <Compile Include="Model\Configuration\MrRandom.cs" />
+    <Compile Include="Model\Configuration\Point3D.cs" />
     <Compile Include="Model\Player\Player.cs" />
     <Compile Include="Model\Player\Race.cs" />
     <Compile Include="Model\Universe\AsteroidBelt.cs" />

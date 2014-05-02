@@ -16,6 +16,10 @@ namespace HOO.Core.Model.Universe
         public Galaxy Galaxy { get; set; }
         public string StarSystemName { get; set; }
 
+        public Point3D Coordinates { get; set; }
+
+        public List<StarOrbitalBody> OrbitalBodies { get; set; }
+
         public string ClassName
         {
             get { return String.Format("{0}{1}{2}", Class, TemperatureLevel, Size); }
@@ -27,6 +31,7 @@ namespace HOO.Core.Model.Universe
             this.Class = ((StarClass)MrRandom.rnd.Next((int)StarClass.MrRandom));
             this.Size = ((StarSize) MrRandom.rnd.Next((int) StarSize.MrRandom));
             this.TemperatureLevel = MrRandom.rnd.Next(ConstantParameters.MaxStarTemperatureLevel);
+            this.OrbitalBodies = new List<StarOrbitalBody>();
         }
     }
 }

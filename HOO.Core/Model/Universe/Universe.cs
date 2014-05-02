@@ -5,12 +5,9 @@ namespace HOO.Core.Model.Universe
     public class Universe
     {
         public List<Galaxy> Galaxies { get; set; } 
-        public Universe(int galaxyCount)
+        public Universe()
         {
-            for (int i = 0; i < galaxyCount; i++)
-            {
-                Galaxies.Add(new Galaxy());
-            }
+            this.Galaxies = new List<Galaxy>();
         }
     }
 }
