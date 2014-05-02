@@ -14,5 +14,12 @@ namespace HOO.Admin
         {
             this.Close();
         }
+
+        private void tsNewWorld_Click(object sender, EventArgs e)
+        {
+            FormUniverseGeneration fug = new FormUniverseGeneration();
+            fug.MdiParent = this;
+            fug.Show();
+        }
     }
 }

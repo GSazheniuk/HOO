@@ -86,11 +86,11 @@ namespace HOO.Admin
                 }
             }
 
-            Star star = new Star(new Galaxy());
-            star.Class = (StarClass)rnd.Next((int)StarClass.MrRandom);
-            star.Size = (StarSize)rnd.Next((int)StarSize.MrRandom);
-            star.TemperatureLevel = rnd.Next(9);
-            lClass.Text = star.ClassName;
+            //Star star = new Star(new Galaxy());
+            //star.Class = (StarClass)rnd.Next((int)StarClass.MrRandom);
+            //star.Size = (StarSize)rnd.Next((int)StarSize.MrRandom);
+            //star.TemperatureLevel = rnd.Next(9);
+            //lClass.Text = star.ClassName;
         }
     }
 }
