@@ -10,6 +10,7 @@ namespace HOO.Core.Model.Universe
 {
     public class Star
     {
+        public int Id { get; set; }
         public StarClass Class { get; set; }
         public int TemperatureLevel { get; set; }
         public StarSize Size { get; set; }
@@ -23,6 +24,11 @@ namespace HOO.Core.Model.Universe
         public string ClassName
         {
             get { return String.Format("{0}{1}{2}", Class, TemperatureLevel, Size); }
+        }
+
+        public Star()
+        {
+            this.OrbitalBodies = new List<StarOrbitalBody>();
         }
 
         public Star(Galaxy g)

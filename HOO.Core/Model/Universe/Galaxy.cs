@@ -9,6 +9,9 @@ namespace HOO.Core.Model.Universe
 {
     public class Galaxy
     {
+        public int Id { get; set; }
+        public Universe Universe { get; set; }
+
         public string Name { get; set; }
         public BlackHole BlackHole { get; set; }
 
@@ -17,6 +20,11 @@ namespace HOO.Core.Model.Universe
         public int DimensionZ { get; set; }
 
         public List<Star> Stars { get; set; }
+
+        public Galaxy()
+        {
+            this.Stars = new List<Star>();
+        }
 
         public Galaxy(int x, int y, int z)
         {

@@ -4,6 +4,10 @@ namespace HOO.Core.Model.Universe
 {
     public class Universe
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Descrip { get; set; }
+
         public List<Galaxy> Galaxies { get; set; } 
         public Universe()
         {
