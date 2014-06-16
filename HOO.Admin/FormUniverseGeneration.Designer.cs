@@ -117,7 +117,7 @@
             0});
             this.nudStars.Name = "nudStars";
             this.nudStars.Size = new System.Drawing.Size(53, 20);
-            this.nudStars.TabIndex = 1;
+            this.nudStars.TabIndex = 5;
             // 
             // nudGalZ
             // 
@@ -129,7 +129,7 @@
             0});
             this.nudGalZ.Name = "nudGalZ";
             this.nudGalZ.Size = new System.Drawing.Size(53, 20);
-            this.nudGalZ.TabIndex = 1;
+            this.nudGalZ.TabIndex = 4;
             // 
             // nudGalY
             // 
@@ -141,7 +141,7 @@
             0});
             this.nudGalY.Name = "nudGalY";
             this.nudGalY.Size = new System.Drawing.Size(53, 20);
-            this.nudGalY.TabIndex = 1;
+            this.nudGalY.TabIndex = 3;
             // 
             // nudGalX
             // 
@@ -153,7 +153,7 @@
             0});
             this.nudGalX.Name = "nudGalX";
             this.nudGalX.Size = new System.Drawing.Size(53, 20);
-            this.nudGalX.TabIndex = 1;
+            this.nudGalX.TabIndex = 2;
             // 
             // nudGal
             // 
@@ -235,7 +235,7 @@
             this.btnSave.Location = new System.Drawing.Point(179, 181);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(48, 23);
-            this.btnSave.TabIndex = 1;
+            this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -245,7 +245,7 @@
             this.btnClose.Location = new System.Drawing.Point(233, 181);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(48, 23);
-            this.btnClose.TabIndex = 1;
+            this.btnClose.TabIndex = 8;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -255,7 +255,7 @@
             this.btnCreate.Location = new System.Drawing.Point(125, 181);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(48, 23);
-            this.btnCreate.TabIndex = 1;
+            this.btnCreate.TabIndex = 6;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
@@ -565,7 +565,7 @@
             this.tbConnStr.Location = new System.Drawing.Point(294, 183);
             this.tbConnStr.Name = "tbConnStr";
             this.tbConnStr.Size = new System.Drawing.Size(428, 20);
-            this.tbConnStr.TabIndex = 4;
+            this.tbConnStr.TabIndex = 9;
             // 
             // FormUniverseGeneration
             // 
