@@ -159,7 +159,104 @@ namespace HOO.Admin
 
         public DBCommandResult AddOrbitalBody(StarOrbitalBody sob)
         {
-            return new DBCommandResult();
+            DBCommandResult res = new DBCommandResult();
+
+            if (sob is Planet)
+            {
+                Planet p = (Planet)sob;
+                SqlCommand com = new SqlCommand("ADM.AddPlanet", _dg.Connection);
+                com.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter spStarId = new SqlParameter("@StarId", p.Star.Id);
+                SqlParameter spOrbitNo = new SqlParameter("@OrbitNo", p.OrbitNo);
+                SqlParameter spSize = new SqlParameter("@Size", p.Size);
+                SqlParameter spType = new SqlParameter("@Type", p.Type);
+
+                com.Parameters.AddRange(new SqlParameter[] { spStarId, spSize, spOrbitNo, spType });
+
+                try
+                {
+                    DataSet ds = _dg.GetDataSet(com);
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    Planet rp = new Planet(sob.Star);
+                    rp.Id = Convert.ToInt32(dr["Id"]);
+                    rp.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
+                    rp.Size = (PlanetSize)Convert.ToInt32(dr["Size"]);
+                    rp.Type = (PlanetType)Convert.ToInt32(dr["Type"]);
+                    res.Tag = rp;
+                    res.ResultCode = 0;
+                    res.ResultMsg = "Ok";
+                }
+                catch (Exception ex)
+                {
+                    res.ResultCode = -2;
+                    res.ResultMsg = String.Format("{0} ----> {1}", ex.Message, ex.InnerException.Message);
+                }
+                return res;
+            }
+
+            if (sob is GasGiant)
+            {
+                GasGiant p = (GasGiant)sob;
+                SqlCommand com = new SqlCommand("ADM.AddGasGiant", _dg.Connection);
+                com.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter spStarId = new SqlParameter("@StarId", p.Star.Id);
+                SqlParameter spOrbitNo = new SqlParameter("@OrbitNo", p.OrbitNo);
+
+                com.Parameters.AddRange(new SqlParameter[] { spStarId, spOrbitNo });
+
+                try
+                {
+                    DataSet ds = _dg.GetDataSet(com);
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    GasGiant rg = new GasGiant(sob.Star);
+                    rg.Id = Convert.ToInt32(dr["Id"]);
+                    rg.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
+                    res.Tag = rg;
+                    res.ResultCode = 0;
+                    res.ResultMsg = "Ok";
+                }
+                catch (Exception ex)
+                {
+                    res.ResultCode = -2;
+                    res.ResultMsg = String.Format("{0} ----> {1}", ex.Message, ex.InnerException.Message);
+                }
+                return res;
+            }
+
+            if (sob is AsteroidBelt)
+            {
+                AsteroidBelt p = (AsteroidBelt)sob;
+                SqlCommand com = new SqlCommand("ADM.AddAsteroidBelt", _dg.Connection);
+                com.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter spStarId = new SqlParameter("@StarId", p.Star.Id);
+                SqlParameter spOrbitNo = new SqlParameter("@OrbitNo", p.OrbitNo);
+                SqlParameter spDensity = new SqlParameter("@Density", p.Density);
+
+                com.Parameters.AddRange(new SqlParameter[] { spStarId, spOrbitNo, spDensity });
+
+                try
+                {
+                    DataSet ds = _dg.GetDataSet(com);
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    AsteroidBelt ra = new AsteroidBelt(sob.Star);
+                    ra.Id = Convert.ToInt32(dr["Id"]);
+                    ra.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
+                    ra.Density = (AsteroidDensity)Convert.ToInt32(dr["Density"]);
+                    res.Tag = ra;
+                    res.ResultCode = 0;
+                    res.ResultMsg = "Ok";
+                }
+                catch (Exception ex)
+                {
+                    res.ResultCode = -2;
+                    res.ResultMsg = String.Format("{0} ----> {1}", ex.Message, ex.InnerException.Message);
+                }
+                return res;
+            }
+            return res;
         }
         #endregion
     }

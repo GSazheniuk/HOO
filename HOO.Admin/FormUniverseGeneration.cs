@@ -1,14 +1,18 @@
 ﻿using HOO.Core.Model.Configuration;
 using HOO.Core.Model.Universe;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
+using HOO.Core.Model.Configuration.Enums;
 
 namespace HOO.Admin
 {
     public partial class FormUniverseGeneration : Form
     {
         Universe u;
+        List<int> Orbits = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
         public FormUniverseGeneration()
         {
             InitializeComponent();
@@ -36,6 +40,8 @@ namespace HOO.Admin
                     if (g.AddStar(s, 10))
                     {
                         int orbits = MrRandom.rnd.Next(ConstantParameters.MaxOrbitalBodiesForStar);
+                        List<int> freeOrbits = new List<int>();
+                        freeOrbits.AddRange(Orbits);
                         for (int k = 0; k < orbits; k++)
                         {
                             int bodyType = MrRandom.rnd.Next(3);
@@ -44,15 +50,24 @@ namespace HOO.Admin
                             {
                                 case 0:
                                     Planet p = new Planet(s);
+                                    p.Size = (PlanetSize)MrRandom.rnd.Next((int)PlanetSize.MrRandom);
+                                    p.Type = (PlanetType)MrRandom.rnd.Next((int)PlanetType.MrRandom);
+                                    p.OrbitNo = freeOrbits[MrRandom.rnd.Next(freeOrbits.Count)];
+                                    freeOrbits.Remove(p.OrbitNo);
                                     s.OrbitalBodies.Add(p);
                                     break;
                                 case 1:
-                                    AsteroidBelt a = new AsteroidBelt(s);
-                                    s.OrbitalBodies.Add(a);
+                                    GasGiant gg = new GasGiant(s);
+                                    gg.OrbitNo = freeOrbits[MrRandom.rnd.Next(freeOrbits.Count)];
+                                    freeOrbits.Remove(gg.OrbitNo);
+                                    s.OrbitalBodies.Add(gg);
                                     break;
                                 case 2:
-                                    GasGiant gg = new GasGiant(s);
-                                    s.OrbitalBodies.Add(gg);
+                                    AsteroidBelt a = new AsteroidBelt(s);
+                                    a.Density = (AsteroidDensity)MrRandom.rnd.Next((int)AsteroidDensity.MrRandom);
+                                    a.OrbitNo = freeOrbits[MrRandom.rnd.Next(freeOrbits.Count)];
+                                    freeOrbits.Remove(a.OrbitNo);
+                                    s.OrbitalBodies.Add(a);
                                     break;
                             }
                         }
@@ -122,6 +137,21 @@ namespace HOO.Admin
                             else
                             {
                                 Star rs = (Star)r.Tag;
+                                foreach (StarOrbitalBody sob in s.OrbitalBodies)
+                                {
+                                    sob.Star = rs;
+                                    r = dh.AddOrbitalBody(sob);
+                                    if (r.ResultCode < 0)
+                                    {
+                                        MessageBox.Show(r.ResultMsg, String.Format("Orbital Body not saved - Code:{0}", r.ResultCode));
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        StarOrbitalBody rsob = (StarOrbitalBody)r.Tag;
+                                        rs.OrbitalBodies.Add(rsob);
+                                    }
+                                }
                                 rg.Stars.Add(rs);
                             }
                         }

@@ -8,6 +8,7 @@ namespace HOO.Core.Model.Universe
 {
     public class StarOrbitalBody
     {
+        public int Id { get; set; }
         public int OrbitNo { get; set; }
         public Star Star { get; set; }
 
