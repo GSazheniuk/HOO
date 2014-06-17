@@ -43,12 +43,14 @@
     <Compile Include="Model\Configuration\Enums\AsteroidDensity.cs" />
     <Compile Include="Model\Configuration\Enums\PlanetSize.cs" />
     <Compile Include="Model\Configuration\Enums\PlanetType.cs" />
+    <Compile Include="Model\Configuration\Enums\RequisiteType.cs" />
     <Compile Include="Model\Configuration\Enums\StarClass.cs" />
     <Compile Include="Model\Configuration\Enums\StarSize.cs" />
     <Compile Include="Model\Configuration\MrRandom.cs" />
     <Compile Include="Model\Configuration\Point3D.cs" />
     <Compile Include="Model\Player\Player.cs" />
     <Compile Include="Model\Player\Race.cs" />
+    <Compile Include="Model\Player\Requisite.cs" />
     <Compile Include="Model\Universe\AsteroidBelt.cs" />
     <Compile Include="Model\Universe\BlackHole.cs" />
     <Compile Include="Model\Universe\Galaxy.cs" />
