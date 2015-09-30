@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HOO.Admin
 {
-    public class GlobalParameters
+    public partial class GlobalParameters
     {
         public static SqlTransaction Transaction { get; set; }
     }
