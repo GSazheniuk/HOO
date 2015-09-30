@@ -11,6 +11,8 @@
     <AssemblyName>HOO.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +64,9 @@
     <Compile Include="Model\Universe\StarOrbitalBody.cs" />
     <Compile Include="Model\Universe\Universe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Configuration\Enums\GasGiantClass.cs" />
+    <Compile Include="Model\Configuration\Enums\GasGiantSize.cs" />
+    <Compile Include="Model\Configuration\Enums\AsteroidType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
