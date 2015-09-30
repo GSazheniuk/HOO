@@ -9,10 +9,10 @@ namespace HOO.ComLib
 {
     public class MrCrypt
     {
-        private System.Security.Cryptography.ECDiffieHellmanCng dhCng = new ECDiffieHellmanCng(256);
+        //private System.Security.Cryptography.ECDiffieHellmanCng dhCng = new ECDiffieHellmanCng(256);
         public MrCrypt()
         {
-            dhCng.HashAlgorithm = CngAlgorithm.ECDiffieHellmanP256;
+            //dhCng.HashAlgorithm = CngAlgorithm.ECDiffieHellmanP256;
             //dhCng.
         }
     }
