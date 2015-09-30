@@ -37,7 +37,7 @@ namespace HOO.Admin
                 {
                     Star s = new Star(g);
                     s.StarSystemName = "Alpha Test";
-                    if (g.AddStar(s, 10))
+					if (g.AddStar(s, ConstantParameters.MinDistanceBetweenStars))
                     {
                         int orbits = MrRandom.rnd.Next(ConstantParameters.MaxOrbitalBodiesForStar);
                         List<int> freeOrbits = new List<int>();
@@ -56,8 +56,10 @@ namespace HOO.Admin
                                     freeOrbits.Remove(p.OrbitNo);
                                     s.OrbitalBodies.Add(p);
                                     break;
-                                case 1:
-                                    GasGiant gg = new GasGiant(s);
+							case 1:
+								GasGiant gg = new GasGiant (s);
+									gg.Class = (GasGiantClass)MrRandom.rnd.Next ((int)GasGiantClass.MrRandom);
+									gg.Size = (GasGiantSize)MrRandom.rnd.Next ((int)GasGiantSize.MrRandom);
                                     gg.OrbitNo = freeOrbits[MrRandom.rnd.Next(freeOrbits.Count)];
                                     freeOrbits.Remove(gg.OrbitNo);
                                     s.OrbitalBodies.Add(gg);
@@ -65,6 +67,7 @@ namespace HOO.Admin
                                 case 2:
                                     AsteroidBelt a = new AsteroidBelt(s);
                                     a.Density = (AsteroidDensity)MrRandom.rnd.Next((int)AsteroidDensity.MrRandom);
+									a.Type = (AsteroidType)MrRandom.rnd.Next((int)AsteroidType.MrRandom);
                                     a.OrbitNo = freeOrbits[MrRandom.rnd.Next(freeOrbits.Count)];
                                     freeOrbits.Remove(a.OrbitNo);
                                     s.OrbitalBodies.Add(a);
@@ -103,7 +106,8 @@ namespace HOO.Admin
         private void btnSave_Click(object sender, EventArgs e)
         {
             DateTime st = DateTime.Now;
-            DBHelper dh = new DBHelper(tbConnStr.Text);
+            //DBHelper dh = new DBHelper(tbConnStr.Text);
+			MySqlDBHelper dh = new MySqlDBHelper(tbConnStr.Text);
             DBCommandResult r = dh.AddUniverse(u);
             if (r.ResultCode < 0)
             {
