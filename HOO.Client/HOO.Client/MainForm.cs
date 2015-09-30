@@ -24,8 +24,8 @@ namespace HOO.Client
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            TestShiftForm tsf = new TestShiftForm();
-            tsf.ShowDialog();
+            //TestShiftForm tsf = new TestShiftForm();
+            //tsf.ShowDialog();
         }
 
     }
