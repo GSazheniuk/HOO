@@ -11,6 +11,8 @@
     <AssemblyName>HOO.Admin</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,6 +44,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\Libs\MySql.NET\v4.0\MySql.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataGate.cs" />
@@ -93,13 +98,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="MySqlDBHelper.cs" />
+    <Compile Include="MySqlDataGate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.Core\HOO.Core.csproj">
-      <Project>{5928c43e-507a-4c68-847d-e0e64aa82bcc}</Project>
+      <Project>{5928C43E-507A-4C68-847D-E0E64AA82BCC}</Project>
       <Name>HOO.Core</Name>
     </ProjectReference>
   </ItemGroup>
