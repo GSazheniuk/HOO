@@ -7,22 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HOO.Core.Model.Configuration.Enums;
+using HOO.DB;
 
 namespace HOO.Admin
 {
-    public class DBCommandResult
-    {
-        public int ResultCode { get; set; }
-        public string ResultMsg { get; set; }
-        public object Tag { get; set; }
-
-        public DBCommandResult()
-        {
-            ResultCode = -1;
-            ResultMsg = "Not implemented";
-        }
-    }
-
     public class DBHelper
     {
         #region Private Fields
