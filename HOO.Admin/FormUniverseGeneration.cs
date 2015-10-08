@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Linq;
 using HOO.Core.Model.Configuration.Enums;
 using HOO.DB;
+using HOO.Core.Configuration;
 
 namespace HOO.Admin
 {
@@ -108,7 +109,7 @@ namespace HOO.Admin
         {
             DateTime st = DateTime.Now;
             //DBHelper dh = new DBHelper(tbConnStr.Text);
-			MySqlDBHelper dh = new MySqlDBHelper(tbConnStr.Text);
+			MySqlDBHelper dh = new MySqlDBHelper(SensitiveData.ConnectionString);
             DBCommandResult r = dh.AddUniverse(u);
             if (r.ResultCode < 0)
             {

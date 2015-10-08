@@ -9,7 +9,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HOO.Admin</RootNamespace>
     <AssemblyName>HOO.Admin</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProductVersion>12.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -108,6 +107,10 @@
     <ProjectReference Include="..\HOO.Core\HOO.Core.csproj">
       <Project>{5928C43E-507A-4C68-847D-E0E64AA82BCC}</Project>
       <Name>HOO.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HOO.DB\HOO.DB.csproj">
+      <Project>{860CC894-C73E-4F79-8BDB-686A526B2795}</Project>
+      <Name>HOO.DB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HOO.Core.Model.Configuration.Enums;
 using HOO.DB;
+using HOO.Core.Model.Configuration;
 
 namespace HOO.Admin
 {
@@ -15,6 +16,11 @@ namespace HOO.Admin
 	{
 		#region Private Fields
 		private MySqlDataGate _dg;
+
+		private string[] suffixes = { "Australis", "Borealis", "Majoris", "Minoris", "Caput", "Cor", "Media", "Cynosure", "Centauri", "Persei", "Cephei", "Prior", "Posterior" };
+		private string[] prefixes = { "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta"
+			, "Iota", "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi"
+			, "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega"};
 		#endregion
 
 		#region Constructors
@@ -102,12 +108,48 @@ namespace HOO.Admin
 		public DBCommandResult AddStar(Star s)
 		{
 			DBCommandResult res = new DBCommandResult();
+			string pref = "";
+			string suff = "";
+
+			switch (MrRandom.rnd.Next (4)) {
+			case 0:
+				pref = "";
+				suff = "";
+				break;
+			case 1:
+				pref = prefixes[MrRandom.rnd.Next(prefixes.Length)];
+				suff = "";
+				break;
+			case 2:
+				pref = "";
+				suff = suffixes[MrRandom.rnd.Next(suffixes.Length)];
+				break;
+			case 3:
+				pref = prefixes[MrRandom.rnd.Next(prefixes.Length)];
+				suff = suffixes[MrRandom.rnd.Next(suffixes.Length)];
+				break;
+			}
+
+			if (pref != "") {
+			int x = MrRandom.rnd.Next (10);
+				switch (x) {
+					case 0:
+					case 1:
+					case 2:
+					case 3:
+					pref = pref + "-" + (x + 1).ToString ();
+					break;
+				}
+				pref += " ";
+			}
+
+			if (suff != "")
+				suff = " " + suff;
 
 			MySqlCommand com = new MySqlCommand("ADM_AddStar", _dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
 
 			MySqlParameter spGalaxyId = new MySqlParameter("pGalaxyId", s.Galaxy.Id);
-			MySqlParameter spSystemName = new MySqlParameter("pSystemName", s.StarSystemName);
 			MySqlParameter spX = new MySqlParameter("pX", s.Coordinates.X);
 			MySqlParameter spY = new MySqlParameter("pY", s.Coordinates.Y);
 			MySqlParameter spZ = new MySqlParameter("pZ", s.Coordinates.Z);
@@ -115,7 +157,10 @@ namespace HOO.Admin
 			MySqlParameter spSize = new MySqlParameter("pSize", s.Size);
 			MySqlParameter spTempLvl = new MySqlParameter("pTempLvl", s.TemperatureLevel);
 
-			com.Parameters.AddRange(new MySqlParameter[] { spClass, spGalaxyId, spSize, spSystemName, spTempLvl, spX, spY, spZ });
+			MySqlParameter spPrefix = new MySqlParameter("pPrefix", pref);
+			MySqlParameter spSuffix = new MySqlParameter("pSuffix", suff);
+
+			com.Parameters.AddRange(new MySqlParameter[] { spClass, spGalaxyId, spSize, spTempLvl, spX, spY, spZ,spPrefix, spSuffix });
 
 			try
 			{
