@@ -6,6 +6,7 @@ namespace HOO.WebClient
 	using System.Web.UI.WebControls;
 	using HOO.Core;
 	using HOO.DB;
+	using HOO.Core.Configuration;
 
 	public partial class Galaxies : System.Web.UI.Page
 	{

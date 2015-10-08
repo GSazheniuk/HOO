@@ -3,6 +3,7 @@
 <html>
 <head runat="server">
 	<title>Main</title>
+<style>table td {text-align:center}</style>
 </head>
 <body>
 <div id="container">

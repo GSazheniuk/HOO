@@ -5,6 +5,7 @@ namespace HOO.WebClient
 	using System.Web;
 	using System.Web.UI;
 	using System.Web.UI.WebControls;
+	using HOO.Core.Configuration;
 	using HOO.Core;
 	using HOO.DB;
 

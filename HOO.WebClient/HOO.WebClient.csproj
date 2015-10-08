@@ -34,6 +34,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -48,6 +49,8 @@
     <Content Include="Main.master" />
     <Content Include="Default.aspx" />
     <Content Include="Galaxies.aspx" />
+    <Content Include="StarData.aspx" />
+    <Content Include="AddStarNames.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.master.cs">
@@ -67,6 +70,18 @@
     </Compile>
     <Compile Include="Galaxies.aspx.designer.cs">
       <DependentUpon>Galaxies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StarData.aspx.cs">
+      <DependentUpon>StarData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StarData.aspx.designer.cs">
+      <DependentUpon>StarData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddStarNames.aspx.cs">
+      <DependentUpon>AddStarNames.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddStarNames.aspx.designer.cs">
+      <DependentUpon>AddStarNames.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
