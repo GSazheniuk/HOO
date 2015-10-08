@@ -121,6 +121,108 @@ namespace HOO.DB
 			return res;
 		}
 
+		public DBCommandResult GetGalaxy(int gId)
+		{
+			DBCommandResult res = new DBCommandResult ();
+
+			MySqlCommand com = new MySqlCommand ("ADM_GetGalaxyById", _dg.Connection);
+			com.CommandType = CommandType.StoredProcedure;
+			MySqlParameter spGalID = new MySqlParameter("pGalId", gId);
+			com.Parameters.Add(spGalID);
+
+			try
+			{
+				DataSet ds = _dg.GetDataSet(com);
+				Galaxy g = new Galaxy();
+				DataRow dr = ds.Tables[0].Rows[0];
+				g.Id = Convert.ToInt32(dr["GalaxyId"]);
+				g.Name = Convert.ToString(dr["Name"]);
+				g.DimensionX = Convert.ToInt32(dr["DimX"]);
+				g.DimensionY = Convert.ToInt32(dr["DimY"]);
+				g.DimensionZ = Convert.ToInt32(dr["DimZ"]);
+
+				res.Tag = g;
+				res.ResultCode = 0;
+				res.ResultMsg = "Ok";
+			}
+			catch (Exception ex) {
+				res.ResultCode = -2;
+				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
+			}
+			return res;
+		}
+
+		public DBCommandResult GetAllStars(int gId)
+		{
+			DBCommandResult res = this.GetGalaxy (gId);
+
+			if (res.ResultCode < 0)
+			{
+				return res;
+			}
+
+			Galaxy g = (Galaxy)res.Tag;
+
+			res = new DBCommandResult ();
+
+			MySqlCommand com = new MySqlCommand ("ADM_GetAllStars", _dg.Connection);
+			com.CommandType = CommandType.StoredProcedure;
+			MySqlParameter spGalId = new MySqlParameter("pGalId", gId);
+			com.Parameters.Add(spGalId);
+
+			try
+			{
+				DataSet ds = _dg.GetDataSet(com);
+				List<Star> stars = new List<Star>();
+				foreach (DataRow dr in ds.Tables[0].Rows)
+				{
+					Star s = new Star();
+					s.Galaxy = g;
+					s.Id = Convert.ToInt32(dr["StarId"]);
+					s.Galaxy = new Galaxy();
+					s.Coordinates= new HOO.Core.Model.Configuration.Point3D();
+					s.Class = ((StarClass)Convert.ToInt32(dr["Class"]));
+					s.TemperatureLevel = Convert.ToInt32(dr["TempLvl"]);
+					s.Size = ((StarSize)Convert.ToInt32(dr["Size"]));
+					s.StarSystemName = Convert.ToString(dr["SystemName"]);
+					s.Coordinates.X = Convert.ToInt32(dr["X"]);
+					s.Coordinates.Y = Convert.ToInt32(dr["Y"]);
+					s.Coordinates.Z = Convert.ToInt32(dr["Z"]);
+
+					stars.Add(s);
+				}
+				res.Tag = stars;
+				res.ResultCode = 0;
+				res.ResultMsg = "Ok";
+			}
+			catch (Exception ex) {
+				res.ResultCode = -2;
+				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
+			}
+			return res;
+		}
+
+		public DBCommandResult AddStarName(string pName)
+		{
+			DBCommandResult res = new DBCommandResult ();
+
+			MySqlCommand com = new MySqlCommand ("ADM_AddStarName", _dg.Connection);
+			com.CommandType = CommandType.StoredProcedure;
+			MySqlParameter spName = new MySqlParameter("pName", pName);
+			com.Parameters.Add(spName);
+
+			try
+			{
+				_dg.ExecuteCommand(com);
+				res.ResultCode = 0;
+				res.ResultMsg = "Ok";
+			}
+			catch (Exception ex) {
+				res.ResultCode = -2;
+				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
+			}
+			return res;
+		}
 		#endregion
 	}
 }
