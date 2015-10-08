@@ -9,7 +9,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HOO.Core</RootNamespace>
     <AssemblyName>HOO.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProductVersion>12.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -67,6 +66,7 @@
     <Compile Include="Model\Configuration\Enums\GasGiantClass.cs" />
     <Compile Include="Model\Configuration\Enums\GasGiantSize.cs" />
     <Compile Include="Model\Configuration\Enums\AsteroidType.cs" />
+    <Compile Include="Model\Configuration\SensitiveData.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
