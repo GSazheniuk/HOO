@@ -223,6 +223,59 @@ namespace HOO.DB
 			}
 			return res;
 		}
+
+		public DBCommandResult GetStarOrbitalBodies(Star s)
+		{
+			DBCommandResult res = new DBCommandResult ();
+
+			MySqlCommand com = new MySqlCommand ("ADM_GetStarOrbitalBodies", _dg.Connection);
+			com.CommandType = CommandType.StoredProcedure;
+			MySqlParameter spStarId = new MySqlParameter("pStarId", s.Id);
+			com.Parameters.Add(spStarId);
+
+			try
+			{
+				DataSet ds = _dg.GetDataSet(com);
+				s.OrbitalBodies = new List<StarOrbitalBody>();
+
+				foreach(DataRow dr in ds.Tables[0].Rows)
+				{
+					switch (Convert.ToInt32(dr["BodyType"]))
+					{
+					case 1:
+						Planet p = new Planet(s);
+						p.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
+						p.Size = (PlanetSize)Convert.ToInt32(dr["Size"]);
+						p.Type = (PlanetType)Convert.ToInt32(dr["Class"]);
+						s.OrbitalBodies.Add(p);
+						break;
+					case 2:
+						GasGiant g = new GasGiant(s);
+						g.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
+						g.Size = (GasGiantSize)Convert.ToInt32(dr["Size"]);
+						g.Class = (GasGiantClass)Convert.ToInt32(dr["Class"]);
+						s.OrbitalBodies.Add(g);
+						break;
+					case 3:
+						AsteroidBelt a = new AsteroidBelt(s);
+						a.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
+						a.Density = (AsteroidDensity)Convert.ToInt32(dr["Size"]);
+						a.Type = (AsteroidType)Convert.ToInt32(dr["Class"]);
+						s.OrbitalBodies.Add(a);
+						break;
+					}
+				}
+
+				res.ResultCode = 0;
+				res.ResultMsg = "Ok";
+				res.Tag = s;
+			}
+			catch (Exception ex) {
+				res.ResultCode = -2;
+				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
+			}
+			return res;
+		}
 		#endregion
 	}
 }
