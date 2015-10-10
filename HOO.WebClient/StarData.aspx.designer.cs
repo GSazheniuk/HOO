@@ -25,6 +25,16 @@ namespace HOO.WebClient {
 		
 		protected System.Web.UI.WebControls.Literal ltZ;
 		
+		protected System.Web.UI.WebControls.GridView gvOrbits;
+		
+		protected System.Web.UI.WebControls.Literal ltOrbitNo;
+		
+		protected System.Web.UI.WebControls.Literal ltName;
+		
+		protected System.Web.UI.WebControls.Literal ltSize;
+		
+		protected System.Web.UI.WebControls.Literal ltClass;
+		
 		protected System.Web.UI.WebControls.GridView gvNearestStars;
 		
 		protected System.Web.UI.WebControls.Literal ltXCoo;
