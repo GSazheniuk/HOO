@@ -2,7 +2,7 @@
 <asp:Content ContentPlaceHolderID="cphBody" id="defBody" runat="server">
 <table border="1">
 <tr style="height:25px;">
-	<td rowspan="2">
+	<td rowspan="2" width="250px">
 		<table border="0" width="100%">
 		<tr>
 			<td>-<asp:Literal id="ltStarName" runat="server"></asp:Literal>-</td>
@@ -24,11 +24,34 @@
 		</tr>
 		</table>
 	</td>
-	<td>--Orbital Bodies--</td>
+	<td width="450px">--Orbital Bodies--</td>
 </tr>
-<tr><td>List of Bodies here...</td></tr>
+<tr><td><asp:GridView id="gvOrbits" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvOrbits_OnRowCreated" BorderWidth="0" Width="100%">
+<Columns>
+	<asp:TemplateField HeaderText="">
+		<ItemTemplate>
+			<asp:Literal id="ltOrbitNo" runat="server" />
+		</ItemTemplate>
+	</asp:TemplateField>
+	<asp:TemplateField HeaderText="">
+		<ItemTemplate>
+			<asp:Literal id="ltName" runat="server" />
+		</ItemTemplate>
+	</asp:TemplateField>
+	<asp:TemplateField HeaderText="">
+		<ItemTemplate>
+			<asp:Literal id="ltSize" runat="server" />
+		</ItemTemplate>
+	</asp:TemplateField>
+	<asp:TemplateField HeaderText="">
+		<ItemTemplate>
+			<asp:Literal id="ltClass" runat="server" />
+		</ItemTemplate>
+	</asp:TemplateField>
+</Columns>
+</asp:GridView></td></tr>
 <tr><td colspan="2">
-<asp:GridView id="gvNearestStars" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvNearestStars_OnRowCreated" BorderWidth="0">
+<asp:GridView id="gvNearestStars" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvNearestStars_OnRowCreated" BorderWidth="0" Width="100%">
 <Columns>
 	<asp:BoundField DataField="StarSystemName" HeaderText="Name" />
 	<asp:BoundField DataField="ClassName" HeaderText="Class" />
