@@ -44,5 +44,9 @@ namespace HOO.WebClient {
 		protected System.Web.UI.WebControls.Literal ltZCoo;
 		
 		protected System.Web.UI.WebControls.Literal ltDistance;
+		
+		protected System.Web.UI.WebControls.Button btnTurn;
+		
+		protected System.Web.UI.WebControls.Literal ltLoadTime;
 	}
 }

@@ -78,6 +78,8 @@
 </Columns>
 </asp:GridView>
 </td></tr>
-<tr><td colspan="2"><input type="submit" value="Show Random Star" /></td></tr>
+<tr><td colspan="2"><input type="submit" value="Show Random Star" /><asp:Button id="btnTurn" runat="server" OnClick="btnTurn_Click" Text="End Turn" /></td></tr>
 </table>
+<br />
+<asp:Literal id="ltLoadTime" runat="server" />
 </asp:Content>

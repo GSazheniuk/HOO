@@ -93,5 +93,9 @@
       <Project>{860CC894-C73E-4F79-8BDB-686A526B2795}</Project>
       <Name>HOO.DB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HOO.SvcLib\HOO.SvcLib.csproj">
+      <Project>{9D28E876-59AA-4FF6-90CC-300D18EF8C34}</Project>
+      <Name>HOO.SvcLib</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

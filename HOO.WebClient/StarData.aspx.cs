@@ -9,12 +9,17 @@ namespace HOO.WebClient
 	using HOO.Core.Model.Universe;
 	using HOO.Core.Model.Configuration;
 	using HOO.Core;
-	using HOO.DB;
 	using HOO.Core.Configuration;
+	using HOO.SvcLib.Helpers;
 
 	public partial class StarData : System.Web.UI.Page
 	{
 		private Star s;
+		private UniverseHelper _uh;
+		private StarHelper _sh;
+//		private MySqlDBHelper dh;
+//		private int uId = 0;
+
 		protected void gvNearestStars_OnRowCreated(object sender, GridViewRowEventArgs e)
 		{
 			if(e.Row.RowType == DataControlRowType.DataRow)
@@ -73,16 +78,29 @@ namespace HOO.WebClient
 			}
 		}
 
+		protected void btnTurn_Click(object sender, EventArgs e)
+		{
+//			DBCommandResult res = dh.EndTurn (7);
+//			if (res.ResultCode == 0) {
+//				Galaxy g = new Galaxy ();
+//			}
+		}
+
 		protected override void OnInit (EventArgs e)
 		{
+			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ();
+			sw.Start ();
 			base.OnInit (e);
-			MySqlDBHelper dh = new MySqlDBHelper(SensitiveData.ConnectionString);
 			int gid = 0;
 
 			if (Request ["gid"] != null && int.TryParse (Request ["gid"], out gid)) {
-				DBCommandResult res = dh.GetAllStars(gid);
-				if (res.ResultCode == 0) {
-					List<Star> stars = (List<Star>)res.Tag;
+				_uh = new UniverseHelper ();
+				_uh.Universe.Id = 7;
+				_uh.Load();
+
+				if (_uh.Universe.Galaxies != null) {
+					var g = _uh.Universe.Galaxies.Single (x => x.Id == gid);
+					List<Star> stars = g.Stars;
 					s = stars.ToArray()[MrRandom.rnd.Next(stars.Count)];
 					ltStarName.Text = s.StarSystemName;
 					ltStarClass.Text = s.ClassName;
@@ -92,16 +110,19 @@ namespace HOO.WebClient
 
 					gvNearestStars.DataSource = stars.Where(p=>p.Id != s.Id).OrderBy (p => Math.Sqrt (Math.Pow (s.Coordinates.X - p.Coordinates.X, 2) + Math.Pow (s.Coordinates.Y - p.Coordinates.Y, 2) + Math.Pow (s.Coordinates.Z - p.Coordinates.Z, 2))).Take(5);
 					gvNearestStars.DataBind ();
-					res = dh.GetStarOrbitalBodies (s);
-					s = (Star)res.Tag;
+					_sh = new StarHelper (s);
+					_sh.RefreshOrbitalBodies ();
 					StarOrbitalBody[] sobs = new StarOrbitalBody[10];
-					foreach (StarOrbitalBody sob in s.OrbitalBodies) {
+					foreach (StarOrbitalBody sob in _sh.Star.OrbitalBodies) {
 						sobs [sob.OrbitNo] = sob;
 					}
 					gvOrbits.DataSource = sobs;
 					gvOrbits.DataBind ();
 				}
 			}
+			sw.Stop ();
+			TimeSpan ts = sw.Elapsed;
+			ltLoadTime.Text = String.Format ("loaded in {0}ms", ts);
 		}
 
 		protected void Page_Load (object sender, EventArgs e)
