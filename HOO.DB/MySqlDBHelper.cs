@@ -62,18 +62,47 @@ namespace HOO.DB
 		{
 			DBCommandResult res = new DBCommandResult();
 
-			MySqlCommand com = new MySqlCommand("ADM_LoadUniverse", _dg.Connection);
+			MySqlCommand com = new MySqlCommand("ADM_GetUniverseById", _dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
-			MySqlParameter spUID = new MySqlParameter("pUID", u.Id);
+			MySqlParameter spUID = new MySqlParameter("pId", u.Id);
 			com.Parameters.Add(spUID);
 			try
 			{
 				DataSet ds = _dg.GetDataSet(com);
 				DataRow dr = ds.Tables[0].Rows[0];
 				Universe resU = new Universe();
-				resU.Id = Convert.ToInt32(dr["Id"]);
+				resU.Id = Convert.ToInt32(dr["UniverseID"]);
 				resU.Name = Convert.ToString(dr["Name"]);
 				resU.Descrip = Convert.ToString(dr["Description"]);
+
+				foreach (DataRow gRow in ds.Tables[1].Rows)
+				{
+					Galaxy g = new Galaxy();
+					g.Id = Convert.ToInt32(gRow["GalaxyId"]);
+					g.Name = Convert.ToString(gRow["Name"]);
+					g.DimensionX = Convert.ToInt32(gRow["DimX"]);
+					g.DimensionY = Convert.ToInt32(gRow["DimY"]);
+					g.DimensionZ = Convert.ToInt32(gRow["DimZ"]);
+					resU.Galaxies.Add(g);
+				}
+
+				foreach (DataRow sRow in ds.Tables[2].Rows)
+				{
+					Star s = new Star();
+					s.Galaxy = resU.Galaxies.Single(g=>g.Id == Convert.ToInt32(sRow["GalaxyId"]));
+					s.Id = Convert.ToInt32(sRow["StarId"]);
+					s.Coordinates= new HOO.Core.Model.Configuration.Point3D();
+					s.Class = ((StarClass)Convert.ToInt32(sRow["Class"]));
+					s.TemperatureLevel = Convert.ToInt32(sRow["TempLvl"]);
+					s.Size = ((StarSize)Convert.ToInt32(sRow["Size"]));
+					s.StarSystemName = Convert.ToString(sRow["SystemName"]);
+					s.Coordinates.X = Convert.ToInt32(sRow["X"]);
+					s.Coordinates.Y = Convert.ToInt32(sRow["Y"]);
+					s.Coordinates.Z = Convert.ToInt32(sRow["Z"]);
+
+					resU.Galaxies.Single(g=>g.Id == Convert.ToInt32(sRow["GalaxyId"])).Stars.Add(s);
+				}
+
 				res.Tag = resU;
 				res.ResultCode = 0;
 				res.ResultMsg = "Ok";
@@ -274,6 +303,35 @@ namespace HOO.DB
 				res.ResultCode = -2;
 				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
 			}
+			return res;
+		}
+
+		public DBCommandResult EndTurn(int uId)
+		{
+			DBCommandResult res = new DBCommandResult ();
+
+			MySqlCommand com = new MySqlCommand ("GM_TickUniverse", _dg.Connection);
+			com.CommandType = CommandType.StoredProcedure;
+			MySqlParameter spUniverseId = new MySqlParameter("pUniverseId", uId);
+			com.Parameters.Add(spUniverseId);
+
+			try
+			{
+				_dg.ExecuteCommand(com);
+				res.ResultCode = 0;
+				res.ResultMsg = "Ok";
+				//res.Tag = s;
+			}
+			catch (Exception ex) {
+				res.ResultCode = -2;
+				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
+			}
+			return res;
+		}
+
+		public DBCommandResult SaveUniverse(Universe u)
+		{
+			DBCommandResult res = new DBCommandResult ();
 			return res;
 		}
 		#endregion
