@@ -20,19 +20,27 @@ namespace HOO.Core.Model.Universe
         public int DimensionZ { get; set; }
 
         public List<Star> Stars { get; set; }
+		public Attributes.Attributes Attributes;
+
+		private void InitGalaxy()
+		{
+			this.Stars = new List<Star>();
+			this.Attributes = new HOO.Core.Model.Attributes.Attributes ();
+			this.Attributes.RadiationLevel = 3;
+		}
 
         public Galaxy()
         {
-            this.Stars = new List<Star>();
+			InitGalaxy ();
         }
 
         public Galaxy(int x, int y, int z)
-        {
-            this.DimensionX = x;
-            this.DimensionY = y;
-            this.DimensionZ = z;
-            this.Stars = new List<Star>();
-        }
+		{
+			this.DimensionX = x;
+			this.DimensionY = y;
+			this.DimensionZ = z;
+			InitGalaxy ();
+		}
 
         public bool AddStar(Star s, double minDistance)
         {

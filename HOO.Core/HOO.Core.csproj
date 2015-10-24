@@ -67,6 +67,13 @@
     <Compile Include="Model\Configuration\Enums\GasGiantSize.cs" />
     <Compile Include="Model\Configuration\Enums\AsteroidType.cs" />
     <Compile Include="Model\Configuration\SensitiveData.cs" />
+    <Compile Include="Model\Events\BaseEvent.cs" />
+    <Compile Include="Model\Events\Config\CycleTypes.cs" />
+    <Compile Include="Model\Attributes\GalaxyAttribute.cs" />
+    <Compile Include="Model\Modifiers\GalaxyModifier.cs" />
+    <Compile Include="Model\Events\GalacticEvent.cs" />
+    <Compile Include="Model\Attributes\ObjectAttribute.cs" />
+    <Compile Include="Model\Attributes\Attributes.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -77,4 +84,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Model\Events\" />
+    <Folder Include="Model\Events\Config\" />
+    <Folder Include="Model\Attributes\" />
+    <Folder Include="Model\Modifiers\" />
+  </ItemGroup>
 </Project>

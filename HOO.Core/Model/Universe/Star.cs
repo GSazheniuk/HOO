@@ -1,5 +1,6 @@
 ﻿using HOO.Core.Model.Configuration;
 using HOO.Core.Model.Configuration.Enums;
+using HOO.Core.Model.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,24 +21,32 @@ namespace HOO.Core.Model.Universe
         public Point3D Coordinates { get; set; }
 
         public List<StarOrbitalBody> OrbitalBodies { get; set; }
+		public Attributes.Attributes Attributes;
 
         public string ClassName
         {
             get { return String.Format("{0}{1}{2}", Class, TemperatureLevel, Size); }
         }
 
+		private void InitStar()
+		{
+			this.OrbitalBodies = new List<StarOrbitalBody>();
+			this.Class = ((StarClass)MrRandom.rnd.Next((int)StarClass.MrRandom));
+			this.Size = ((StarSize) MrRandom.rnd.Next((int) StarSize.MrRandom));
+			this.TemperatureLevel = MrRandom.rnd.Next(ConstantParameters.MaxStarTemperatureLevel);
+			this.Attributes = new Attributes.Attributes ();
+			this.Attributes.Temperature = TemperatureLevel;
+		}
+
         public Star()
         {
-            this.OrbitalBodies = new List<StarOrbitalBody>();
+			InitStar ();
         }
 
         public Star(Galaxy g)
         {
             this.Galaxy = g;
-            this.Class = ((StarClass)MrRandom.rnd.Next((int)StarClass.MrRandom));
-            this.Size = ((StarSize) MrRandom.rnd.Next((int) StarSize.MrRandom));
-            this.TemperatureLevel = MrRandom.rnd.Next(ConstantParameters.MaxStarTemperatureLevel);
-            this.OrbitalBodies = new List<StarOrbitalBody>();
+			InitStar ();
         }
     }
 }
