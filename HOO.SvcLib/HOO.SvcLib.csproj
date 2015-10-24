@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HOO.SvcLib</RootNamespace>
     <AssemblyName>HOO.SvcLib</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,11 +42,21 @@
   <ItemGroup>
     <Compile Include="HOOService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\UniverseHelper.cs" />
+    <Compile Include="Helpers\StarHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.ComLib\HOO.ComLib.csproj">
-      <Project>{5d59ed9c-c661-4154-879b-6c9f41395d1e}</Project>
+      <Project>{5D59ED9C-C661-4154-879B-6C9F41395D1E}</Project>
       <Name>HOO.ComLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HOO.Core\HOO.Core.csproj">
+      <Project>{5928C43E-507A-4C68-847D-E0E64AA82BCC}</Project>
+      <Name>HOO.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HOO.DB\HOO.DB.csproj">
+      <Project>{860CC894-C73E-4F79-8BDB-686A526B2795}</Project>
+      <Name>HOO.DB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -56,4 +67,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
 </Project>
