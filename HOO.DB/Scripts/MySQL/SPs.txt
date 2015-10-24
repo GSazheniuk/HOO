@@ -1,0 +1,177 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_AddGalaxy`(IN pUniverseId int, IN pName varchar(50), IN pDimX int, IN pDimY int, IN pDimZ int)
+BEGIN
+	INSERT INTO Galaxies (UniverseID, Name, DimX, DimY, DimZ)
+    VALUES (pUniverseId, pName, pDimX, pDimY, pDimZ);
+    
+    SELECT
+		GalaxyId,
+        Name,
+        DimX,
+        DimY,
+        DimZ
+    FROM HOO.Galaxies
+    WHERE GalaxyId = @@IDENTITY;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_AddNewEvent`(IN pEventName varchar(45), IN pEventDescription varchar(500)
+		, IN pEventScope int, IN pEventCycle int, IN pDuration int)
+BEGIN
+	INSERT INTO HOO.Events (EventName, EventDescription, EventScope, EventCycle, StartCycle, Duration)
+    VALUES (pEventName, pEventDescription, pEventScope, pEventCycle, 0, pDuration);
+
+	SELECT
+		Id,
+        EventName,
+        EventDescription,
+        EventScope,
+        EventCycle,
+        StartCycle,
+        Duration
+	FROM HOO.Events
+    WHERE Id = @@IDENTITY;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_AddStar`(IN pGalaxyId int
+	, IN pX int, IN pY int, IN pZ int
+    , IN pClass int, IN pSize int, IN pTempLvl int
+    , IN pPrefix varchar(15), IN pSuffix varchar(15))
+BEGIN
+
+	DECLARE pSName varchar(50);
+    
+    SET pSName = (SELECT Name from HOO.StarDictionary WHERE CONCAT(pSuffix, Name, pPrefix) NOT IN (SELECT SystemName FROM HOO.Stars WHERE GalaxyId = pGalaxyId) ORDER BY RAND() LIMIT 1);
+
+	SET pSName = CONCAT(pPrefix, pSName, pSuffix);
+    
+	INSERT INTO Stars (GalaxyId, SystemName, X, Y, Z, Class, Size, TempLvl)
+    VALUES(pGalaxyId, pSName, pX, pY, pZ, pClass, pSize, pTempLvl);
+    
+    SELECT
+		StarId,
+        SystemName, 
+        X, 
+        Y, 
+        Z, 
+        Class, 
+        Size, 
+        TempLvl
+    FROM Stars
+    WHERE StarId = @@IDENTITY;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_AddStarName`(IN pName varchar(45))
+BEGIN
+	DELETE FROM HOO.StarDictionary WHERE Name = pName;
+    
+    INSERT INTO HOO.StarDictionary (Name) VALUES (pName);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_AddStarOrbitalBody`(IN pStarId int, IN pOrbitNo int
+	, IN pBodyType int, IN pSize int, IN pClass int)
+BEGIN
+
+	INSERT INTO HOO.StarOrbitalBodies (StarId, OrbitNo, BodyType, Size, Class)
+    VALUES (pStarId, pOrbitNo, pBodyType, pSize, pClass);
+
+	SELECT
+		OBID,
+        OrbitNo,
+        Size,
+        Class
+    FROM HOO.StarOrbitalBodies
+    WHERE OBID = @@IDENTITY;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_AddUniverse`(IN pName varchar(50), IN pDescrip varchar(500))
+BEGIN
+	INSERT INTO HOO.Universes (Name, Description)
+    VALUES (pName, pDescrip);
+    
+    SELECT UniverseId as Id, Name, Description
+    FROM Universes
+    WHERE UniverseId = @@IDENTITY;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_GetAllGalaxies`(IN pUId int)
+BEGIN
+	select A.*, S.StarCount from HOO.Galaxies A
+    join (select GalaxyId, count(*) as StarCount from HOO.Stars group by GalaxyId) S
+		ON A.GalaxyId = S.GalaxyId
+    where UniverseId = pUId;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_GetAllStars`(IN pGalId int)
+BEGIN
+	select * from HOO.Stars where GalaxyId = pGalId;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_GetAllUniverses`()
+BEGIN
+	select
+		*
+	from HOO.Universes;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_GetGalaxyById`(IN pGalId int)
+BEGIN
+	select * from HOO.Galaxies where GalaxyId = pGalId;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_GetStarOrbitalBodies`(IN pStarId int)
+BEGIN
+	SELECT
+		OBID,
+        StarId,
+        OrbitNo,
+        BodyType,
+        Size,
+        Class
+	FROM HOO.StarOrbitalBodies
+    WHERE StarId = pStarId;
+		
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADM_GetUniverseById`(IN pId int)
+BEGIN
+
+	select * from HOO.Universes where UniverseID = pId;
+    select * from HOO.Galaxies WHERE UniverseID = pId;
+    select * from HOO.Stars WHERE GalaxyId IN (select GalaxyId from HOO.Galaxies where UniverseID = pId);
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GM_TickUniverse`(IN pUniverseId int)
+BEGIN
+	update HOO.Universes
+		SET CurrentTick = (CurrentTick + 1) MOD 10,
+			CurrentTurn = (CurrentTurn + ((CurrentTick + 1) DIV 10)) MOD 100,
+			CurrentPeriod = CurrentPeriod + (CurrentTurn + ((CurrentTick + 1) DIV 10)) DIV 100
+    WHERE UniverseID = pUniverseId;
+END$$
+DELIMITER ;

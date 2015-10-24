@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Scripts\MySQL\SPs.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\CreateDB.sql" />
@@ -70,5 +71,8 @@
       <Project>{5928C43E-507A-4C68-847D-E0E64AA82BCC}</Project>
       <Name>HOO.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\MySQL\" />
   </ItemGroup>
 </Project>
