@@ -20,12 +20,16 @@ namespace HOO.Core.Model.Universe
         public int DimensionZ { get; set; }
 
         public List<Star> Stars { get; set; }
-		public Attributes.Attributes Attributes;
+		public Attributes Attributes;
+		public Effects Effects;
+		public bool IsLoaded { get; set; }
+		public bool IsSaved { get; set; }
 
 		private void InitGalaxy()
 		{
 			this.Stars = new List<Star>();
-			this.Attributes = new HOO.Core.Model.Attributes.Attributes ();
+			this.Attributes = new Attributes ();
+			this.Effects = new Effects ();
 			this.Attributes.RadiationLevel = 3;
 		}
 
