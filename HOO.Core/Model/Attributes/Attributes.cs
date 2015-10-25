@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace HOO.Core.Model.Attributes
+namespace HOO.Core.Model
 {
 	public class Attributes
 	{
@@ -16,6 +16,11 @@ namespace HOO.Core.Model.Attributes
 		{
 			get { return this._attributes [index];}
 			set { this._attributes [index] = value;}
+		}
+
+		public void Add(int attributeId, object attributeValue)
+		{
+			this._attributes.Add (attributeId, attributeValue);
 		}
 
 		public int RadiationLevel {

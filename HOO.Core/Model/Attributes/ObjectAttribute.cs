@@ -1,4 +1,4 @@
-namespace HOO.Core.Model.Attributes
+namespace HOO.Core.Model
 {
 	public enum ObjectAttribute
 	{
