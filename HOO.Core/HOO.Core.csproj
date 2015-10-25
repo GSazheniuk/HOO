@@ -74,6 +74,7 @@
     <Compile Include="Model\Events\GalacticEvent.cs" />
     <Compile Include="Model\Attributes\ObjectAttribute.cs" />
     <Compile Include="Model\Attributes\Attributes.cs" />
+    <Compile Include="Model\Effects\Effects.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -89,5 +90,6 @@
     <Folder Include="Model\Events\Config\" />
     <Folder Include="Model\Attributes\" />
     <Folder Include="Model\Modifiers\" />
+    <Folder Include="Model\Effects\" />
   </ItemGroup>
 </Project>
