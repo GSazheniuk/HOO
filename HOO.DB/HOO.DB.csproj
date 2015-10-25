@@ -63,8 +63,9 @@
   -->
   <ItemGroup>
     <Compile Include="MySqlDataGate.cs" />
-    <Compile Include="MySqlDBHelper.cs" />
     <Compile Include="DBCommandResult.cs" />
+    <Compile Include="MySqlDBHelper_Universe.cs" />
+    <Compile Include="MySqlDBHelper_Galaxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.Core\HOO.Core.csproj">

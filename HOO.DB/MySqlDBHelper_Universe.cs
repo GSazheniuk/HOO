@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HOO.Core.Model.Configuration.Enums;
+using HOO.Core.Model;
 
 namespace HOO.DB
 {
-	public class MySqlDBHelper
+	public partial class MySqlDBHelper
 	{
 		#region Private Fields
 		private MySqlDataGate _dg;
@@ -75,32 +76,29 @@ namespace HOO.DB
 				resU.Name = Convert.ToString(dr["Name"]);
 				resU.Descrip = Convert.ToString(dr["Description"]);
 
-				foreach (DataRow gRow in ds.Tables[1].Rows)
+				foreach (DataRow aRow in ds.Tables[1].Rows)
+				{
+					resU.Attributes.Add(Convert.ToInt32(aRow["Attribute"]), aRow["Value"]); 
+				}
+
+				foreach (DataRow eRow in ds.Tables[2].Rows)
+				{
+					resU.Effects.Add(Convert.ToInt32(eRow["AttrId"]), eRow["Value"]);
+				}
+
+				//Requisites load here
+				//TO-DO
+
+				foreach (DataRow gRow in ds.Tables[4].Rows)
 				{
 					Galaxy g = new Galaxy();
+					g.Universe = resU;
 					g.Id = Convert.ToInt32(gRow["GalaxyId"]);
 					g.Name = Convert.ToString(gRow["Name"]);
 					g.DimensionX = Convert.ToInt32(gRow["DimX"]);
 					g.DimensionY = Convert.ToInt32(gRow["DimY"]);
 					g.DimensionZ = Convert.ToInt32(gRow["DimZ"]);
 					resU.Galaxies.Add(g);
-				}
-
-				foreach (DataRow sRow in ds.Tables[2].Rows)
-				{
-					Star s = new Star();
-					s.Galaxy = resU.Galaxies.Single(g=>g.Id == Convert.ToInt32(sRow["GalaxyId"]));
-					s.Id = Convert.ToInt32(sRow["StarId"]);
-					s.Coordinates= new HOO.Core.Model.Configuration.Point3D();
-					s.Class = ((StarClass)Convert.ToInt32(sRow["Class"]));
-					s.TemperatureLevel = Convert.ToInt32(sRow["TempLvl"]);
-					s.Size = ((StarSize)Convert.ToInt32(sRow["Size"]));
-					s.StarSystemName = Convert.ToString(sRow["SystemName"]);
-					s.Coordinates.X = Convert.ToInt32(sRow["X"]);
-					s.Coordinates.Y = Convert.ToInt32(sRow["Y"]);
-					s.Coordinates.Z = Convert.ToInt32(sRow["Z"]);
-
-					resU.Galaxies.Single(g=>g.Id == Convert.ToInt32(sRow["GalaxyId"])).Stars.Add(s);
 				}
 
 				res.Tag = resU;
@@ -140,87 +138,6 @@ namespace HOO.DB
 					gals.Add(g);
 				}
 				res.Tag = gals;
-				res.ResultCode = 0;
-				res.ResultMsg = "Ok";
-			}
-			catch (Exception ex) {
-				res.ResultCode = -2;
-				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
-			}
-			return res;
-		}
-
-		public DBCommandResult GetGalaxy(int gId)
-		{
-			DBCommandResult res = new DBCommandResult ();
-
-			MySqlCommand com = new MySqlCommand ("ADM_GetGalaxyById", _dg.Connection);
-			com.CommandType = CommandType.StoredProcedure;
-			MySqlParameter spGalID = new MySqlParameter("pGalId", gId);
-			com.Parameters.Add(spGalID);
-
-			try
-			{
-				DataSet ds = _dg.GetDataSet(com);
-				Galaxy g = new Galaxy();
-				DataRow dr = ds.Tables[0].Rows[0];
-				g.Id = Convert.ToInt32(dr["GalaxyId"]);
-				g.Name = Convert.ToString(dr["Name"]);
-				g.DimensionX = Convert.ToInt32(dr["DimX"]);
-				g.DimensionY = Convert.ToInt32(dr["DimY"]);
-				g.DimensionZ = Convert.ToInt32(dr["DimZ"]);
-
-				res.Tag = g;
-				res.ResultCode = 0;
-				res.ResultMsg = "Ok";
-			}
-			catch (Exception ex) {
-				res.ResultCode = -2;
-				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
-			}
-			return res;
-		}
-
-		public DBCommandResult GetAllStars(int gId)
-		{
-			DBCommandResult res = this.GetGalaxy (gId);
-
-			if (res.ResultCode < 0)
-			{
-				return res;
-			}
-
-			Galaxy g = (Galaxy)res.Tag;
-
-			res = new DBCommandResult ();
-
-			MySqlCommand com = new MySqlCommand ("ADM_GetAllStars", _dg.Connection);
-			com.CommandType = CommandType.StoredProcedure;
-			MySqlParameter spGalId = new MySqlParameter("pGalId", gId);
-			com.Parameters.Add(spGalId);
-
-			try
-			{
-				DataSet ds = _dg.GetDataSet(com);
-				List<Star> stars = new List<Star>();
-				foreach (DataRow dr in ds.Tables[0].Rows)
-				{
-					Star s = new Star();
-					s.Galaxy = g;
-					s.Id = Convert.ToInt32(dr["StarId"]);
-					s.Galaxy = new Galaxy();
-					s.Coordinates= new HOO.Core.Model.Configuration.Point3D();
-					s.Class = ((StarClass)Convert.ToInt32(dr["Class"]));
-					s.TemperatureLevel = Convert.ToInt32(dr["TempLvl"]);
-					s.Size = ((StarSize)Convert.ToInt32(dr["Size"]));
-					s.StarSystemName = Convert.ToString(dr["SystemName"]);
-					s.Coordinates.X = Convert.ToInt32(dr["X"]);
-					s.Coordinates.Y = Convert.ToInt32(dr["Y"]);
-					s.Coordinates.Z = Convert.ToInt32(dr["Z"]);
-
-					stars.Add(s);
-				}
-				res.Tag = stars;
 				res.ResultCode = 0;
 				res.ResultMsg = "Ok";
 			}
