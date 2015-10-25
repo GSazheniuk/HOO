@@ -9,8 +9,6 @@ namespace HOO.SvcLib.Helpers
 	{
 		public Star Star { get; set; }
 		private MySqlDBHelper _dh ;
-		private bool _isLoaded = false;
-		private bool _isSaved = false;
 
 		public StarHelper ()
 		{
@@ -22,7 +20,6 @@ namespace HOO.SvcLib.Helpers
 		{
 			this._dh = new MySqlDBHelper (SensitiveData.ConnectionString);
 			this.Star = s;
-			_isLoaded = _isSaved = true;
 		}
 
 		public StarHelper(int starId)
@@ -37,8 +34,6 @@ namespace HOO.SvcLib.Helpers
 			DBCommandResult res = _dh.GetStarOrbitalBodies (this.Star);
 			if (res.ResultCode == 0) {
 				this.Star = (Star)res.Tag;
-				_isLoaded = true;
-				_isSaved = true;
 			}
 		}
 	}

@@ -9,8 +9,6 @@ namespace HOO.SvcLib.Helpers
 	{
 		public Universe Universe { get; set; }
 		private MySqlDBHelper _dh ;
-		private bool _isLoaded = false;
-		private bool _isSaved = false;
 
 		public UniverseHelper ()
 		{
@@ -20,9 +18,10 @@ namespace HOO.SvcLib.Helpers
 
 		public void Save()
 		{
-			if (_isLoaded && !_isSaved) {
+			if (this.Universe.IsLoaded && !this.Universe.IsSaved) {
 				DBCommandResult res = _dh.SaveUniverse (Universe);
-				_isSaved = true;
+				if (res.ResultCode == 0)
+					this.Universe.IsSaved = true;
 			}
 		}
 
@@ -31,8 +30,12 @@ namespace HOO.SvcLib.Helpers
 			DBCommandResult res = _dh.LoadUniverse (Universe);
 			if (res.ResultCode == 0) {
 				this.Universe = (Universe)res.Tag;
-				_isLoaded = true;
-				_isSaved = true;
+				GalaxyHelper gh = new GalaxyHelper ();
+				foreach (Galaxy g in this.Universe.Galaxies) {
+					gh.Galaxy = g;
+					gh.Load ();
+				}
+				this.Universe.IsLoaded =this.Universe.IsSaved = true;
 			} else {
 				throw new Exception (res.ResultMsg);
 			}
@@ -41,12 +44,11 @@ namespace HOO.SvcLib.Helpers
 		public void Tick()
 		{
 			DBCommandResult res = new DBCommandResult ();
-			if (_isLoaded) {
+			if (this.Universe.IsLoaded) {
 				res = _dh.EndTurn (this.Universe.Id);
 				if (res.ResultCode == 0)
-					_isSaved = false;
+					this.Universe.IsSaved = false;
 			}
 		}
 	}
 }
-
