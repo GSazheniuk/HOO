@@ -75,6 +75,9 @@ namespace HOO.DB
 				resU.Id = Convert.ToInt32(dr["UniverseID"]);
 				resU.Name = Convert.ToString(dr["Name"]);
 				resU.Descrip = Convert.ToString(dr["Description"]);
+				resU.CurrentTick = Convert.ToInt32(dr["CurrentTick"]);
+				resU.CurrentTurn = Convert.ToInt32(dr["CurrentTurn"]);
+				resU.CurrentPeriod = Convert.ToInt32(dr["CurrentPeriod"]);
 
 				foreach (DataRow aRow in ds.Tables[1].Rows)
 				{
