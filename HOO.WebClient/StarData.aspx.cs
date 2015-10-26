@@ -15,10 +15,12 @@ namespace HOO.WebClient
 	public partial class StarData : System.Web.UI.Page
 	{
 		private Star s;
-		private UniverseHelper _uh;
+//		private UniverseHelper _uh;
 		private StarHelper _sh;
+		private Universe ActiveUniverse;
 //		private MySqlDBHelper dh;
 //		private int uId = 0;
+		private int _gid;
 
 		protected void gvNearestStars_OnRowCreated(object sender, GridViewRowEventArgs e)
 		{
@@ -80,45 +82,71 @@ namespace HOO.WebClient
 
 		protected void btnTurn_Click(object sender, EventArgs e)
 		{
+			UniverseHelper uh = new UniverseHelper ();
+			uh.Universe = ActiveUniverse;
+			uh.Tick ();
+			LoadStarData ();
 //			DBCommandResult res = dh.EndTurn (7);
 //			if (res.ResultCode == 0) {
 //				Galaxy g = new Galaxy ();
 //			}
 		}
 
+		protected void btnNextStar_Click(object sender, EventArgs e)
+		{
+			LoadStarData ();
+			//			DBCommandResult res = dh.EndTurn (7);
+			//			if (res.ResultCode == 0) {
+			//				Galaxy g = new Galaxy ();
+			//			}
+		}
+
 		protected override void OnInit (EventArgs e)
 		{
+			base.OnInit (e);
+
+			if (Request ["gid"] != null && int.TryParse (Request ["gid"], out _gid)) {
+/*				_uh = new UniverseHelper ();
+				_uh.Universe.Id = 7;
+				_uh.Load();*/
+				if (Session ["Universe"] != null)
+					this.ActiveUniverse = (Universe)Session ["Universe"];
+			}
+		}
+
+		private void LoadStarData(){
 			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ();
 			sw.Start ();
-			base.OnInit (e);
-			int gid = 0;
+			if (this.ActiveUniverse != null && this.ActiveUniverse.Galaxies != null) {
+				var g = ActiveUniverse.Galaxies.Single (x => x.Id == _gid);
+				List<Star> stars = g.Stars;
+				s = stars.ToArray () [MrRandom.rnd.Next (stars.Count)];
+				ltStarName.Text = s.StarSystemName;
+				ltStarClass.Text = s.ClassName;
+				ltX.Text = s.Coordinates.X.ToString ();
+				ltY.Text = s.Coordinates.Y.ToString ();
+				ltZ.Text = s.Coordinates.Z.ToString ();
 
-			if (Request ["gid"] != null && int.TryParse (Request ["gid"], out gid)) {
-				_uh = new UniverseHelper ();
-				_uh.Universe.Id = 7;
-				_uh.Load();
+				ltUniverse.Text = ActiveUniverse.Name;
+				ltUniverseTick.Text = ActiveUniverse.CurrentTick.ToString ();
+				ltUniverseTurn.Text = ActiveUniverse.CurrentTurn.ToString ();
+				ltUniversePeriod.Text = ActiveUniverse.CurrentPeriod.ToString ();
+				ltGalaxy.Text = g.Name;
 
-				if (_uh.Universe.Galaxies != null) {
-					var g = _uh.Universe.Galaxies.Single (x => x.Id == gid);
-					List<Star> stars = g.Stars;
-					s = stars.ToArray()[MrRandom.rnd.Next(stars.Count)];
-					ltStarName.Text = s.StarSystemName;
-					ltStarClass.Text = s.ClassName;
-					ltX.Text = s.Coordinates.X.ToString ();
-					ltY.Text = s.Coordinates.Y.ToString ();
-					ltZ.Text = s.Coordinates.Z.ToString ();
+				gvNearestStars.DataSource = stars.Where (p => p.Id != s.Id).OrderBy (p => Math.Sqrt (Math.Pow (s.Coordinates.X - p.Coordinates.X, 2) + Math.Pow (s.Coordinates.Y - p.Coordinates.Y, 2) + Math.Pow (s.Coordinates.Z - p.Coordinates.Z, 2))).Take (5);
+				gvNearestStars.DataBind ();
 
-					gvNearestStars.DataSource = stars.Where(p=>p.Id != s.Id).OrderBy (p => Math.Sqrt (Math.Pow (s.Coordinates.X - p.Coordinates.X, 2) + Math.Pow (s.Coordinates.Y - p.Coordinates.Y, 2) + Math.Pow (s.Coordinates.Z - p.Coordinates.Z, 2))).Take(5);
-					gvNearestStars.DataBind ();
+				if (!s.IsLoaded) {
 					_sh = new StarHelper (s);
 					_sh.RefreshOrbitalBodies ();
-					StarOrbitalBody[] sobs = new StarOrbitalBody[10];
-					foreach (StarOrbitalBody sob in _sh.Star.OrbitalBodies) {
-						sobs [sob.OrbitNo] = sob;
-					}
-					gvOrbits.DataSource = sobs;
-					gvOrbits.DataBind ();
 				}
+
+				StarOrbitalBody[] sobs = new StarOrbitalBody[10];
+				foreach (StarOrbitalBody sob in s.OrbitalBodies) {
+					sobs [sob.OrbitNo] = sob;
+				}
+				gvOrbits.DataSource = sobs;
+				gvOrbits.DataBind ();
 			}
 			sw.Stop ();
 			TimeSpan ts = sw.Elapsed;
@@ -127,6 +155,10 @@ namespace HOO.WebClient
 
 		protected void Page_Load (object sender, EventArgs e)
 		{
+			if (!IsPostBack) {
+				LoadStarData ();
+			}
+
 /*			MySqlDBHelper dh = new MySqlDBHelper(SensitiveData.ConnectionString);
 			int gid = 0;
 

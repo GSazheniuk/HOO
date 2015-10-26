@@ -1,12 +1,13 @@
+using System;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using HOO.Core.Model.Universe;
+using HOO.SvcLib.Helpers;
+using HOO.Core.Configuration;
+
 namespace HOO.WebClient
 {
-	using System;
-	using System.Web;
-	using System.Web.UI;
-	using System.Web.UI.WebControls;
-	using HOO.Core;
-	using HOO.DB;
-	using HOO.Core.Configuration;
 
 	public partial class Galaxies : System.Web.UI.Page
 	{
@@ -22,16 +23,29 @@ namespace HOO.WebClient
 
 		protected void Page_Load (object sender, EventArgs e)
 		{
-			MySqlDBHelper dh = new MySqlDBHelper(SensitiveData.ConnectionString);
+//			MySqlDBHelper dh = new MySqlDBHelper(SensitiveData.ConnectionString);
 
 			int uid = 0;
 
 			if (Request ["uid"] != null && int.TryParse (Request ["uid"], out uid)) {
+				if (Session ["Universe"] == null || ((Universe)Session ["Universe"]).Id != uid) {
+					UniverseHelper uh = new UniverseHelper ();
+					uh.Universe = new Universe ();
+					uh.Universe.Id = uid;
+					uh.Load ();
+					Session ["Universe"] = uh.Universe;
+				}
+
+				gvGalaxies.DataSource = ((Universe)Session ["Universe"]).Galaxies;
+				gvGalaxies.DataBind ();
+
+				/*
 				DBCommandResult res = dh.GetAllGalaxies (uid);
 				if (res.ResultCode == 0) {
 					gvGalaxies.DataSource = res.Tag;
 					gvGalaxies.DataBind ();
 				}
+*/
 			}
 		}
 	}

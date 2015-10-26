@@ -5,21 +5,34 @@
 	<td rowspan="2" width="250px">
 		<table border="0" width="100%">
 		<tr>
-			<td>-<asp:Literal id="ltStarName" runat="server"></asp:Literal>-</td>
+			<td colspan="3">-<asp:Literal id="ltUniverse" runat="server"></asp:Literal>-</td>
 		</tr>
 		<tr>
-			<td>-<asp:Literal id="ltStarClass" runat="server"></asp:Literal>-</td>
+			<td>Tick-<asp:Literal id="ltUniverseTick" runat="server"></asp:Literal>-</td>
+			<td>Turn-<asp:Literal id="ltUniverseTurn" runat="server"></asp:Literal>-</td>
+			<td>Period-<asp:Literal id="ltUniversePeriod" runat="server"></asp:Literal>-</td>
 		</tr>
 		<tr>
-			<td>----------------</td>
+			<td colspan="3">----------------</td>
+		</tr>
+		<tr>
+			<td colspan="3">-<asp:Literal id="ltGalaxy" runat="server"></asp:Literal>-</td>
+		</tr>
+		<tr>
+			<td colspan="3">----------------</td>
+		</tr>
+		<tr>
+			<td colspan="3">-<asp:Literal id="ltStarName" runat="server"></asp:Literal>-</td>
+		</tr>
+		<tr>
+			<td colspan="3">-<asp:Literal id="ltStarClass" runat="server"></asp:Literal>-</td>
+		</tr>
+		<tr>
+			<td colspan="3">----------------</td>
 		</tr>
 		<tr>
 			<td>X: <asp:Literal id="ltX" runat="server"></asp:Literal></td>
-		</tr>
-		<tr>
 			<td>Y: <asp:Literal id="ltY" runat="server"></asp:Literal></td>
-		</tr>
-		<tr>
 			<td>Z: <asp:Literal id="ltZ" runat="server"></asp:Literal></td>
 		</tr>
 		</table>
@@ -78,7 +91,7 @@
 </Columns>
 </asp:GridView>
 </td></tr>
-<tr><td colspan="2"><input type="submit" value="Show Random Star" /><asp:Button id="btnTurn" runat="server" OnClick="btnTurn_Click" Text="End Turn" /></td></tr>
+<tr><td colspan="2"><asp:Button id="btnNextStar" runat="server" Text="Show Random Star" OnClick="btnNextStar_Click" /><asp:Button id="btnTurn" runat="server" OnClick="btnTurn_Click" Text="End Turn" /></td></tr>
 </table>
 <br />
 <asp:Literal id="ltLoadTime" runat="server" />

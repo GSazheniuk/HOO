@@ -15,6 +15,16 @@ namespace HOO.WebClient {
 		
 		protected System.Web.UI.WebControls.Content defBody;
 		
+		protected System.Web.UI.WebControls.Literal ltUniverse;
+		
+		protected System.Web.UI.WebControls.Literal ltUniverseTick;
+		
+		protected System.Web.UI.WebControls.Literal ltUniverseTurn;
+		
+		protected System.Web.UI.WebControls.Literal ltUniversePeriod;
+		
+		protected System.Web.UI.WebControls.Literal ltGalaxy;
+		
 		protected System.Web.UI.WebControls.Literal ltStarName;
 		
 		protected System.Web.UI.WebControls.Literal ltStarClass;
@@ -44,6 +54,8 @@ namespace HOO.WebClient {
 		protected System.Web.UI.WebControls.Literal ltZCoo;
 		
 		protected System.Web.UI.WebControls.Literal ltDistance;
+		
+		protected System.Web.UI.WebControls.Button btnNextStar;
 		
 		protected System.Web.UI.WebControls.Button btnTurn;
 		
