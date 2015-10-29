@@ -22,6 +22,9 @@ namespace HOO.Core.Model.Universe
 
         public List<StarOrbitalBody> OrbitalBodies { get; set; }
 		public Attributes Attributes;
+		public Effects Effects;
+		public bool IsLoaded;
+		public bool IsSaved;
 
         public string ClassName
         {
@@ -36,6 +39,8 @@ namespace HOO.Core.Model.Universe
 			this.TemperatureLevel = MrRandom.rnd.Next(ConstantParameters.MaxStarTemperatureLevel);
 			this.Attributes = new Attributes ();
 			this.Attributes.Temperature = TemperatureLevel;
+			this.Effects = new Effects ();
+			this.IsLoaded = this.IsSaved = false;
 		}
 
         public Star()
