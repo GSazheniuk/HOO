@@ -23,7 +23,7 @@ namespace HOO.SvcLib.Helpers
 				StarHelper sh = new StarHelper ();
 				foreach (Star s in Galaxy.Stars) {
 					sh.Star = s;
-					sh.RefreshOrbitalBodies ();
+//					sh.RefreshOrbitalBodies ();
 				}
 				this.Galaxy.IsLoaded = this.Galaxy.IsSaved = true;
 			} else {
