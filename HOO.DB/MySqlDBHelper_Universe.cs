@@ -252,6 +252,54 @@ namespace HOO.DB
 		public DBCommandResult SaveUniverse(Universe u)
 		{
 			DBCommandResult res = new DBCommandResult ();
+			MySqlCommand com = new MySqlCommand ("GM_SaveUniverse",_dg.Connection);
+			com.CommandType = CommandType.StoredProcedure;
+
+			MySqlParameter spUniverseId = new MySqlParameter("pUID", u.Id);
+			MySqlParameter spTick = new MySqlParameter("pTick", u.CurrentTick);
+			MySqlParameter spTurn = new MySqlParameter("pTurn", u.CurrentTurn);
+			MySqlParameter spPeriod = new MySqlParameter("pPeriod", u.CurrentPeriod);
+
+			com.Parameters.AddRange (new MySqlParameter[] {spUniverseId, spTick, spTurn, spPeriod});
+
+			try
+			{
+				_dg.ExecuteCommand(com);
+				//Save Attributes
+				for (int i = 0; i<u.Attributes.Count;i++)
+				{
+					int key = u.Attributes.Keys[i];
+					com = new MySqlCommand("GM_SaveObjectAttribute", _dg.Connection);
+					MySqlParameter spAttrId = new MySqlParameter("pAttrId", key);
+					MySqlParameter spObjectType = new MySqlParameter("pObjectType", ObjectTypes.Universe);
+					MySqlParameter spObjectId = new MySqlParameter("pObjectId", u.Id);
+					MySqlParameter spValue = new MySqlParameter("pValue", u.Attributes[key]);
+
+					com.Parameters.AddRange (new MySqlParameter[] {spAttrId, spObjectType, spObjectId, spValue});
+					_dg.ExecuteCommand(com);
+				}
+
+				//Save Effects
+				for (int i = 0; i<u.Effects.Count;i++)
+				{
+					int key = u.Effects.Keys[i];
+					com = new MySqlCommand("GM_SaveObjectEffect", _dg.Connection);
+					MySqlParameter spAttrId = new MySqlParameter("pAttrId", key);
+					MySqlParameter spObjectType = new MySqlParameter("pObjectType", ObjectTypes.Universe);
+					MySqlParameter spObjectId = new MySqlParameter("pObjectId", u.Id);
+					MySqlParameter spValue = new MySqlParameter("pValue", u.Effects[key]);
+
+					com.Parameters.AddRange (new MySqlParameter[] {spAttrId, spObjectType, spObjectId, spValue});
+					_dg.ExecuteCommand(com);
+				}
+				res.ResultCode = 0;
+				res.ResultMsg = "Ok";
+				res.Tag = u;
+			}
+			catch (Exception ex) {
+				res.ResultCode = -2;
+				res.ResultMsg = String.Format ("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
+			}
 			return res;
 		}
 		#endregion
