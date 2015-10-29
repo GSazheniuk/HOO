@@ -34,6 +34,7 @@ namespace HOO.SvcLib.Helpers
 			DBCommandResult res = _dh.GetStarOrbitalBodies (this.Star);
 			if (res.ResultCode == 0) {
 				this.Star = (Star)res.Tag;
+				this.Star.IsLoaded = this.Star.IsSaved = true;
 			}
 		}
 	}
