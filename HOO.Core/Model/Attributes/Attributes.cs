@@ -12,6 +12,9 @@ namespace HOO.Core.Model
 			this._attributes = new Dictionary<int, object> ();
 		}
 
+		public int Count { get { return this._attributes.Count; } }
+		public int[] Keys { get { return this.Keys; } }
+
 		public object this [int index]
 		{
 			get { return this._attributes [index];}
