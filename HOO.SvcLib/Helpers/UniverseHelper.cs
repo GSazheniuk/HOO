@@ -43,11 +43,16 @@ namespace HOO.SvcLib.Helpers
 
 		public void Tick()
 		{
-			DBCommandResult res = new DBCommandResult ();
 			if (this.Universe.IsLoaded) {
-				res = _dh.EndTurn (this.Universe.Id);
-				if (res.ResultCode == 0)
-					this.Universe.IsSaved = false;
+				this.Universe.IsSaved = false;
+				this.Universe.CurrentTick = (this.Universe.CurrentTick + 1) % 10;
+				if (this.Universe.CurrentTick == 0) {
+					this.Universe.CurrentTurn = (this.Universe.CurrentTurn + 1) % 100;
+					if (this.Universe.CurrentTurn == 0) {
+						this.Universe.CurrentPeriod++;
+					}
+					Save ();
+				}
 			}
 		}
 	}
