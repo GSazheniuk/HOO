@@ -11,6 +11,9 @@ namespace HOO.Core.Model.Universe
 		public Effects Effects;
 		public bool IsLoaded { get; set; }
 		public bool IsSaved { get; set; }
+		public int CurrentTick { get; set; }
+		public int CurrentTurn { get; set; }
+		public int CurrentPeriod { get; set; }
 
         public List<Galaxy> Galaxies { get; set; } 
         public Universe()
