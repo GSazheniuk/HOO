@@ -21,6 +21,7 @@ namespace HOO.WebClient
 //		private MySqlDBHelper dh;
 //		private int uId = 0;
 		private int _gid;
+		private string[] _starColors = {"#3366FF", "#6699FF", "#99CCFF", "#66FFFF", "#FFFF66", "#FFCC00", "#FF9900"};
 
 		protected void gvNearestStars_OnRowCreated(object sender, GridViewRowEventArgs e)
 		{
@@ -29,6 +30,10 @@ namespace HOO.WebClient
 				Star s2 = (Star)e.Row.DataItem;
 				double dist = Math.Sqrt (Math.Pow (s.Coordinates.X - s2.Coordinates.X, 2) + Math.Pow (s.Coordinates.Y - s2.Coordinates.Y, 2) + Math.Pow (s.Coordinates.Z - s2.Coordinates.Z, 2));
 
+				Literal ltName = (Literal)e.Row.FindControl("ltName2");
+				ltName.Text = String.Format("<font style='color:{0}'>{1}</font>", _starColors[(int)s2.Class], s2.StarSystemName);
+				Literal ltClass = (Literal)e.Row.FindControl("ltClass2");
+				ltClass.Text = s2.ClassName;
 				Literal ltX = (Literal)e.Row.FindControl("ltXCoo");
 				ltX.Text = s2.Coordinates.X.ToString();
 				Literal ltY = (Literal)e.Row.FindControl("ltYCoo");
@@ -121,7 +126,7 @@ namespace HOO.WebClient
 				var g = ActiveUniverse.Galaxies.Single (x => x.Id == _gid);
 				List<Star> stars = g.Stars;
 				s = stars.ToArray () [MrRandom.rnd.Next (stars.Count)];
-				ltStarName.Text = s.StarSystemName;
+				ltStarName.Text = String.Format("<font style='color:{0}'>{1}</font>", _starColors[(int)s.Class], s.StarSystemName);
 				ltStarClass.Text = s.ClassName;
 				ltX.Text = s.Coordinates.X.ToString ();
 				ltY.Text = s.Coordinates.Y.ToString ();
