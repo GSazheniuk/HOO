@@ -66,8 +66,16 @@
 <tr><td colspan="2">
 <asp:GridView id="gvNearestStars" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvNearestStars_OnRowCreated" BorderWidth="0" Width="100%">
 <Columns>
-	<asp:BoundField DataField="StarSystemName" HeaderText="Name" />
-	<asp:BoundField DataField="ClassName" HeaderText="Class" />
+	<asp:TemplateField HeaderText="Name">
+		<ItemTemplate>
+			<asp:Literal id="ltName2" runat="server" />
+		</ItemTemplate>
+	</asp:TemplateField>
+	<asp:TemplateField HeaderText="Class">
+		<ItemTemplate>
+			<asp:Literal id="ltClass2" runat="server" />
+		</ItemTemplate>
+	</asp:TemplateField>
 	<asp:TemplateField HeaderText="X">
 		<ItemTemplate>
 			<asp:Literal id="ltXCoo" runat="server" />
