@@ -196,6 +196,7 @@ namespace HOO.DB
 						p.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						p.Size = (PlanetSize)Convert.ToInt32(dr["Size"]);
 						p.Type = (PlanetType)Convert.ToInt32(dr["Class"]);
+						p.Id = Convert.ToInt32(dr["OBID"]);
 						s.OrbitalBodies.Add(p);
 						break;
 					case 2:
@@ -203,6 +204,7 @@ namespace HOO.DB
 						g.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						g.Size = (GasGiantSize)Convert.ToInt32(dr["Size"]);
 						g.Class = (GasGiantClass)Convert.ToInt32(dr["Class"]);
+						g.Id = Convert.ToInt32(dr["OBID"]);
 						s.OrbitalBodies.Add(g);
 						break;
 					case 3:
@@ -210,6 +212,7 @@ namespace HOO.DB
 						a.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						a.Density = (AsteroidDensity)Convert.ToInt32(dr["Size"]);
 						a.Type = (AsteroidType)Convert.ToInt32(dr["Class"]);
+						a.Id = Convert.ToInt32(dr["OBID"]);
 						s.OrbitalBodies.Add(a);
 						break;
 					}
