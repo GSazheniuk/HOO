@@ -53,21 +53,28 @@ namespace HOO.WebClient
 				Literal ltName = (Literal)e.Row.FindControl("ltName");
 				Literal ltSize = (Literal)e.Row.FindControl("ltSize");
 				Literal ltClass = (Literal)e.Row.FindControl("ltClass");
+				Literal ltBaseAttrs = (Literal)e.Row.FindControl("ltBaseAttrs");
 
 				ltOrbitNo.Text = e.Row.RowIndex.ToString ();
 				if (e.Row.DataItem == null) {
 					ltName.Text = "--Empty--";
 					ltSize.Text = "";
 					ltClass.Text = "";
+					ltBaseAttrs.Text = "";
 				} else {
 					ltName.Text = e.Row.DataItem.GetType().ToString();
 					ltSize.Text = "";
 					ltClass.Text = "";
+					ltBaseAttrs.Text = "";
 
 					if (e.Row.DataItem is Planet) {
-						ltName.Text = ((Planet)e.Row.DataItem).PlanetFriendlyName;
-						ltSize.Text = ((Planet)e.Row.DataItem).Size.ToString();
-						ltClass.Text = ((Planet)e.Row.DataItem).Type.ToString();
+						var p = (Planet)e.Row.DataItem;
+						ltName.Text = p.PlanetFriendlyName;
+						ltSize.Text = p.Size.ToString();
+						ltClass.Text = p.Type.ToString();
+						ltBaseAttrs.Text = String.Format ("(<font style='color:DarkGrey'>{0}</font>, <font style='color:Orange'>{1}</font>, <font style='color:Green'>{2}</font>, <font style='color:LightBlue'>{3}</font>)"
+						                                  , p.Attributes.BasePopulation, p.Attributes.BaseProduction
+						                                  , p.Attributes.BaseFarming, p.Attributes.BaseResearch);
 					}
 
 					if (e.Row.DataItem is GasGiant) {
@@ -144,6 +151,11 @@ namespace HOO.WebClient
 				if (!s.IsLoaded) {
 					_sh = new StarHelper (s);
 					_sh.RefreshOrbitalBodies ();
+					StarOrbitalBodyHelper sobh = new StarOrbitalBodyHelper ();
+					foreach (StarOrbitalBody sob in s.OrbitalBodies) {
+						sobh.OrbitalBody = sob;
+						sobh.LoadOrbitalBody ();
+					}
 				}
 
 				StarOrbitalBody[] sobs = new StarOrbitalBody[10];

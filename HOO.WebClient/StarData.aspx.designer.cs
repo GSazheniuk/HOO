@@ -45,6 +45,8 @@ namespace HOO.WebClient {
 		
 		protected System.Web.UI.WebControls.Literal ltClass;
 		
+		protected System.Web.UI.WebControls.Literal ltBaseAttrs;
+		
 		protected System.Web.UI.WebControls.GridView gvNearestStars;
 		
 		protected System.Web.UI.WebControls.Literal ltName2;

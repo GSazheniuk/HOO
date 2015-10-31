@@ -61,6 +61,11 @@
 			<asp:Literal id="ltClass" runat="server" />
 		</ItemTemplate>
 	</asp:TemplateField>
+	<asp:TemplateField HeaderText="">
+		<ItemTemplate>
+			<asp:Literal id="ltBaseAttrs" runat="server" />
+		</ItemTemplate>
+	</asp:TemplateField>
 </Columns>
 </asp:GridView></td></tr>
 <tr><td colspan="2">
