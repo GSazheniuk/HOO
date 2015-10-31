@@ -45,6 +45,7 @@
     <Compile Include="Helpers\UniverseHelper.cs" />
     <Compile Include="Helpers\StarHelper.cs" />
     <Compile Include="Helpers\GalaxyHelper.cs" />
+    <Compile Include="Helpers\StarOrbitalBodyHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.ComLib\HOO.ComLib.csproj">
