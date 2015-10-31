@@ -75,6 +75,7 @@
     <Compile Include="Model\Attributes\ObjectAttribute.cs" />
     <Compile Include="Model\Attributes\Attributes.cs" />
     <Compile Include="Model\Effects\Effects.cs" />
+    <Compile Include="Model\Configuration\Enums\ObjectTypes.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
