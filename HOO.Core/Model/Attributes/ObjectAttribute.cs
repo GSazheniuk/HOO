@@ -4,10 +4,10 @@ namespace HOO.Core.Model
 	{
 		RadiationLevel = 1,
 		Temperature = 2,
-		Population = 3,
-		Production = 4,
-		Farming = 5,
-		Research = 6,
+		BasePopulation = 3,
+		BaseProduction = 4,
+		BaseFarming = 5,
+		BaseResearch = 6,
 		StarColor = 7
 	}
 }
