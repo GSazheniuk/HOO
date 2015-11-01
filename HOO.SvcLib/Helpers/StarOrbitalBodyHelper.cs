@@ -29,12 +29,12 @@ namespace HOO.SvcLib.Helpers
 			if (res.ResultCode == 0) {
 				OrbitalBody.IsLoaded = OrbitalBody.IsSaved = true;
 
-				if (!OrbitalBody.Attributes.ContainsAttribute (HOO.Core.Model.ObjectAttribute.BaseResearch)) {
+				if (!OrbitalBody.Attributes.ContainsAttribute (HOO.Core.Model.ObjectAttribute.BaseResearch) && OrbitalBody is Planet) {
 					InitBaseAttributes ();
 					OrbitalBody.IsSaved = false;
-				} else {
-					throw new Exception (res.ResultMsg);
-				}
+				} 
+			} else {
+				throw new Exception (res.ResultMsg);
 			}
 		}
 
@@ -96,6 +96,17 @@ namespace HOO.SvcLib.Helpers
 
 				//Research
 				attr.BaseResearch = HOO.Core.Model.Configuration.MrRandom.rnd.Next (6) / 2.0;
+			}
+		}
+
+		public void Save()
+		{
+			if (this.OrbitalBody.IsLoaded && !this.OrbitalBody.IsSaved) {
+				DBCommandResult res = _dh.SaveOrbitalBody (this.OrbitalBody);
+				if (res.ResultCode == 0)
+					this.OrbitalBody.IsSaved = true;
+				else
+					throw new Exception (res.ResultMsg);
 			}
 		}
 	}
