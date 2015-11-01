@@ -1,0 +1,10 @@
+31-Oct-2015
+	-Universe Basic Navigation in Web.
+	-Colorize Star View
+	-Universe no more saves Cycle data with every Tick. 
+	-On every Turn save modified universe to DB. No saving during Ticks.
+	-Attributes and Effects added to Object Model. Save/Loading works too.
+	-States for objects - isLoaded, isSaved.
+	-Define base Attributes for Planet
+	-Add Save Planet functionality.
+	-During Universe Save also save other modified Objects - Orbital Bodies.
