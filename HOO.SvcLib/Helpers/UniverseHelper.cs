@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HOO.Core.Model.Universe;
 using HOO.Core.Configuration;
 using HOO.DB;
@@ -22,6 +23,14 @@ namespace HOO.SvcLib.Helpers
 				DBCommandResult res = _dh.SaveUniverse (Universe);
 				if (res.ResultCode == 0)
 					this.Universe.IsSaved = true;
+			}
+
+			if (this.Universe.Galaxies.Exists (g => g.Stars.Exists (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved)))) {
+				Galaxy gal = this.Universe.Galaxies.First (g => g.Stars.Exists (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved)));
+				Star st = gal.Stars.First (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved));
+				StarOrbitalBody sob = st.OrbitalBodies.First (ob => !ob.IsSaved);
+				StarOrbitalBodyHelper sobh = new StarOrbitalBodyHelper (sob);
+				sobh.Save ();
 			}
 		}
 
