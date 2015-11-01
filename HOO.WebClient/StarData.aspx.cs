@@ -97,6 +97,7 @@ namespace HOO.WebClient
 			UniverseHelper uh = new UniverseHelper ();
 			uh.Universe = ActiveUniverse;
 			uh.Tick ();
+//			Star st = uh.Universe.Galaxies [0].Stars.First (s => s.OrbitalBodies.Exists(ob => !ob.IsSaved));
 			LoadStarData ();
 //			DBCommandResult res = dh.EndTurn (7);
 //			if (res.ResultCode == 0) {
