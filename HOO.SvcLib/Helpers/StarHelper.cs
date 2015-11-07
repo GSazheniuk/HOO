@@ -26,7 +26,7 @@ namespace HOO.SvcLib.Helpers
 		{
 			this._dh = new MySqlDBHelper (SensitiveData.ConnectionString);
 			this.Star = new Star ();
-			this.Star.Id = starId;
+			this.Star.OBID = starId;
 		}
 
 		public void RefreshOrbitalBodies()
