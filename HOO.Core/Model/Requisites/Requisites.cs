@@ -39,7 +39,7 @@ namespace HOO.Core.Model
 		}
 
 		public int Capitol {
-			get{ return Convert.ToDouble (this._requisites [(int)ObjectEffect.Income]);}
+			get{ return Convert.ToInt32 (this._requisites [(int)ObjectRequisite.Capitol]);}
 			set {
 				if (_requisites.ContainsKey ((int)ObjectRequisite.Capitol)) 
 					this._requisites [(int)ObjectRequisite.Capitol] = value;
