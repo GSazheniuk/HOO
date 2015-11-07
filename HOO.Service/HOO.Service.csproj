@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HOO.Service</RootNamespace>
     <AssemblyName>HOO.Service</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -63,11 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.ComLib\HOO.ComLib.csproj">
-      <Project>{5d59ed9c-c661-4154-879b-6c9f41395d1e}</Project>
+      <Project>{5D59ED9C-C661-4154-879B-6C9F41395D1E}</Project>
       <Name>HOO.ComLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\HOO.SvcLib\HOO.SvcLib.csproj">
-      <Project>{9d28e876-59aa-4ff6-90cc-300d18ef8c34}</Project>
+      <Project>{9D28E876-59AA-4FF6-90CC-300D18EF8C34}</Project>
       <Name>HOO.SvcLib</Name>
     </ProjectReference>
   </ItemGroup>
