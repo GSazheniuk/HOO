@@ -14,13 +14,13 @@ namespace HOO.Core.Model
 
 		public int Count { get { return this._attributes.Count; } }
 		private int[] _keys;
-		public int[] Keys { get 
-			{ 
+		public int[] Keys {
+			get { 
 				this._keys = new int[this._attributes.Keys.Count];
 				this._attributes.Keys.CopyTo (_keys, 0);
 				return this._keys; 
-				                                    } 
-				                                    }
+			} 
+		}
 
 		public object this [int index]
 		{

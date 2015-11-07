@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace HOO.Core.Model.Universe
 {
-    public class Galaxy
+    public class Galaxy : BaseObject
     {
-        public int Id { get; set; }
         public Universe Universe { get; set; }
 
         public string Name { get; set; }
@@ -20,25 +19,19 @@ namespace HOO.Core.Model.Universe
         public int DimensionZ { get; set; }
 
         public List<Star> Stars { get; set; }
-		public Attributes Attributes;
-		public Effects Effects;
-		public bool IsLoaded { get; set; }
-		public bool IsSaved { get; set; }
 
 		private void InitGalaxy()
 		{
 			this.Stars = new List<Star>();
-			this.Attributes = new Attributes ();
-			this.Effects = new Effects ();
 			this.Attributes.RadiationLevel = 3;
 		}
 
-        public Galaxy()
+        public Galaxy():base()
         {
 			InitGalaxy ();
         }
 
-        public Galaxy(int x, int y, int z)
+        public Galaxy(int x, int y, int z):base()
 		{
 			this.DimensionX = x;
 			this.DimensionY = y;

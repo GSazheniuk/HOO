@@ -8,7 +8,13 @@ namespace HOO.Core.Model
 		BaseProduction = 4,
 		BaseFarming = 5,
 		BaseResearch = 6,
-		StarColor = 7
+		StarColor = 7,
+		TotalCredits = 8,
+		CommandPoints = 9,
+		ExploreRating = 10,
+		ExpandRating = 11,
+		ExploitRating = 12,
+		ExterminateRating = 13
 	}
 }
 

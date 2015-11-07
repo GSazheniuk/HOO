@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace HOO.Core.Model.Universe
 {
-    public class Star
+    public class Star : BaseObject
     {
-        public int Id { get; set; }
         public StarClass Class { get; set; }
         public int TemperatureLevel { get; set; }
         public StarSize Size { get; set; }
@@ -21,10 +20,6 @@ namespace HOO.Core.Model.Universe
         public Point3D Coordinates { get; set; }
 
         public List<StarOrbitalBody> OrbitalBodies { get; set; }
-		public Attributes Attributes;
-		public Effects Effects;
-		public bool IsLoaded;
-		public bool IsSaved;
 
         public string ClassName
         {
@@ -37,18 +32,15 @@ namespace HOO.Core.Model.Universe
 			this.Class = ((StarClass)MrRandom.rnd.Next((int)StarClass.MrRandom));
 			this.Size = ((StarSize) MrRandom.rnd.Next((int) StarSize.MrRandom));
 			this.TemperatureLevel = MrRandom.rnd.Next(ConstantParameters.MaxStarTemperatureLevel);
-			this.Attributes = new Attributes ();
 			this.Attributes.Temperature = TemperatureLevel;
-			this.Effects = new Effects ();
-			this.IsLoaded = this.IsSaved = false;
 		}
 
-        public Star()
+        public Star():base()
         {
 			InitStar ();
         }
 
-        public Star(Galaxy g)
+        public Star(Galaxy g):base()
         {
             this.Galaxy = g;
 			InitStar ();

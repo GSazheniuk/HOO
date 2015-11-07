@@ -76,6 +76,9 @@
     <Compile Include="Model\Attributes\Attributes.cs" />
     <Compile Include="Model\Effects\Effects.cs" />
     <Compile Include="Model\Configuration\Enums\ObjectTypes.cs" />
+    <Compile Include="Model\Requisites\ObjectRequisite.cs" />
+    <Compile Include="Model\Requisites\Requisites.cs" />
+    <Compile Include="Model\Universe\BaseObject.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -92,5 +95,9 @@
     <Folder Include="Model\Attributes\" />
     <Folder Include="Model\Modifiers\" />
     <Folder Include="Model\Effects\" />
+    <Folder Include="Model\Requisites\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="changelog.txt" />
   </ItemGroup>
 </Project>
