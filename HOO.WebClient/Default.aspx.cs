@@ -21,7 +21,7 @@ namespace HOO.WebClient
 			if(e.Row.RowType == DataControlRowType.DataRow)
 			{
 				Literal lt = (Literal)e.Row.FindControl("ltLink");
-				int uId = ((HOO.Core.Model.Universe.Universe)e.Row.DataItem).Id;
+				int uId = ((HOO.Core.Model.Universe.Universe)e.Row.DataItem).OBID;
 				lt.Text = "<a href='/Galaxies.aspx?uid=" + uId.ToString () + "'>&gt;&gt;</a>";
 			}
 		}

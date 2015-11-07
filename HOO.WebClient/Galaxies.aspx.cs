@@ -16,7 +16,7 @@ namespace HOO.WebClient
 			if(e.Row.RowType == DataControlRowType.DataRow)
 			{
 				Literal lt = (Literal)e.Row.FindControl("ltLink");
-				int uId = ((HOO.Core.Model.Universe.Galaxy)e.Row.DataItem).Id;
+				int uId = ((HOO.Core.Model.Universe.Galaxy)e.Row.DataItem).OBID;
 				lt.Text = "<a href='/StarData.aspx?gid=" + uId.ToString () + "'>&gt;&gt;</a>";
 			}
 		}
@@ -28,10 +28,10 @@ namespace HOO.WebClient
 			int uid = 0;
 
 			if (Request ["uid"] != null && int.TryParse (Request ["uid"], out uid)) {
-				if (Session ["Universe"] == null || ((Universe)Session ["Universe"]).Id != uid) {
+				if (Session ["Universe"] == null || ((Universe)Session ["Universe"]).OBID != uid) {
 					UniverseHelper uh = new UniverseHelper ();
 					uh.Universe = new Universe ();
-					uh.Universe.Id = uid;
+					uh.Universe.OBID = uid;
 					uh.Load ();
 					Session ["Universe"] = uh.Universe;
 				}

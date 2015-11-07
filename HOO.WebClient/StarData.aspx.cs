@@ -131,7 +131,7 @@ namespace HOO.WebClient
 			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ();
 			sw.Start ();
 			if (this.ActiveUniverse != null && this.ActiveUniverse.Galaxies != null) {
-				var g = ActiveUniverse.Galaxies.Single (x => x.Id == _gid);
+				var g = ActiveUniverse.Galaxies.Single (x => x.OBID == _gid);
 				List<Star> stars = g.Stars;
 				s = stars.ToArray () [MrRandom.rnd.Next (stars.Count)];
 				ltStarName.Text = String.Format("<font style='color:{0}'>{1}</font>", _starColors[(int)s.Class], s.StarSystemName);
@@ -146,7 +146,7 @@ namespace HOO.WebClient
 				ltUniversePeriod.Text = ActiveUniverse.CurrentPeriod.ToString ();
 				ltGalaxy.Text = g.Name;
 
-				gvNearestStars.DataSource = stars.Where (p => p.Id != s.Id).OrderBy (p => Math.Sqrt (Math.Pow (s.Coordinates.X - p.Coordinates.X, 2) + Math.Pow (s.Coordinates.Y - p.Coordinates.Y, 2) + Math.Pow (s.Coordinates.Z - p.Coordinates.Z, 2))).Take (5);
+				gvNearestStars.DataSource = stars.Where (p => p.OBID != s.OBID).OrderBy (p => Math.Sqrt (Math.Pow (s.Coordinates.X - p.Coordinates.X, 2) + Math.Pow (s.Coordinates.Y - p.Coordinates.Y, 2) + Math.Pow (s.Coordinates.Z - p.Coordinates.Z, 2))).Take (5);
 				gvNearestStars.DataBind ();
 
 				if (!s.IsLoaded) {
