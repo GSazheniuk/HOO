@@ -19,14 +19,14 @@ namespace HOO.DB
 
 			MySqlCommand com = new MySqlCommand ("ADM_GetGalaxyById", _dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
-			MySqlParameter spGalID = new MySqlParameter("pGalId", g.Id);
+			MySqlParameter spGalID = new MySqlParameter("pGalId", g.OBID);
 			com.Parameters.Add(spGalID);
 
 			try
 			{
 				DataSet ds = _dg.GetDataSet(com);
 				DataRow dr = ds.Tables[0].Rows[0];
-				g.Id = Convert.ToInt32(dr["GalaxyId"]);
+				g.OBID = Convert.ToInt32(dr["OBID"]);
 				g.Name = Convert.ToString(dr["Name"]);
 				g.DimensionX = Convert.ToInt32(dr["DimX"]);
 				g.DimensionY = Convert.ToInt32(dr["DimY"]);
@@ -49,7 +49,7 @@ namespace HOO.DB
 				{
 					Star s = new Star();
 					s.Galaxy = g;
-					s.Id = Convert.ToInt32(sRow["StarId"]);
+					s.OBID = Convert.ToInt32(sRow["OBID"]);
 					s.Coordinates= new HOO.Core.Model.Configuration.Point3D();
 					s.Class = ((StarClass)Convert.ToInt32(sRow["Class"]));
 					s.TemperatureLevel = Convert.ToInt32(sRow["TempLvl"]);

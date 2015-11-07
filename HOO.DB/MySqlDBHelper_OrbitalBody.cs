@@ -19,13 +19,13 @@ namespace HOO.DB
 
 			MySqlCommand com = new MySqlCommand ("ADM_GetOrbitalBodyById", _dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
-			MySqlParameter spSOBID = new MySqlParameter("pSOBId", sob.Id);
+			MySqlParameter spSOBID = new MySqlParameter("pSOBId", sob.OBID);
 			com.Parameters.Add(spSOBID);
 			try
 			{
 				DataSet ds = _dg.GetDataSet(com);
 				DataRow dr = ds.Tables[0].Rows[0];
-				sob.Id = Convert.ToInt32(dr["OBID"]);
+				sob.OBID = Convert.ToInt32(dr["OBID"]);
 				sob.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 
 				foreach (DataRow aRow in ds.Tables[1].Rows)
@@ -66,7 +66,7 @@ namespace HOO.DB
 					com.CommandType = CommandType.StoredProcedure;
 					MySqlParameter spAttrId = new MySqlParameter("pAttrId", key);
 					MySqlParameter spObjectType = new MySqlParameter("pObjectType", ObjectTypes.OrbitalBody);
-					MySqlParameter spObjectId = new MySqlParameter("pObjectId", sob.Id);
+					MySqlParameter spObjectId = new MySqlParameter("pObjectId", sob.OBID);
 					MySqlParameter spValue = new MySqlParameter("pValue", sob.Attributes[key]);
 
 					com.Parameters.AddRange (new MySqlParameter[] {spAttrId, spObjectType, spObjectId, spValue});
@@ -81,7 +81,7 @@ namespace HOO.DB
 					com.CommandType = CommandType.StoredProcedure;
 					MySqlParameter spAttrId = new MySqlParameter("pAttrId", key);
 					MySqlParameter spObjectType = new MySqlParameter("pObjectType", ObjectTypes.OrbitalBody);
-					MySqlParameter spObjectId = new MySqlParameter("pObjectId", sob.Id);
+					MySqlParameter spObjectId = new MySqlParameter("pObjectId", sob.OBID);
 					MySqlParameter spValue = new MySqlParameter("pValue", sob.Effects[key]);
 
 					com.Parameters.AddRange (new MySqlParameter[] {spAttrId, spObjectType, spObjectId, spValue});

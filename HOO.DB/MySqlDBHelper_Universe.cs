@@ -43,7 +43,7 @@ namespace HOO.DB
 				foreach (DataRow dr in ds.Tables[0].Rows)
 				{
 					Universe u = new Universe();
-					u.Id = Convert.ToInt32(dr["UniverseID"]);
+					u.OBID = Convert.ToInt32(dr["OBID"]);
 					u.Descrip = Convert.ToString(dr["Description"]);
 					u.Name = Convert.ToString(dr["Name"]);
 					unis.Add(u);
@@ -65,14 +65,14 @@ namespace HOO.DB
 
 			MySqlCommand com = new MySqlCommand("ADM_GetUniverseById", _dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
-			MySqlParameter spUID = new MySqlParameter("pId", u.Id);
+			MySqlParameter spUID = new MySqlParameter("pId", u.OBID);
 			com.Parameters.Add(spUID);
 			try
 			{
 				DataSet ds = _dg.GetDataSet(com);
 				DataRow dr = ds.Tables[0].Rows[0];
 				Universe resU = new Universe();
-				resU.Id = Convert.ToInt32(dr["UniverseID"]);
+				resU.OBID = Convert.ToInt32(dr["OBID"]);
 				resU.Name = Convert.ToString(dr["Name"]);
 				resU.Descrip = Convert.ToString(dr["Description"]);
 				resU.CurrentTick = Convert.ToInt32(dr["CurrentTick"]);
@@ -96,7 +96,7 @@ namespace HOO.DB
 				{
 					Galaxy g = new Galaxy();
 					g.Universe = resU;
-					g.Id = Convert.ToInt32(gRow["GalaxyId"]);
+					g.OBID = Convert.ToInt32(gRow["OBID"]);
 					g.Name = Convert.ToString(gRow["Name"]);
 					g.DimensionX = Convert.ToInt32(gRow["DimX"]);
 					g.DimensionY = Convert.ToInt32(gRow["DimY"]);
@@ -132,7 +132,7 @@ namespace HOO.DB
 				foreach (DataRow dr in ds.Tables[0].Rows)
 				{
 					Galaxy g = new Galaxy();
-					g.Id = Convert.ToInt32(dr["GalaxyId"]);
+					g.OBID = Convert.ToInt32(dr["OBID"]);
 					g.Name = Convert.ToString(dr["Name"]);
 					g.DimensionX = Convert.ToInt32(dr["DimX"]);
 					g.DimensionY = Convert.ToInt32(dr["DimY"]);
@@ -179,7 +179,7 @@ namespace HOO.DB
 
 			MySqlCommand com = new MySqlCommand ("ADM_GetStarOrbitalBodies", _dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
-			MySqlParameter spStarId = new MySqlParameter("pStarId", s.Id);
+			MySqlParameter spStarId = new MySqlParameter("pStarId", s.OBID);
 			com.Parameters.Add(spStarId);
 
 			try
@@ -196,7 +196,7 @@ namespace HOO.DB
 						p.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						p.Size = (PlanetSize)Convert.ToInt32(dr["Size"]);
 						p.Type = (PlanetType)Convert.ToInt32(dr["Class"]);
-						p.Id = Convert.ToInt32(dr["OBID"]);
+						p.OBID = Convert.ToInt32(dr["OBID"]);
 						s.OrbitalBodies.Add(p);
 						break;
 					case 2:
@@ -204,7 +204,7 @@ namespace HOO.DB
 						g.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						g.Size = (GasGiantSize)Convert.ToInt32(dr["Size"]);
 						g.Class = (GasGiantClass)Convert.ToInt32(dr["Class"]);
-						g.Id = Convert.ToInt32(dr["OBID"]);
+						g.OBID = Convert.ToInt32(dr["OBID"]);
 						s.OrbitalBodies.Add(g);
 						break;
 					case 3:
@@ -212,7 +212,7 @@ namespace HOO.DB
 						a.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						a.Density = (AsteroidDensity)Convert.ToInt32(dr["Size"]);
 						a.Type = (AsteroidType)Convert.ToInt32(dr["Class"]);
-						a.Id = Convert.ToInt32(dr["OBID"]);
+						a.OBID = Convert.ToInt32(dr["OBID"]);
 						s.OrbitalBodies.Add(a);
 						break;
 					}
@@ -258,7 +258,7 @@ namespace HOO.DB
 			MySqlCommand com = new MySqlCommand ("GM_SaveUniverse",_dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
 
-			MySqlParameter spUniverseId = new MySqlParameter("pUID", u.Id);
+			MySqlParameter spUniverseId = new MySqlParameter("pUID", u.OBID);
 			MySqlParameter spTick = new MySqlParameter("pTick", u.CurrentTick);
 			MySqlParameter spTurn = new MySqlParameter("pTurn", u.CurrentTurn);
 			MySqlParameter spPeriod = new MySqlParameter("pPeriod", u.CurrentPeriod);
@@ -275,7 +275,7 @@ namespace HOO.DB
 					com = new MySqlCommand("GM_SaveObjectAttribute", _dg.Connection);
 					MySqlParameter spAttrId = new MySqlParameter("pAttrId", key);
 					MySqlParameter spObjectType = new MySqlParameter("pObjectType", ObjectTypes.Universe);
-					MySqlParameter spObjectId = new MySqlParameter("pObjectId", u.Id);
+					MySqlParameter spObjectId = new MySqlParameter("pObjectId", u.OBID);
 					MySqlParameter spValue = new MySqlParameter("pValue", u.Attributes[key]);
 
 					com.Parameters.AddRange (new MySqlParameter[] {spAttrId, spObjectType, spObjectId, spValue});
@@ -289,7 +289,7 @@ namespace HOO.DB
 					com = new MySqlCommand("GM_SaveObjectEffect", _dg.Connection);
 					MySqlParameter spAttrId = new MySqlParameter("pAttrId", key);
 					MySqlParameter spObjectType = new MySqlParameter("pObjectType", ObjectTypes.Universe);
-					MySqlParameter spObjectId = new MySqlParameter("pObjectId", u.Id);
+					MySqlParameter spObjectId = new MySqlParameter("pObjectId", u.OBID);
 					MySqlParameter spValue = new MySqlParameter("pValue", u.Effects[key]);
 
 					com.Parameters.AddRange (new MySqlParameter[] {spAttrId, spObjectType, spObjectId, spValue});
