@@ -8,6 +8,7 @@
 		public StarOrbitalBody(Star s):base()
 		{
 			this.Star = s;
+			this.ObjectType = 4;
 		}
     }
 }
