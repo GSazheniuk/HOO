@@ -81,16 +81,18 @@ namespace HOO.DB
 
 				foreach (DataRow aRow in ds.Tables[1].Rows)
 				{
-					resU.Attributes.Add(Convert.ToInt32(aRow["Attribute"]), aRow["Value"]); 
+					resU.Attributes.Add(Convert.ToInt32(aRow["AttributeID"]), aRow["Value"]); 
 				}
 
 				foreach (DataRow eRow in ds.Tables[2].Rows)
 				{
-					resU.Effects.Add(Convert.ToInt32(eRow["AttrId"]), eRow["Value"]);
+					resU.Effects.Add(Convert.ToInt32(eRow["AttributeID"]), eRow["Value"]);
 				}
 
-				//Requisites load here
-				//TO-DO
+				foreach (DataRow eRow in ds.Tables[3].Rows)
+				{
+					resU.Requisites.Add(Convert.ToInt32(eRow["RequisiteID"]), eRow["Value"]);
+				}
 
 				foreach (DataRow gRow in ds.Tables[4].Rows)
 				{
@@ -268,35 +270,7 @@ namespace HOO.DB
 			try
 			{
 				_dg.ExecuteCommand(com);
-				//Save Attributes
-				for (int i = 0; i<u.Attributes.Count;i++)
-				{
-					int key = u.Attributes.Keys[i];
-					com = new MySqlCommand("GM_SaveObjectAttribute", _dg.Connection);
-					MySqlParameter spAttrId = new MySqlParameter("pAttrId", key);
-					MySqlParameter spObjectType = new MySqlParameter("pObjectType", ObjectTypes.Universe);
-					MySqlParameter spObjectId = new MySqlParameter("pObjectId", u.OBID);
-					MySqlParameter spValue = new MySqlParameter("pValue", u.Attributes[key]);
-
-					com.Parameters.AddRange (new MySqlParameter[] {spAttrId, spObjectType, spObjectId, spValue});
-					_dg.ExecuteCommand(com);
-				}
-
-				//Save Effects
-				for (int i = 0; i<u.Effects.Count;i++)
-				{
-					int key = u.Effects.Keys[i];
-					com = new MySqlCommand("GM_SaveObjectEffect", _dg.Connection);
-					MySqlParameter spAttrId = new MySqlParameter("pAttrId", key);
-					MySqlParameter spObjectType = new MySqlParameter("pObjectType", ObjectTypes.Universe);
-					MySqlParameter spObjectId = new MySqlParameter("pObjectId", u.OBID);
-					MySqlParameter spValue = new MySqlParameter("pValue", u.Effects[key]);
-
-					com.Parameters.AddRange (new MySqlParameter[] {spAttrId, spObjectType, spObjectId, spValue});
-					_dg.ExecuteCommand(com);
-				}
-				res.ResultCode = 0;
-				res.ResultMsg = "Ok";
+				res = SaveBaseProperties(u);
 				res.Tag = u;
 			}
 			catch (Exception ex) {
