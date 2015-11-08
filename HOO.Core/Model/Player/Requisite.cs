@@ -1,6 +1,6 @@
 ﻿using HOO.Core.Model.Configuration.Enums;
 
-namespace HOO.Core.Model.Player
+namespace HOO.Core.Model.Universe
 {
     public class Requisite
     {

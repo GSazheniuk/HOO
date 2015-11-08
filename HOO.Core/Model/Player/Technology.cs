@@ -1,7 +1,7 @@
 ﻿using HOO.Core.Model.Configuration.Enums;
 using System.Collections.Generic;
 
-namespace HOO.Core.Model.Player
+namespace HOO.Core.Model.Universe
 {
     public class Technology
     {

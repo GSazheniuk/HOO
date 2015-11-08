@@ -1,21 +1,18 @@
 ﻿using HOO.Core.Model.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HOO.Core.Model.Configuration.Enums;
 
-namespace HOO.Core.Model.Player
+namespace HOO.Core.Model.Universe
 {
-    public class Player
+    public class Player : BaseObject
     {
         public string LeaderName { get; set; }
-        public Race Race { get; set; }
+        public string Race { get; set; }
+		public string Motto { get; set; }
+		public string Color { get; set; }
 
-        public Star HomeWorld { get; set; }
-        public List<Planet> ControledPlanets { get; set; }
-
-        public double Treasury { get; set; }
-        public double Income { get; set; }
+		public Player():base()
+		{
+			this.ObjectType = (int)ObjectTypes.Player;
+		}
     }
 }
