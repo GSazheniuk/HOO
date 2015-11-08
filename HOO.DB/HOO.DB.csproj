@@ -67,6 +67,8 @@
     <Compile Include="MySqlDBHelper_Universe.cs" />
     <Compile Include="MySqlDBHelper_Galaxy.cs" />
     <Compile Include="MySqlDBHelper_OrbitalBody.cs" />
+    <Compile Include="MySqlDBHelper_Player.cs" />
+    <Compile Include="MySqlDBHelper_BaseObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.Core\HOO.Core.csproj">
