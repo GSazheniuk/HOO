@@ -7,7 +7,8 @@ namespace HOO.Core.Model.Configuration.Enums
 		Universe = 1,
 		Galaxy = 2,
 		Star = 3,
-		OrbitalBody = 4
+		OrbitalBody = 4,
+		Player = 5
 	}
 }
 
