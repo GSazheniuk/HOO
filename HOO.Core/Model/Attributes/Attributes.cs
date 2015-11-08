@@ -97,5 +97,15 @@ namespace HOO.Core.Model
 					_attributes.Add ((int)ObjectAttribute.BaseResearch, value);
 			}
 		}
+
+		public double TotalCredits {
+			get{ return Convert.ToDouble (this._attributes [(int)ObjectAttribute.TotalCredits]);}
+			set {
+				if (_attributes.ContainsKey ((int)ObjectAttribute.TotalCredits)) 
+					this._attributes [(int)ObjectAttribute.TotalCredits] = value;
+				else 
+					_attributes.Add ((int)ObjectAttribute.TotalCredits, value);
+			}
+		}
 	}
 }
