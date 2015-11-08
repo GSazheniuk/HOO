@@ -1,15 +1,20 @@
-<%@ Master Language="C#" Inherits="HOO.WebClient.Main" %>
+<%@ Master Language="C#" Inherits="HOO.WebClient.Main" EnableViewState="False"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head runat="server">
 	<title>Main</title>
 <style>table td {text-align:center}</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous" />
 </head>
 <body>
-<div id="container">
+<div class="container">
+<div class="row">
+<div class="col-md-offset-2 col-md-8 text-center">
 <form runat="server">
-    <asp:ContentPlaceHolder id="cphBody" runat="server" /> 
+<asp:ContentPlaceHolder id="cphBody" runat="server" />
 </form>
+</div>
+</div>
 </div>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <%@ Page Language="C#" Inherits="HOO.WebClient.StarData" MasterPageFile="~/Main.master" EnableViewState="false" %>
 <asp:Content ContentPlaceHolderID="cphBody" id="defBody" runat="server">
-<table border="1">
+<table border="1" class="table">
 <tr style="height:25px;">
 	<td rowspan="2" width="250px">
-		<table border="0" width="100%">
+		<table border="0" width="100%" class="table">
 		<tr>
 			<td colspan="3">-<asp:Literal id="ltUniverse" runat="server"></asp:Literal>-</td>
 		</tr>
@@ -36,10 +36,13 @@
 			<td>Z: <asp:Literal id="ltZ" runat="server"></asp:Literal></td>
 		</tr>
 		</table>
-	</td>
+<asp:Button id="btnNextStar" runat="server" Text="Show Random Star" OnClick="btnNextStar_Click" /><asp:Button id="btnTurn" runat="server" OnClick="btnTurn_Click" Text="End Turn" />
+<br /><br />
+<a href="Register.aspx" class="btn btn-success">Register</a>
+</td>
 	<td width="450px">--Orbital Bodies--</td>
 </tr>
-<tr><td><asp:GridView id="gvOrbits" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvOrbits_OnRowCreated" BorderWidth="0" Width="100%">
+<tr><td><asp:GridView id="gvOrbits" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvOrbits_OnRowCreated" BorderWidth="0" Width="100%" CssClass="table">
 <Columns>
 	<asp:TemplateField HeaderText="">
 		<ItemTemplate>
@@ -69,7 +72,7 @@
 </Columns>
 </asp:GridView></td></tr>
 <tr><td colspan="2">
-<asp:GridView id="gvNearestStars" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvNearestStars_OnRowCreated" BorderWidth="0" Width="100%">
+<asp:GridView id="gvNearestStars" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvNearestStars_OnRowCreated" BorderWidth="0" Width="100%" CssClass="table">
 <Columns>
 	<asp:TemplateField HeaderText="Name">
 		<ItemTemplate>
@@ -104,7 +107,6 @@
 </Columns>
 </asp:GridView>
 </td></tr>
-<tr><td colspan="2"><asp:Button id="btnNextStar" runat="server" Text="Show Random Star" OnClick="btnNextStar_Click" /><asp:Button id="btnTurn" runat="server" OnClick="btnTurn_Click" Text="End Turn" /></td></tr>
 </table>
 <br />
 <asp:Literal id="ltLoadTime" runat="server" />

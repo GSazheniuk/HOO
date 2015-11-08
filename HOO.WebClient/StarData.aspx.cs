@@ -118,12 +118,14 @@ namespace HOO.WebClient
 		{
 			base.OnInit (e);
 
+			if (Session ["Universe"] != null) {
+				this.ActiveUniverse = (Universe)Session ["Universe"];
+				this._gid = this.ActiveUniverse.Galaxies [0].OBID;
+			}
 			if (Request ["gid"] != null && int.TryParse (Request ["gid"], out _gid)) {
 /*				_uh = new UniverseHelper ();
 				_uh.Universe.Id = 7;
 				_uh.Load();*/
-				if (Session ["Universe"] != null)
-					this.ActiveUniverse = (Universe)Session ["Universe"];
 			}
 		}
 

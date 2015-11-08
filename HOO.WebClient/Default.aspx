@@ -1,7 +1,7 @@
 <%@ Page Language="C#" Inherits="HOO.WebClient.Default" MasterPageFile="~/Main.master" %>
 <asp:Content ContentPlaceHolderID="cphBody" id="defBody" runat="server">
 
-<asp:GridView id="gvUniverses" runat="server" AutoGenerateColumns="false" OnRowCreated="gvUniverses_OnRowCreated">
+<asp:GridView id="gvUniverses" runat="server" AutoGenerateColumns="false" OnRowCreated="gvUniverses_OnRowCreated" CssClass="table">
 <Columns>
 	<asp:BoundField DataField="Name" HeaderText="Name" />
 	<asp:BoundField DataField="Descrip" HeaderText="Description" />

@@ -51,6 +51,7 @@
     <Content Include="Galaxies.aspx" />
     <Content Include="StarData.aspx" />
     <Content Include="AddStarNames.aspx" />
+    <Content Include="Register.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.master.cs">
@@ -82,6 +83,12 @@
     </Compile>
     <Compile Include="AddStarNames.aspx.designer.cs">
       <DependentUpon>AddStarNames.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

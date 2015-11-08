@@ -35,6 +35,10 @@ namespace HOO.WebClient {
 		
 		protected System.Web.UI.WebControls.Literal ltZ;
 		
+		protected System.Web.UI.WebControls.Button btnNextStar;
+		
+		protected System.Web.UI.WebControls.Button btnTurn;
+		
 		protected System.Web.UI.WebControls.GridView gvOrbits;
 		
 		protected System.Web.UI.WebControls.Literal ltOrbitNo;
@@ -60,10 +64,6 @@ namespace HOO.WebClient {
 		protected System.Web.UI.WebControls.Literal ltZCoo;
 		
 		protected System.Web.UI.WebControls.Literal ltDistance;
-		
-		protected System.Web.UI.WebControls.Button btnNextStar;
-		
-		protected System.Web.UI.WebControls.Button btnTurn;
 		
 		protected System.Web.UI.WebControls.Literal ltLoadTime;
 	}
