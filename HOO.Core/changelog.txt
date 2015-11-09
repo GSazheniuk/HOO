@@ -8,3 +8,13 @@
 	-Define base Attributes for Planet
 	-Add Save Planet functionality.
 	-During Universe Save also save other modified Objects - Orbital Bodies.
+08-Nov-2015
+	-Effects are based on Attributes.
+	-Drew Data Model in LucidChart.
+	-Added BaseObject to keep common properties for all objects.
+	-Tuned up DB to keep all objects in one table.
+	-Created Player model.
+	-Defined default player attrs&requisites&effects.
+	-Now using Bootstrap for web-client. Looks much better!
+	-Created Register page, so players can be registered (although requires some tuning up for validations).
+	-Created Login page. Logged in Player stays within Session.
