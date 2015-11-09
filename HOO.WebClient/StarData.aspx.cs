@@ -179,6 +179,9 @@ namespace HOO.WebClient
 				LoadStarData ();
 			}
 
+			if (Session ["Player"] != null) {
+				btnRegister.Visible = btnLogin.Visible = false;
+			}
 /*			MySqlDBHelper dh = new MySqlDBHelper(SensitiveData.ConnectionString);
 			int gid = 0;
 

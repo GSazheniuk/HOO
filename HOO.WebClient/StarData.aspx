@@ -38,7 +38,8 @@
 		</table>
 <asp:Button id="btnNextStar" runat="server" Text="Show Random Star" OnClick="btnNextStar_Click" /><asp:Button id="btnTurn" runat="server" OnClick="btnTurn_Click" Text="End Turn" />
 <br /><br />
-<a href="Register.aspx" class="btn btn-success">Register</a>
+<a href="Login.aspx" id="btnLogin" runat="server" class="btn btn-info">Login</a>
+<a href="Register.aspx" id="btnRegister" runat="server" class="btn btn-success">Register</a>
 </td>
 	<td width="450px">--Orbital Bodies--</td>
 </tr>
