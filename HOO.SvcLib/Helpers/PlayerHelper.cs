@@ -1,4 +1,5 @@
 using System;
+using HOO.Core.Model;
 using HOO.Core.Model.Universe;
 using HOO.Core.Configuration;
 using HOO.DB;
@@ -18,9 +19,9 @@ namespace HOO.SvcLib.Helpers
 
 		public void InitDefaultSettings()
 		{
-			this.Player.Attributes.TotalCredits = 1000;
-			this.Player.Requisites.Capitol = 1;
-			this.Player.Effects.Income = 0.01;
+//			this.Player.Attributes.TotalCredits = 1000;
+//			this.Player.Requisites.Capitol = 1;
+//			this.Player.Effects.Income = 0.01;
 		}
 
 		public void Register(string userName, string password, string email)
