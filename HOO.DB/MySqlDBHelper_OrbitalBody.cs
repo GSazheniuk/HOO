@@ -28,20 +28,9 @@ namespace HOO.DB
 				sob.OBID = Convert.ToInt32(dr["OBID"]);
 				sob.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 
-				foreach (DataRow aRow in ds.Tables[1].Rows)
-				{
-					sob.Attributes.Add(Convert.ToInt32(aRow["AttributeID"]), aRow["Value"]); 
-				}
-
-				foreach (DataRow eRow in ds.Tables[2].Rows)
-				{
-					sob.Effects.Add(Convert.ToInt32(eRow["AttributeID"]), eRow["Value"]);
-				}
-
-				foreach (DataRow eRow in ds.Tables[3].Rows)
-				{
-					sob.Requisites.Add(Convert.ToInt32(eRow["RequisiteID"]), eRow["Value"]);
-				}
+				sob.Attributes = new Attributes();
+				sob.Attributes.ParentObject = sob;
+				sob.Attributes.Load(LoadAttributes(ds.Tables[1]));
 
 				res.Tag = sob;
 				res.ResultCode = 0;
@@ -56,7 +45,7 @@ namespace HOO.DB
 
 		public DBCommandResult SaveOrbitalBody(StarOrbitalBody sob)
 		{
-			return SaveBaseProperties(sob);
+			return SaveAttributes(sob);
 		}
 	}
 }

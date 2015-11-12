@@ -38,7 +38,7 @@ namespace HOO.DB
 				p.Motto = Convert.ToString(dr["Motto"]);
 				p.Color = Convert.ToString(dr["Color"]);
 
-				res = SaveBaseProperties(p);
+				res = SaveAttributes(p);
 			}
 			catch (Exception ex) {
 				res.ResultCode = -2;
@@ -68,21 +68,10 @@ namespace HOO.DB
 				p.Race = Convert.ToString(dr["Race"]);
 				p.Motto = Convert.ToString(dr["Motto"]);
 				p.Color = Convert.ToString(dr["Color"]);
-
-				foreach (DataRow aRow in ds.Tables[1].Rows)
-				{
-					p.Attributes.Add(Convert.ToInt32(aRow["AttributeID"]), aRow["Value"]); 
-				}
-
-				foreach (DataRow eRow in ds.Tables[2].Rows)
-				{
-					p.Effects.Add(Convert.ToInt32(eRow["AttributeID"]), eRow["Value"]);
-				}
-
-				foreach (DataRow eRow in ds.Tables[3].Rows)
-				{
-					p.Requisites.Add(Convert.ToInt32(eRow["RequisiteID"]), eRow["Value"]);
-				}
+								
+				p.Attributes = new Attributes();
+				p.Attributes.ParentObject = p;
+				p.Attributes.Load(LoadAttributes(ds.Tables[1]));
 
 				res.Tag = p;
 				res.ResultCode = 0;

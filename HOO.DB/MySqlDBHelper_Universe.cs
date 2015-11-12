@@ -78,23 +78,12 @@ namespace HOO.DB
 				resU.CurrentTick = Convert.ToInt32(dr["CurrentTick"]);
 				resU.CurrentTurn = Convert.ToInt32(dr["CurrentTurn"]);
 				resU.CurrentPeriod = Convert.ToInt32(dr["CurrentPeriod"]);
+								
+				resU.Attributes = new Attributes();
+				resU.Attributes.ParentObject = resU;
+				resU.Attributes.Load(LoadAttributes(ds.Tables[1]));
 
-				foreach (DataRow aRow in ds.Tables[1].Rows)
-				{
-					resU.Attributes.Add(Convert.ToInt32(aRow["AttributeID"]), aRow["Value"]); 
-				}
-
-				foreach (DataRow eRow in ds.Tables[2].Rows)
-				{
-					resU.Effects.Add(Convert.ToInt32(eRow["AttributeID"]), eRow["Value"]);
-				}
-
-				foreach (DataRow eRow in ds.Tables[3].Rows)
-				{
-					resU.Requisites.Add(Convert.ToInt32(eRow["RequisiteID"]), eRow["Value"]);
-				}
-
-				foreach (DataRow gRow in ds.Tables[4].Rows)
+				foreach (DataRow gRow in ds.Tables[2].Rows)
 				{
 					Galaxy g = new Galaxy();
 					g.Universe = resU;
@@ -270,7 +259,7 @@ namespace HOO.DB
 			try
 			{
 				_dg.ExecuteCommand(com);
-				res = SaveBaseProperties(u);
+				res = SaveAttributes(u);
 				res.Tag = u;
 			}
 			catch (Exception ex) {
