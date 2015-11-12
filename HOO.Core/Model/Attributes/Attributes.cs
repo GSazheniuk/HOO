@@ -1,110 +1,53 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+using HOO.Core.Model.Universe;
 
 namespace HOO.Core.Model
 {
-	public class Attributes
+	public partial class Attributes
 	{
-		private Dictionary<int, object> _attributes;
+		public BaseObject ParentObject { get; set; }
+		private OAttribute[] _attrs;
 
-		public Attributes ()
+		public Attributes()
 		{
-			this._attributes = new Dictionary<int, object> ();
+			this._attrs = new OAttribute[0];
 		}
 
-		public int Count { get { return this._attributes.Count; } }
-		private int[] _keys;
-		public int[] Keys {
-			get { 
-				this._keys = new int[this._attributes.Keys.Count];
-				this._attributes.Keys.CopyTo (_keys, 0);
-				return this._keys; 
-			} 
-		}
-
-		public object this [int index]
+		public void Load(OAttribute[] attributes)
 		{
-			get { return this._attributes [index];}
-			set { this._attributes [index] = value;}
+			this._attrs = attributes;
 		}
 
-		public bool ContainsAttribute(ObjectAttribute attribute)
+		public bool ContainsAttribute(ObjectAttribute attribute, AttributeTypes attributeType)
 		{
-			return this._attributes.ContainsKey ((int)attribute);
+			try
+			{
+				return this._attrs.Any(oa => oa.AttributeID == (int)attribute && oa.AttributeType == (int)attributeType);
+			}
+			catch (Exception ex) {
+				throw ex;
+			}
 		}
 
-		public void Add(int attributeId, object attributeValue)
+		public object ValueOf(ObjectAttribute attribute, AttributeTypes attributeType)
 		{
-			this._attributes.Add (attributeId, attributeValue);
+			return this._attrs.FirstOrDefault (oa => oa.AttributeID == (int)attribute && oa.AttributeType == (int)attributeType).Value;
 		}
 
-		public int RadiationLevel {
-			get{ return Convert.ToInt32 (this._attributes [(int)ObjectAttribute.RadiationLevel]);}
-			set {
-				if (_attributes.ContainsKey ((int)ObjectAttribute.RadiationLevel)) 
-					this._attributes [(int)ObjectAttribute.RadiationLevel] = value;
-				else 
-					_attributes.Add ((int)ObjectAttribute.RadiationLevel, value);
-			}
+		public OAttribute[] ChangedAttributes()
+		{
+			if (this._attrs.Any (oa => !oa.IsSaved)) {
+				return this._attrs.Where (oa => !oa.IsSaved).ToArray();
+			} else
+				return new OAttribute[0];
 		}
 
-		public int Temperature {
-			get{ return Convert.ToInt32 (this._attributes [(int)ObjectAttribute.Temperature]);}
-			set {
-				if (_attributes.ContainsKey ((int)ObjectAttribute.Temperature)) 
-					this._attributes [(int)ObjectAttribute.Temperature] = value;
-				else 
-					_attributes.Add ((int)ObjectAttribute.Temperature, value);
-			}
-		}
-		
-		public int BasePopulation {
-			get{ return Convert.ToInt32 (this._attributes [(int)ObjectAttribute.BasePopulation]);}
-			set {
-				if (_attributes.ContainsKey ((int)ObjectAttribute.BasePopulation)) 
-					this._attributes [(int)ObjectAttribute.BasePopulation] = value;
-				else 
-					_attributes.Add ((int)ObjectAttribute.BasePopulation, value);
-			}
-		}
-		
-		public double BaseProduction {
-			get{ return Convert.ToDouble (this._attributes [(int)ObjectAttribute.BaseProduction]);}
-			set {
-				if (_attributes.ContainsKey ((int)ObjectAttribute.BaseProduction)) 
-					this._attributes [(int)ObjectAttribute.BaseProduction] = value;
-				else 
-					_attributes.Add ((int)ObjectAttribute.BaseProduction, value);
-			}
-		}
-		
-		public double BaseFarming {
-			get{ return Convert.ToDouble (this._attributes [(int)ObjectAttribute.BaseFarming]);}
-			set {
-				if (_attributes.ContainsKey ((int)ObjectAttribute.BaseFarming)) 
-					this._attributes [(int)ObjectAttribute.BaseFarming] = value;
-				else 
-					_attributes.Add ((int)ObjectAttribute.BaseFarming, value);
-			}
-		}
-		
-		public double BaseResearch {
-			get{ return Convert.ToDouble (this._attributes [(int)ObjectAttribute.BaseResearch]);}
-			set {
-				if (_attributes.ContainsKey ((int)ObjectAttribute.BaseResearch)) 
-					this._attributes [(int)ObjectAttribute.BaseResearch] = value;
-				else 
-					_attributes.Add ((int)ObjectAttribute.BaseResearch, value);
-			}
-		}
-
-		public double TotalCredits {
-			get{ return Convert.ToDouble (this._attributes [(int)ObjectAttribute.TotalCredits]);}
-			set {
-				if (_attributes.ContainsKey ((int)ObjectAttribute.TotalCredits)) 
-					this._attributes [(int)ObjectAttribute.TotalCredits] = value;
-				else 
-					_attributes.Add ((int)ObjectAttribute.TotalCredits, value);
+		public void SaveAll(){
+			for (int i=0; i<this._attrs.Length; i++) {
+				this._attrs [i].IsSaved = this._attrs [i].IsLoaded = true;
 			}
 		}
 	}
