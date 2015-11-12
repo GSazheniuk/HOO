@@ -1,6 +1,7 @@
 using System;
 using HOO.Core.Model.Universe;
 using HOO.Core.Configuration;
+using HOO.Core.Model;
 using HOO.DB;
 
 namespace HOO.SvcLib.Helpers
@@ -29,7 +30,7 @@ namespace HOO.SvcLib.Helpers
 			if (res.ResultCode == 0) {
 				OrbitalBody.IsLoaded = OrbitalBody.IsSaved = true;
 
-				if (!OrbitalBody.Attributes.ContainsAttribute (HOO.Core.Model.ObjectAttribute.BaseResearch) && OrbitalBody is Planet) {
+				if (!OrbitalBody.Attributes.ContainsAttribute (HOO.Core.Model.ObjectAttribute.BaseResearch, HOO.Core.Model.AttributeTypes.Attribute) && OrbitalBody is Planet) {
 					InitBaseAttributes ();
 					OrbitalBody.IsSaved = false;
 				} 
@@ -40,63 +41,66 @@ namespace HOO.SvcLib.Helpers
 
 		public void InitBaseAttributes()
 		{
-				var attr = OrbitalBody.Attributes;
+			OAttribute[] attr = new OAttribute[4];
 			if (OrbitalBody is Planet) {
 				Planet p = (Planet)OrbitalBody;
 
 				//Population
 				switch ((int)p.Size) {
 				case 0://Tiny
-					attr.BasePopulation = 1;
+					attr[0] = new OAttribute(ObjectAttribute.BasePopulation, AttributeTypes.Attribute, 2);
 					break;
 				case 1://Small
-					attr.BasePopulation = 2;
+					attr[0] = new OAttribute(ObjectAttribute.BasePopulation, AttributeTypes.Attribute, 3);
 					break;
 				case 2://Medium
-					attr.BasePopulation = 3;
+					attr[0] = new OAttribute(ObjectAttribute.BasePopulation, AttributeTypes.Attribute, 5);
 					break;
 				case 3://Large
-					attr.BasePopulation = 5;
+					attr[0] = new OAttribute(ObjectAttribute.BasePopulation, AttributeTypes.Attribute, 8);
 					break;
 				case 4://Huge
-					attr.BasePopulation = 8;
+					attr[0] = new OAttribute(ObjectAttribute.BasePopulation, AttributeTypes.Attribute, 13);
 					break;
 				}
 
 				//Farming
 				switch ((int)p.Type) {
 				case 0://Baren
-					attr.BaseFarming = 0;
+					attr[1] = new OAttribute(ObjectAttribute.BaseFarming, AttributeTypes.Attribute, 0);
 					break;
 				case 1://Desert
-					attr.BaseFarming = 0;
+					attr[1] = new OAttribute(ObjectAttribute.BaseFarming, AttributeTypes.Attribute, 0);
 					break;
 				case 2://Tundra
-					attr.BaseFarming = 0.5;
+					attr[1] = new OAttribute(ObjectAttribute.BaseFarming, AttributeTypes.Attribute, 0.5);
 					break;
 				case 3://Arid
-					attr.BaseFarming = 0.5;
+					attr[1] = new OAttribute(ObjectAttribute.BaseFarming, AttributeTypes.Attribute, 0.5);
 					break;
 				case 4://Swamp
-					attr.BaseFarming = 1;
+					attr[1] = new OAttribute(ObjectAttribute.BaseFarming, AttributeTypes.Attribute, 1);
 					break;
 				case 5://Ocean
-					attr.BaseFarming = 1;
+					attr[1] = new OAttribute(ObjectAttribute.BaseFarming, AttributeTypes.Attribute, 1);
 					break;
 				case 6://Terran
-					attr.BaseFarming = 2;
+					attr[1] = new OAttribute(ObjectAttribute.BaseFarming, AttributeTypes.Attribute, 2);
 					break;
 				case 7://Gaia
-					attr.BaseFarming = 3;
+					attr[1] = new OAttribute(ObjectAttribute.BaseFarming, AttributeTypes.Attribute, 3);
 					break;
 				}
 
 				//Production
-				attr.BaseProduction = 0.3 * (9 - p.OrbitNo); //Nearer to Sun - more production.
+				attr[2] = new OAttribute(ObjectAttribute.BaseProduction, AttributeTypes.Attribute, 0.3 * (9 - p.OrbitNo));
+//				attr.BaseProduction = 0.3 * (9 - p.OrbitNo); //Nearer to Sun - more production.
 
 				//Research
-				attr.BaseResearch = HOO.Core.Model.Configuration.MrRandom.rnd.Next (6) / 2.0;
+				attr[3] = new OAttribute(ObjectAttribute.BaseResearch, AttributeTypes.Attribute, HOO.Core.Model.Configuration.MrRandom.rnd.Next (6) / 2.0);
+//				attr.BaseResearch = HOO.Core.Model.Configuration.MrRandom.rnd.Next (6) / 2.0;
 			}
+			this.OrbitalBody.Attributes.Load (attr);
 		}
 
 		public void Save()
