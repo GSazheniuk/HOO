@@ -32,7 +32,7 @@ namespace HOO.Core.Model.Universe
 			this.Class = ((StarClass)MrRandom.rnd.Next((int)StarClass.MrRandom));
 			this.Size = ((StarSize) MrRandom.rnd.Next((int) StarSize.MrRandom));
 			this.TemperatureLevel = MrRandom.rnd.Next(ConstantParameters.MaxStarTemperatureLevel);
-			this.Attributes.Temperature = TemperatureLevel;
+//			this.Attributes.Temperature = TemperatureLevel;
 		}
 
         public Star():base()
