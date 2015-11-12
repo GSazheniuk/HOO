@@ -1,7 +1,7 @@
 ﻿using HOO.Core.Model.Universe;
 using HOO.Core.Model.Configuration.Enums;
 
-namespace HOO.Core.Model.Universe
+namespace HOO.Core.Model
 {
     public class Player : BaseObject
     {
