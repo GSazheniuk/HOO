@@ -31,21 +31,12 @@ namespace HOO.DB
 				g.DimensionX = Convert.ToInt32(dr["DimX"]);
 				g.DimensionY = Convert.ToInt32(dr["DimY"]);
 				g.DimensionZ = Convert.ToInt32(dr["DimZ"]);
+				
+				g.Attributes = new Attributes();
+				g.Attributes.ParentObject = g;
+				g.Attributes.Load(LoadAttributes(ds.Tables[1]));
 
-				foreach (DataRow aRow in ds.Tables[1].Rows)
-				{
-					g.Attributes.Add(Convert.ToInt32(aRow["Attribute"]), aRow["Value"]); 
-				}
-
-				foreach (DataRow eRow in ds.Tables[2].Rows)
-				{
-					g.Effects.Add(Convert.ToInt32(eRow["AttrId"]), eRow["Value"]);
-				}
-
-				//Requisites load here
-				//TO-DO
-
-				foreach (DataRow sRow in ds.Tables[4].Rows)
+				foreach (DataRow sRow in ds.Tables[2].Rows)
 				{
 					Star s = new Star();
 					s.Galaxy = g;
