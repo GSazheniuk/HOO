@@ -4,8 +4,6 @@ namespace HOO.Core.Model.Universe
 	{
 		public int OBID { get; set; }
 		public Attributes Attributes;
-		public Effects Effects;
-		public Requisites Requisites;
 		public bool IsLoaded { get; set; }
 		public bool IsSaved { get; set; }
 		public int ObjectType { get; set; }
@@ -13,8 +11,6 @@ namespace HOO.Core.Model.Universe
 		public BaseObject ()
 		{
 			this.Attributes = new Attributes ();
-			this.Effects = new Effects ();
-			this.Requisites = new Requisites ();
 			this.IsLoaded = this.IsSaved = false;
 		}
 	}
