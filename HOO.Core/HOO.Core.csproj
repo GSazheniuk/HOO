@@ -51,8 +51,6 @@
     <Compile Include="Model\Configuration\MrRandom.cs" />
     <Compile Include="Model\Configuration\Point3D.cs" />
     <Compile Include="Model\Player\Player.cs" />
-    <Compile Include="Model\Player\Requisite.cs" />
-    <Compile Include="Model\Player\Technology.cs" />
     <Compile Include="Model\Universe\AsteroidBelt.cs" />
     <Compile Include="Model\Universe\BlackHole.cs" />
     <Compile Include="Model\Universe\Galaxy.cs" />
@@ -78,6 +76,9 @@
     <Compile Include="Model\Requisites\ObjectRequisite.cs" />
     <Compile Include="Model\Requisites\Requisites.cs" />
     <Compile Include="Model\Universe\BaseObject.cs" />
+    <Compile Include="Model\DynamicObjects\BaseDynamicObject.cs" />
+    <Compile Include="Model\Attributes\AttributeTypes.cs" />
+    <Compile Include="Model\Attributes\OAttribute.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -95,6 +96,7 @@
     <Folder Include="Model\Modifiers\" />
     <Folder Include="Model\Effects\" />
     <Folder Include="Model\Requisites\" />
+    <Folder Include="Model\DynamicObjects\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="changelog.txt" />
