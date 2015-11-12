@@ -23,7 +23,7 @@ namespace HOO.Core.Model.Universe
 		private void InitGalaxy()
 		{
 			this.Stars = new List<Star>();
-			this.Attributes.RadiationLevel = 3;
+//			this.Attributes.RadiationLevel = 3;
 		}
 
         public Galaxy():base()
