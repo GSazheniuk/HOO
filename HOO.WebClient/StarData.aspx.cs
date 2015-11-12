@@ -73,8 +73,10 @@ namespace HOO.WebClient
 						ltSize.Text = p.Size.ToString();
 						ltClass.Text = p.Type.ToString();
 						ltBaseAttrs.Text = String.Format ("(<font style='color:DarkGrey'>{0}</font>, <font style='color:Orange'>{1}</font>, <font style='color:Green'>{2}</font>, <font style='color:LightBlue'>{3}</font>)"
-						                                  , p.Attributes.BasePopulation, p.Attributes.BaseProduction
-						                                  , p.Attributes.BaseFarming, p.Attributes.BaseResearch);
+						                                  , p.Attributes.ValueOf(HOO.Core.Model.ObjectAttribute.BasePopulation, HOO.Core.Model.AttributeTypes.Attribute)
+						                                  , p.Attributes.ValueOf(HOO.Core.Model.ObjectAttribute.BaseProduction, HOO.Core.Model.AttributeTypes.Attribute)
+						                                  , p.Attributes.ValueOf(HOO.Core.Model.ObjectAttribute.BaseFarming, HOO.Core.Model.AttributeTypes.Attribute)
+						                                  , p.Attributes.ValueOf(HOO.Core.Model.ObjectAttribute.BaseResearch, HOO.Core.Model.AttributeTypes.Attribute));
 					}
 
 					if (e.Row.DataItem is GasGiant) {
