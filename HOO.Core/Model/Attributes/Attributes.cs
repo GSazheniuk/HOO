@@ -10,16 +10,23 @@ namespace HOO.Core.Model
 	{
 		public BaseObject ParentObject { get; set; }
 		private OAttribute[] _attrs;
+		private Dictionary<Tuple<int,int>, OAttribute> _ah;
 		public int TotalAttributes { get { return this._attrs.Length; } }
 
 		public Attributes()
 		{
 			this._attrs = new OAttribute[0];
+			this._ah = new Dictionary<Tuple<int,int>, OAttribute>();
 		}
 
 		public void Load(OAttribute[] attributes)
 		{
 			this._attrs = attributes;
+		}
+
+		public void AddAttribute (OAttribute oa)
+		{
+			this._ah.Add (Tuple.Create(oa.AttributeID, oa.AttributeType), oa);
 		}
 
 		public bool ContainsAttribute(ObjectAttribute attribute, AttributeTypes attributeType)
@@ -35,13 +42,18 @@ namespace HOO.Core.Model
 
 		public object ValueOf(ObjectAttribute attribute, AttributeTypes attributeType)
 		{
-			return this._attrs.FirstOrDefault (oa => oa.AttributeID == (int)attribute && oa.AttributeType == (int)attributeType).Value;
+			var res = this._attrs.FirstOrDefault (oa => oa.AttributeID == (int)attribute && oa.AttributeType == (int)attributeType);
+			if (res != null) 
+				return res.Value;
+			else
+				return new OAttribute ().Value;
 		}
 
 		public OAttribute[] ChangedAttributes()
 		{
-			if (this._attrs.Any (oa => !oa.IsSaved)) {
-				return this._attrs.Where (oa => !oa.IsSaved).ToArray();
+			var res = this._attrs.Where (oa => !oa.IsSaved);
+			if (res != null) {
+				return res.ToArray ();
 			} else
 				return new OAttribute[0];
 		}
@@ -50,6 +62,16 @@ namespace HOO.Core.Model
 			for (int i=0; i<this._attrs.Length; i++) {
 				this._attrs [i].IsSaved = this._attrs [i].IsLoaded = true;
 			}
+		}
+
+		public List<OAttribute> ListByType(AttributeTypes attributeType)
+		{
+			var res = this._ah.Where (oa => oa.Value.AttributeType == (int)attributeType);
+			if (res != null) {
+//				return res.Select(oa=>oa.Value).ToList();
+				return new List<OAttribute> ();
+			} else
+				return new List<OAttribute> ();
 		}
 	}
 }
