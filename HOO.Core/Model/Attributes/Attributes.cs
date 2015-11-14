@@ -10,6 +10,7 @@ namespace HOO.Core.Model
 	{
 		public BaseObject ParentObject { get; set; }
 		private OAttribute[] _attrs;
+		public int TotalAttributes { get { return this._attrs.Length; } }
 
 		public Attributes()
 		{
