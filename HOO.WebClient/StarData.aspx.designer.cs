@@ -41,10 +41,6 @@ namespace HOO.WebClient {
 		
 		protected System.Web.UI.WebControls.Button btnTurn;
 		
-		protected System.Web.UI.HtmlControls.HtmlAnchor btnLogin;
-		
-		protected System.Web.UI.HtmlControls.HtmlAnchor btnRegister;
-		
 		protected System.Web.UI.WebControls.GridView gvOrbits;
 		
 		protected System.Web.UI.WebControls.Literal ltOrbitNo;

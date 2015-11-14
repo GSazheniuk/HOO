@@ -14,5 +14,7 @@ namespace HOO.WebClient {
 	public partial class Main {
 		
 		protected System.Web.UI.WebControls.ContentPlaceHolder cphBody;
+		
+		protected System.Web.UI.UserControl ucPlayerInfoPanel;
 	}
 }

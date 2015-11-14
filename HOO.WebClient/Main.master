@@ -1,4 +1,5 @@
 <%@ Master Language="C#" Inherits="HOO.WebClient.Main" EnableViewState="False"%>
+<%@ Register TagName="PlayerInfoPanel" TagPrefix="uc" Src="UserControls\Common\PlayerInfoPanel.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head runat="server">
@@ -8,10 +9,13 @@
 <body>
 <div class="container">
 <div class="row">
-<div class="col-md-offset-2 col-md-8 text-center">
+<div class="col-md-offset-1 col-md-8 text-center">
 <form runat="server">
 <asp:ContentPlaceHolder id="cphBody" runat="server" />
 </form>
+</div>
+<div class="col-md-2 text-center">
+	<uc:PlayerInfoPanel id="ucPlayerInfoPanel" runat="server" />
 </div>
 </div>
 </div>

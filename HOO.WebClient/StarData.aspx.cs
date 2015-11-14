@@ -8,7 +8,7 @@ namespace HOO.WebClient
 	using System.Linq;
 	using HOO.Core.Model.Universe;
 	using HOO.Core.Model.Configuration;
-	using HOO.Core;
+	using HOO.Core.Model;
 	using HOO.Core.Configuration;
 	using HOO.SvcLib.Helpers;
 
@@ -18,6 +18,7 @@ namespace HOO.WebClient
 //		private UniverseHelper _uh;
 		private StarHelper _sh;
 		private Universe ActiveUniverse;
+		private Player ActivePlayer;
 //		private MySqlDBHelper dh;
 //		private int uId = 0;
 		private int _gid;
@@ -99,6 +100,9 @@ namespace HOO.WebClient
 			UniverseHelper uh = new UniverseHelper ();
 			uh.Universe = ActiveUniverse;
 			uh.Tick ();
+			PlayerHelper ph = new PlayerHelper ();
+			ph.Player = ActivePlayer;
+			ph.Tick ();
 //			Star st = uh.Universe.Galaxies [0].Stars.First (s => s.OrbitalBodies.Exists(ob => !ob.IsSaved));
 			LoadStarData ();
 //			DBCommandResult res = dh.EndTurn (7);
@@ -123,6 +127,10 @@ namespace HOO.WebClient
 			if (Session ["Universe"] != null) {
 				this.ActiveUniverse = (Universe)Session ["Universe"];
 				this._gid = this.ActiveUniverse.Galaxies [0].OBID;
+			}
+
+			if (Session ["Player"] != null) {
+				this.ActivePlayer = (Player)Session ["Player"];
 			}
 			if (Request ["gid"] != null && int.TryParse (Request ["gid"], out _gid)) {
 /*				_uh = new UniverseHelper ();
@@ -181,29 +189,6 @@ namespace HOO.WebClient
 			if (!IsPostBack) {
 				LoadStarData ();
 			}
-
-			if (Session ["Player"] != null) {
-				btnRegister.Visible = btnLogin.Visible = false;
-			}
-/*			MySqlDBHelper dh = new MySqlDBHelper(SensitiveData.ConnectionString);
-			int gid = 0;
-
-			if (Request ["gid"] != null && int.TryParse (Request ["gid"], out gid)) {
-				DBCommandResult res = dh.GetAllStars(gid);
-				if (res.ResultCode == 0) {
-					List<Star> stars = (List<Star>)res.Tag;
-					s = stars.ToArray()[MrRandom.rnd.Next(stars.Count)];
-					ltStarName.Text = s.StarSystemName;
-					ltStarClass.Text = s.ClassName;
-					ltX.Text = s.Coordinates.X.ToString ();
-					ltY.Text = s.Coordinates.Y.ToString ();
-					ltZ.Text = s.Coordinates.Z.ToString ();
-
-					gvNearestStars.DataSource = stars.Where(p=>p.Id != s.Id).OrderBy (p => Math.Sqrt (Math.Pow (s.Coordinates.X - p.Coordinates.X, 2) + Math.Pow (s.Coordinates.Y - p.Coordinates.Y, 2) + Math.Pow (s.Coordinates.Z - p.Coordinates.Z, 2))).Take(5);
-					gvNearestStars.DataBind ();
-					s = new Star ();
-				}
-			}*/
 		}
 	}
 }

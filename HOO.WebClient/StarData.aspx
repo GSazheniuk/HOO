@@ -16,7 +16,7 @@
 			<td colspan="3">-<asp:Literal id="ltGalaxy" runat="server"></asp:Literal>-</td>
 		</tr>
 		<tr>
-			<td colspan="3"><img id="imgStar" runat="server" width="100" /></td>
+			<td colspan="3"><img id="imgStar" runat="server" width="150" /></td>
 		</tr>
 		<tr>
 			<td colspan="3">-<asp:Literal id="ltStarName" runat="server"></asp:Literal>-</td>
@@ -31,9 +31,6 @@
 		</tr>
 		</table>
 <asp:Button id="btnNextStar" runat="server" Text="Show Random Star" OnClick="btnNextStar_Click" /><asp:Button id="btnTurn" runat="server" OnClick="btnTurn_Click" Text="End Turn" />
-<br /><br />
-<a href="Login.aspx" id="btnLogin" runat="server" class="btn btn-info">Login</a>
-<a href="Register.aspx" id="btnRegister" runat="server" class="btn btn-success">Register</a>
 </td>
 	<td width="450px">--Orbital Bodies--</td>
 </tr>
@@ -69,7 +66,7 @@
 <tr><td colspan="2">
 <asp:GridView id="gvNearestStars" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvNearestStars_OnRowCreated" BorderWidth="0" Width="100%" CssClass="table">
 <Columns>
-	<asp:TemplateField HeaderText="Name">
+	<asp:TemplateField HeaderText="Nearest Stars">
 		<ItemTemplate>
 			<asp:Literal id="ltName2" runat="server" />
 		</ItemTemplate>

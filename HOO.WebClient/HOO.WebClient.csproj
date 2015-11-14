@@ -62,6 +62,7 @@
     <Content Include="Images\Stars\K.png" />
     <Content Include="Images\Stars\M.png" />
     <Content Include="Images\Stars\O.png" />
+    <Content Include="UserControls\Common\PlayerInfoPanel.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.master.cs">
@@ -106,6 +107,12 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Common\PlayerInfoPanel.ascx.cs">
+      <DependentUpon>PlayerInfoPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\PlayerInfoPanel.ascx.designer.cs">
+      <DependentUpon>PlayerInfoPanel.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.Core\HOO.Core.csproj">
@@ -125,5 +132,7 @@
     <Folder Include="Themes\" />
     <Folder Include="Images\" />
     <Folder Include="Images\Stars\" />
+    <Folder Include="UserControls\" />
+    <Folder Include="UserControls\Common\" />
   </ItemGroup>
 </Project>
