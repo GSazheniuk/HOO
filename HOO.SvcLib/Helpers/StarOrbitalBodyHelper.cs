@@ -30,16 +30,15 @@ namespace HOO.SvcLib.Helpers
 			if (res.ResultCode == 0) {
 				OrbitalBody.IsLoaded = OrbitalBody.IsSaved = true;
 
-				if (!OrbitalBody.Attributes.ContainsAttribute (HOO.Core.Model.ObjectAttribute.BaseResearch, HOO.Core.Model.AttributeTypes.Attribute) && OrbitalBody is Planet) {
-					InitBaseAttributes ();
-					OrbitalBody.IsSaved = false;
+				if (this.OrbitalBody.Attributes.TotalAttributes == 0) {
+					InitDefaultParameters ();
 				} 
 			} else {
 				throw new Exception (res.ResultMsg);
 			}
 		}
 
-		public void InitBaseAttributes()
+		private void InitDefaultParameters()
 		{
 			OAttribute[] attr = new OAttribute[4];
 			if (OrbitalBody is Planet) {
@@ -94,13 +93,12 @@ namespace HOO.SvcLib.Helpers
 
 				//Production
 				attr[2] = new OAttribute(ObjectAttribute.BaseProduction, AttributeTypes.Attribute, 0.3 * (9 - p.OrbitNo));
-//				attr.BaseProduction = 0.3 * (9 - p.OrbitNo); //Nearer to Sun - more production.
 
 				//Research
 				attr[3] = new OAttribute(ObjectAttribute.BaseResearch, AttributeTypes.Attribute, HOO.Core.Model.Configuration.MrRandom.rnd.Next (6) / 2.0);
-//				attr.BaseResearch = HOO.Core.Model.Configuration.MrRandom.rnd.Next (6) / 2.0;
 			}
 			this.OrbitalBody.Attributes.Load (attr);
+			this.OrbitalBody.IsSaved = false;
 		}
 
 		public void Save()

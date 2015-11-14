@@ -17,6 +17,10 @@ namespace HOO.SvcLib.Helpers
 			this.Universe = new Universe ();
 		}
 
+		private void InitDefaultParameters(){
+
+		}
+
 		public void Save()
 		{
 			if (this.Universe.IsLoaded && !this.Universe.IsSaved) {
@@ -45,6 +49,9 @@ namespace HOO.SvcLib.Helpers
 					gh.Load ();
 				}
 				this.Universe.IsLoaded =this.Universe.IsSaved = true;
+				if (this.Universe.Attributes.TotalAttributes == 0)
+					InitDefaultParameters ();
+				//ELSE add missing attributes, if any exists.
 			} else {
 				throw new Exception (res.ResultMsg);
 			}

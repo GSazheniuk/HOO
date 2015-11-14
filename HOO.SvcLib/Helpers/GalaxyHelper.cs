@@ -16,6 +16,10 @@ namespace HOO.SvcLib.Helpers
 			this.Galaxy = new Galaxy ();
 		}
 
+		private void InitDefaultParameters(){
+
+		}
+
 		public void Load()
 		{
 			DBCommandResult res = _dh.LoadGalaxy (Galaxy);
@@ -26,6 +30,9 @@ namespace HOO.SvcLib.Helpers
 //					sh.RefreshOrbitalBodies ();
 				}
 				this.Galaxy.IsLoaded = this.Galaxy.IsSaved = true;
+				if (this.Galaxy.Attributes.TotalAttributes == 0)
+					InitDefaultParameters ();
+				//ELSE add missing attributes, if any exists.
 			} else {
 				throw new Exception (res.ResultMsg);
 			}

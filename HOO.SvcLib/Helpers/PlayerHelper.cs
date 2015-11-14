@@ -17,7 +17,7 @@ namespace HOO.SvcLib.Helpers
 			this.Player = new Player ();
 		}
 
-		public void InitDefaultSettings()
+		public void InitDefaultParameters()
 		{
 //			this.Player.Attributes.TotalCredits = 1000;
 //			this.Player.Requisites.Capitol = 1;
@@ -26,7 +26,7 @@ namespace HOO.SvcLib.Helpers
 
 		public void Register(string userName, string password, string email)
 		{
-			InitDefaultSettings ();
+			InitDefaultParameters ();
 			DBCommandResult res = _dh.AddNewPlayer (userName, password, email, this.Player);
 
 			if (res.ResultCode == 0) {

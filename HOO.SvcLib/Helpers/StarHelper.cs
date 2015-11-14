@@ -29,12 +29,19 @@ namespace HOO.SvcLib.Helpers
 			this.Star.OBID = starId;
 		}
 
+		private void InitDefaultParameters(){
+
+		}
+
 		public void RefreshOrbitalBodies()
 		{
 			DBCommandResult res = _dh.GetStarOrbitalBodies (this.Star);
 			if (res.ResultCode == 0) {
 				this.Star = (Star)res.Tag;
 				this.Star.IsLoaded = this.Star.IsSaved = true;
+				if (this.Star.Attributes.TotalAttributes == 0)
+					InitDefaultParameters ();
+				//ELSE add missing attributes, if any exists.
 			}
 		}
 	}
