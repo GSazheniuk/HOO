@@ -143,6 +143,7 @@ namespace HOO.WebClient
 				ltX.Text = s.Coordinates.X.ToString ();
 				ltY.Text = s.Coordinates.Y.ToString ();
 				ltZ.Text = s.Coordinates.Z.ToString ();
+				imgStar.Src = String.Format("Images/Stars/{0}.png", s.Class);
 
 				ltUniverse.Text = ActiveUniverse.Name;
 				ltUniverseTick.Text = ActiveUniverse.CurrentTick.ToString ();

@@ -25,6 +25,8 @@ namespace HOO.WebClient {
 		
 		protected System.Web.UI.WebControls.Literal ltGalaxy;
 		
+		protected System.Web.UI.HtmlControls.HtmlImage imgStar;
+		
 		protected System.Web.UI.WebControls.Literal ltStarName;
 		
 		protected System.Web.UI.WebControls.Literal ltStarClass;

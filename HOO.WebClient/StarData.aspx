@@ -13,22 +13,16 @@
 			<td>Period-<asp:Literal id="ltUniversePeriod" runat="server"></asp:Literal>-</td>
 		</tr>
 		<tr>
-			<td colspan="3">----------------</td>
-		</tr>
-		<tr>
 			<td colspan="3">-<asp:Literal id="ltGalaxy" runat="server"></asp:Literal>-</td>
 		</tr>
 		<tr>
-			<td colspan="3">----------------</td>
+			<td colspan="3"><img id="imgStar" runat="server" width="100" /></td>
 		</tr>
 		<tr>
 			<td colspan="3">-<asp:Literal id="ltStarName" runat="server"></asp:Literal>-</td>
 		</tr>
 		<tr>
 			<td colspan="3">-<asp:Literal id="ltStarClass" runat="server"></asp:Literal>-</td>
-		</tr>
-		<tr>
-			<td colspan="3">----------------</td>
 		</tr>
 		<tr>
 			<td>X: <asp:Literal id="ltX" runat="server"></asp:Literal></td>
@@ -43,7 +37,7 @@
 </td>
 	<td width="450px">--Orbital Bodies--</td>
 </tr>
-<tr><td><asp:GridView id="gvOrbits" runat="server" AutoGenerateColumns="false" ShowHeader="true" OnRowCreated="gvOrbits_OnRowCreated" BorderWidth="0" Width="100%" CssClass="table">
+<tr><td><asp:GridView id="gvOrbits" runat="server" AutoGenerateColumns="false" ShowHeader="false" OnRowCreated="gvOrbits_OnRowCreated" BorderWidth="0" Width="100%" CssClass="table">
 <Columns>
 	<asp:TemplateField HeaderText="">
 		<ItemTemplate>

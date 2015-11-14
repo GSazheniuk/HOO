@@ -53,6 +53,15 @@
     <Content Include="AddStarNames.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Themes\black.min.css" />
+    <Content Include="Themes\slate.min.css" />
+    <Content Include="Images\Stars\A.png" />
+    <Content Include="Images\Stars\B.png" />
+    <Content Include="Images\Stars\F.png" />
+    <Content Include="Images\Stars\G.png" />
+    <Content Include="Images\Stars\K.png" />
+    <Content Include="Images\Stars\M.png" />
+    <Content Include="Images\Stars\O.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.master.cs">
@@ -111,5 +120,10 @@
       <Project>{9D28E876-59AA-4FF6-90CC-300D18EF8C34}</Project>
       <Name>HOO.SvcLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\" />
+    <Folder Include="Images\" />
+    <Folder Include="Images\Stars\" />
   </ItemGroup>
 </Project>
