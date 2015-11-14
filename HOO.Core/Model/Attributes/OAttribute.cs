@@ -9,6 +9,12 @@ namespace HOO.Core.Model
 		public bool IsSaved;
 		public bool IsLoaded;
 
+		public OAttribute()
+		{
+			this.AID = -1000;
+			this.Value = "-";
+		}
+
 		public OAttribute(ObjectAttribute attribute, AttributeTypes attributeType, object value)
 		{
 			this.AID = -1;
