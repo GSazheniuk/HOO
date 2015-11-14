@@ -38,7 +38,7 @@ namespace HOO.Core.Model
 			this._effects.Add (attributeId, effectValue);
 		}
 
-		public double Income {
+/*		public double Income {
 			get{ return Convert.ToDouble (this._effects [(int)ObjectAttribute.TotalCredits]);}
 			set {
 				if (_effects.ContainsKey ((int)ObjectAttribute.TotalCredits)) 
@@ -46,7 +46,7 @@ namespace HOO.Core.Model
 				else 
 					_effects.Add ((int)ObjectAttribute.TotalCredits, value);
 			}
-		}
+		}*/
 	}
 }
 
