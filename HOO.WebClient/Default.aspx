@@ -3,8 +3,8 @@
 
 <asp:GridView id="gvUniverses" runat="server" AutoGenerateColumns="false" OnRowCreated="gvUniverses_OnRowCreated" CssClass="table">
 <Columns>
-	<asp:BoundField DataField="Name" HeaderText="Name" />
-	<asp:BoundField DataField="Descrip" HeaderText="Description" />
+    <asp:BoundField DataField="Name" />
+    <asp:BoundField DataField="Description" />
 	<asp:TemplateField HeaderText="">
 		<ItemTemplate>
 			<asp:Literal id="ltLink" runat="server" />

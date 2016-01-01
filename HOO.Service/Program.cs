@@ -12,14 +12,17 @@ namespace HOO.Service
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        static void Main(params string[] args)
         {
+            HOOCycleHandlerService svc = new HOOCycleHandlerService();
             ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new HOOCycleHandlerService() 
-            };
-            ServiceBase.Run(ServicesToRun);
+            if (!Environment.UserInteractive)
+            {
+                ServicesToRun = new ServiceBase[] { svc };
+                ServiceBase.Run(ServicesToRun);
+            }
+            else
+                svc.Start(args);
         }
     }
 }

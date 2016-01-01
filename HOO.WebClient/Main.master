@@ -14,7 +14,7 @@
 <asp:ContentPlaceHolder id="cphBody" runat="server" />
 </form>
 </div>
-<div class="col-md-2 text-center">
+<div class="col-md-3 text-center">
 	<uc:PlayerInfoPanel id="ucPlayerInfoPanel" runat="server" />
 </div>
 </div>

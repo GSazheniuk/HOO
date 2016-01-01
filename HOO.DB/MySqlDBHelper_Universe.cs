@@ -78,15 +78,15 @@ namespace HOO.DB
 				resU.CurrentTick = Convert.ToInt32(dr["CurrentTick"]);
 				resU.CurrentTurn = Convert.ToInt32(dr["CurrentTurn"]);
 				resU.CurrentPeriod = Convert.ToInt32(dr["CurrentPeriod"]);
-								
-				resU.Attributes = new Attributes();
-				resU.Attributes.ParentObject = resU;
-				resU.Attributes.Load(LoadAttributes(ds.Tables[1]));
+
+                resU.Attributes = new List<OAttribute>();
+				//resU.Attributes.ParentObject = resU;
+				//resU.Attributes.Load(LoadAttributes(ds.Tables[1]));
 
 				foreach (DataRow gRow in ds.Tables[2].Rows)
 				{
 					Galaxy g = new Galaxy();
-					g.Universe = resU;
+					g.UniverseId = resU._id;
 					g.OBID = Convert.ToInt32(gRow["OBID"]);
 					g.Name = Convert.ToString(gRow["Name"]);
 					g.DimensionX = Convert.ToInt32(gRow["DimX"]);
@@ -183,7 +183,7 @@ namespace HOO.DB
 					switch (Convert.ToInt32(dr["BodyType"]))
 					{
 					case 1:
-						Planet p = new Planet(s);
+						Planet p = new Planet(s._id);
 						p.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						p.Size = (PlanetSize)Convert.ToInt32(dr["Size"]);
 						p.Type = (PlanetType)Convert.ToInt32(dr["Class"]);
@@ -191,7 +191,7 @@ namespace HOO.DB
 						s.OrbitalBodies.Add(p);
 						break;
 					case 2:
-						GasGiant g = new GasGiant(s);
+						GasGiant g = new GasGiant(s._id);
 						g.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						g.Size = (GasGiantSize)Convert.ToInt32(dr["Size"]);
 						g.Class = (GasGiantClass)Convert.ToInt32(dr["Class"]);
@@ -199,7 +199,7 @@ namespace HOO.DB
 						s.OrbitalBodies.Add(g);
 						break;
 					case 3:
-						AsteroidBelt a = new AsteroidBelt(s);
+						AsteroidBelt a = new AsteroidBelt(s._id);
 						a.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 						a.Density = (AsteroidDensity)Convert.ToInt32(dr["Size"]);
 						a.Type = (AsteroidType)Convert.ToInt32(dr["Class"]);

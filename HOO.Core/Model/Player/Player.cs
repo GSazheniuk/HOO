@@ -1,14 +1,17 @@
 ﻿using HOO.Core.Model.Universe;
 using HOO.Core.Model.Configuration.Enums;
+using System.Runtime.Serialization;
 
 namespace HOO.Core.Model
 {
-    public class Player : BaseObject
+    public class Player : OnlinePlayer
     {
-        public string LeaderName { get; set; }
-        public string Race { get; set; }
-		public string Motto { get; set; }
-		public string Color { get; set; }
+        [IgnoreDataMember]
+        public string Username { get; set; }
+        [IgnoreDataMember]
+        public string Email { get; set; }
+        [IgnoreDataMember]
+        public string Password { get; set; }
 
 		public Player():base()
 		{

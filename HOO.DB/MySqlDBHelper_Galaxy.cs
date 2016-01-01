@@ -31,15 +31,15 @@ namespace HOO.DB
 				g.DimensionX = Convert.ToInt32(dr["DimX"]);
 				g.DimensionY = Convert.ToInt32(dr["DimY"]);
 				g.DimensionZ = Convert.ToInt32(dr["DimZ"]);
-				
-				g.Attributes = new Attributes();
-				g.Attributes.ParentObject = g;
-				g.Attributes.Load(LoadAttributes(ds.Tables[1]));
+
+                g.Attributes = new List<OAttribute>();
+				//g.Attributes.ParentObject = g;
+				//g.Attributes.Load(LoadAttributes(ds.Tables[1]));
 
 				foreach (DataRow sRow in ds.Tables[2].Rows)
 				{
 					Star s = new Star();
-					s.Galaxy = g;
+					s.GalaxyId = g._id;
 					s.OBID = Convert.ToInt32(sRow["OBID"]);
 					s.Coordinates= new HOO.Core.Model.Configuration.Point3D();
 					s.Class = ((StarClass)Convert.ToInt32(sRow["Class"]));

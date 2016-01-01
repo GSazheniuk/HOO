@@ -67,7 +67,7 @@ namespace HOO.Admin
             SqlCommand com = new SqlCommand("ADM.AddGalaxy", _dg.Connection);
             com.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter spUniverseId = new SqlParameter("@UniverseId", gal.Universe.OBID);
+            SqlParameter spUniverseId = new SqlParameter("@UniverseId", gal.UniverseId);
             SqlParameter spName = new SqlParameter("@Name", gal.Name);
             SqlParameter spDimX = new SqlParameter("@DimX", gal.DimensionX);
             SqlParameter spDimY = new SqlParameter("@DimY", gal.DimensionY);
@@ -81,7 +81,7 @@ namespace HOO.Admin
                 DataRow dr = ds.Tables[0].Rows[0];
                 Galaxy rg = new Galaxy();
                 rg.OBID = Convert.ToInt32(dr["OBID"]);
-                rg.Universe = gal.Universe;
+                rg.UniverseId = gal.UniverseId;
                 rg.Name = Convert.ToString(dr["Name"]);
                 rg.DimensionX = Convert.ToInt32(dr["DimX"]);
                 rg.DimensionY = Convert.ToInt32(dr["DimY"]);
@@ -106,7 +106,7 @@ namespace HOO.Admin
             SqlCommand com = new SqlCommand("ADM.AddStar", _dg.Connection);
             com.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter spGalaxyId = new SqlParameter("@GalaxyId", s.Galaxy.OBID);
+            SqlParameter spGalaxyId = new SqlParameter("@GalaxyId", s.GalaxyId);
             SqlParameter spSystemName = new SqlParameter("@SystemName", s.StarSystemName);
             SqlParameter spX = new SqlParameter("@X", s.Coordinates.X);
             SqlParameter spY = new SqlParameter("@Y", s.Coordinates.Y);
@@ -123,7 +123,7 @@ namespace HOO.Admin
                 DataRow dr = ds.Tables[0].Rows[0];
                 Star rs = new Star();
                 rs.OBID = Convert.ToInt32(dr["OBID"]);
-                rs.Galaxy = s.Galaxy;
+                rs.GalaxyId = s.GalaxyId;
                 rs.StarSystemName = Convert.ToString(dr["SystemName"]);
                 rs.Coordinates = new Core.Model.Configuration.Point3D();
                 rs.Coordinates.X = Convert.ToInt32(dr["X"]);
@@ -155,7 +155,7 @@ namespace HOO.Admin
                 SqlCommand com = new SqlCommand("ADM.AddPlanet", _dg.Connection);
                 com.CommandType = CommandType.StoredProcedure;
 
-                SqlParameter spStarId = new SqlParameter("@StarId", p.Star.OBID);
+                SqlParameter spStarId = new SqlParameter("@StarId", p.StarId);
                 SqlParameter spOrbitNo = new SqlParameter("@OrbitNo", p.OrbitNo);
                 SqlParameter spSize = new SqlParameter("@Size", p.Size);
                 SqlParameter spType = new SqlParameter("@Type", p.Type);
@@ -166,7 +166,7 @@ namespace HOO.Admin
                 {
                     DataSet ds = _dg.GetDataSet(com);
                     DataRow dr = ds.Tables[0].Rows[0];
-                    Planet rp = new Planet(sob.Star);
+                    Planet rp = new Planet(sob.StarId);
                     rp.OBID = Convert.ToInt32(dr["OBID"]);
                     rp.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
                     rp.Size = (PlanetSize)Convert.ToInt32(dr["Size"]);
@@ -189,7 +189,7 @@ namespace HOO.Admin
                 SqlCommand com = new SqlCommand("ADM.AddGasGiant", _dg.Connection);
                 com.CommandType = CommandType.StoredProcedure;
 
-                SqlParameter spStarId = new SqlParameter("@StarId", p.Star.OBID);
+                SqlParameter spStarId = new SqlParameter("@StarId", p.StarId);
                 SqlParameter spOrbitNo = new SqlParameter("@OrbitNo", p.OrbitNo);
 
                 com.Parameters.AddRange(new SqlParameter[] { spStarId, spOrbitNo });
@@ -198,7 +198,7 @@ namespace HOO.Admin
                 {
                     DataSet ds = _dg.GetDataSet(com);
                     DataRow dr = ds.Tables[0].Rows[0];
-                    GasGiant rg = new GasGiant(sob.Star);
+                    GasGiant rg = new GasGiant(sob.StarId);
                     rg.OBID = Convert.ToInt32(dr["OBID"]);
                     rg.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
                     res.Tag = rg;
@@ -219,7 +219,7 @@ namespace HOO.Admin
                 SqlCommand com = new SqlCommand("ADM.AddAsteroidBelt", _dg.Connection);
                 com.CommandType = CommandType.StoredProcedure;
 
-                SqlParameter spStarId = new SqlParameter("@StarId", p.Star.OBID);
+                SqlParameter spStarId = new SqlParameter("@StarId", p.StarId);
                 SqlParameter spOrbitNo = new SqlParameter("@OrbitNo", p.OrbitNo);
                 SqlParameter spDensity = new SqlParameter("@Density", p.Density);
 
@@ -229,7 +229,7 @@ namespace HOO.Admin
                 {
                     DataSet ds = _dg.GetDataSet(com);
                     DataRow dr = ds.Tables[0].Rows[0];
-                    AsteroidBelt ra = new AsteroidBelt(sob.Star);
+                    AsteroidBelt ra = new AsteroidBelt(sob.StarId);
                     ra.OBID = Convert.ToInt32(dr["OBID"]);
                     ra.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
                     ra.Density = (AsteroidDensity)Convert.ToInt32(dr["Density"]);

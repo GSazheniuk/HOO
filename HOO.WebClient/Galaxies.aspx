@@ -7,6 +7,11 @@
 	<asp:BoundField DataField="DimensionX" HeaderText="R(X)" />
 	<asp:BoundField DataField="DimensionY" HeaderText="R(Y)" />
 	<asp:BoundField DataField="DimensionZ" HeaderText="R(Z)" />
+	<asp:TemplateField HeaderText="# of Stars">
+		<ItemTemplate>
+			<asp:Literal id="ltStarCount" runat="server" />
+		</ItemTemplate>
+	</asp:TemplateField>
 	<asp:TemplateField HeaderText="">
 		<ItemTemplate>
 			<asp:Literal id="ltLink" runat="server" />

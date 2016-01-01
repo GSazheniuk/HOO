@@ -3,8 +3,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HOO.Core.Model.Universe;
-using HOO.SvcLib.Helpers;
-using HOO.Core.Configuration;
+using HOO.ComLib;
 
 namespace HOO.WebClient
 {
@@ -16,38 +15,37 @@ namespace HOO.WebClient
 			if(e.Row.RowType == DataControlRowType.DataRow)
 			{
 				Literal lt = (Literal)e.Row.FindControl("ltLink");
-				int uId = ((HOO.Core.Model.Universe.Galaxy)e.Row.DataItem).OBID;
+                Literal ltS = (Literal)e.Row.FindControl("ltStarCount");
+				long uId = ((Galaxy)e.Row.DataItem)._id;
 				lt.Text = "<a href='/StarData.aspx?gid=" + uId.ToString () + "'>&gt;&gt;</a>";
-			}
+                ltS.Text = ((Galaxy)e.Row.DataItem).Stars.Count.ToString();
+            }
 		}
 
-		protected void Page_Load (object sender, EventArgs e)
-		{
-//			MySqlDBHelper dh = new MySqlDBHelper(SensitiveData.ConnectionString);
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            int uid = 0;
 
-			int uid = 0;
+            if (Request["uid"] != null && int.TryParse(Request["uid"], out uid))
+            {
+                IHOOService Channel = BackServiceHelper.ConnectToBackService();
 
-			if (Request ["uid"] != null && int.TryParse (Request ["uid"], out uid)) {
-				if (Session ["Universe"] == null || ((Universe)Session ["Universe"]).OBID != uid) {
-					UniverseHelper uh = new UniverseHelper ();
-					uh.Universe = new Universe ();
-					uh.Universe.OBID = uid;
-					uh.Load ();
-					Session ["Universe"] = uh.Universe;
-				}
+                Log.Logger log = new Log.Logger("HOO.WebClient", this.GetType());
+                log.Entry.MethodName = "Page_Load";
 
-				gvGalaxies.DataSource = ((Universe)Session ["Universe"]).Galaxies;
-				gvGalaxies.DataBind ();
-
-				/*
-				DBCommandResult res = dh.GetAllGalaxies (uid);
-				if (res.ResultCode == 0) {
-					gvGalaxies.DataSource = res.Tag;
-					gvGalaxies.DataBind ();
-				}
-*/
-			}
-		}
+                log.Entry.StepName = "Loading Universes from DB.";
+                try
+                {
+                    Session["Universe"] = Channel.GetUniverseById(uid);
+                    gvGalaxies.DataSource = ((Universe)Session["Universe"]).Galaxies;
+                    gvGalaxies.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+            }
+        }
 	}
 }
 

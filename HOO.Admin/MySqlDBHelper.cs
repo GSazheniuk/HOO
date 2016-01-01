@@ -73,7 +73,7 @@ namespace HOO.Admin
 			MySqlCommand com = new MySqlCommand("ADM_AddGalaxy", _dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
 
-			MySqlParameter spUniverseId = new MySqlParameter("pUniverseId", gal.Universe.OBID);
+			MySqlParameter spUniverseId = new MySqlParameter("pUniverseId", gal.UniverseId);
 			MySqlParameter spName = new MySqlParameter("pName", gal.Name);
 			MySqlParameter spDimX = new MySqlParameter("pDimX", gal.DimensionX);
 			MySqlParameter spDimY = new MySqlParameter("pDimY", gal.DimensionY);
@@ -87,7 +87,7 @@ namespace HOO.Admin
 				DataRow dr = ds.Tables[0].Rows[0];
 				Galaxy rg = new Galaxy();
 				rg.OBID = Convert.ToInt32(dr["OBID"]);
-				rg.Universe = gal.Universe;
+				rg.UniverseId = gal.UniverseId;
 				rg.Name = Convert.ToString(dr["Name"]);
 				rg.DimensionX = Convert.ToInt32(dr["DimX"]);
 				rg.DimensionY = Convert.ToInt32(dr["DimY"]);
@@ -149,7 +149,7 @@ namespace HOO.Admin
 			MySqlCommand com = new MySqlCommand("ADM_AddStar", _dg.Connection);
 			com.CommandType = CommandType.StoredProcedure;
 
-			MySqlParameter spGalaxyId = new MySqlParameter("pGalaxyId", s.Galaxy.OBID);
+			MySqlParameter spGalaxyId = new MySqlParameter("pGalaxyId", s.GalaxyId);
 			MySqlParameter spX = new MySqlParameter("pX", s.Coordinates.X);
 			MySqlParameter spY = new MySqlParameter("pY", s.Coordinates.Y);
 			MySqlParameter spZ = new MySqlParameter("pZ", s.Coordinates.Z);
@@ -168,7 +168,7 @@ namespace HOO.Admin
 				DataRow dr = ds.Tables[0].Rows[0];
 				Star rs = new Star();
 				rs.OBID = Convert.ToInt32(dr["OBID"]);
-				rs.Galaxy = s.Galaxy;
+				rs.GalaxyId = s.GalaxyId;
 				rs.StarSystemName = Convert.ToString(dr["SystemName"]);
 				rs.Coordinates = new Core.Model.Configuration.Point3D();
 				rs.Coordinates.X = Convert.ToInt32(dr["X"]);
@@ -200,7 +200,7 @@ namespace HOO.Admin
 				MySqlCommand com = new MySqlCommand("ADM_AddStarOrbitalBody", _dg.Connection);
 				com.CommandType = CommandType.StoredProcedure;
 
-				MySqlParameter spStarId = new MySqlParameter("pStarId", p.Star.OBID);
+				MySqlParameter spStarId = new MySqlParameter("pStarId", p.StarId);
 				MySqlParameter spOrbitNo = new MySqlParameter("pOrbitNo", p.OrbitNo);
 				MySqlParameter spBodyType = new MySqlParameter("pBodyType", 1);
 				MySqlParameter spSize = new MySqlParameter("pSize", p.Size);
@@ -212,7 +212,7 @@ namespace HOO.Admin
 				{
 					DataSet ds = _dg.GetDataSet(com);
 					DataRow dr = ds.Tables[0].Rows[0];
-					Planet rp = new Planet(sob.Star);
+					Planet rp = new Planet(sob.StarId);
 					rp.OBID = Convert.ToInt32(dr["OBID"]);
 					rp.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 					rp.Size = (PlanetSize)Convert.ToInt32(dr["Size"]);
@@ -235,7 +235,7 @@ namespace HOO.Admin
 				MySqlCommand com = new MySqlCommand("ADM_AddStarOrbitalBody", _dg.Connection);
 				com.CommandType = CommandType.StoredProcedure;
 
-				MySqlParameter spStarId = new MySqlParameter("pStarId", p.Star.OBID);
+				MySqlParameter spStarId = new MySqlParameter("pStarId", p.StarId);
 				MySqlParameter spOrbitNo = new MySqlParameter("pOrbitNo", p.OrbitNo);
 				MySqlParameter spBodyType = new MySqlParameter("pBodyType", 2);
 				MySqlParameter spSize = new MySqlParameter("pSize", p.Size);
@@ -247,7 +247,7 @@ namespace HOO.Admin
 				{
 					DataSet ds = _dg.GetDataSet(com);
 					DataRow dr = ds.Tables[0].Rows[0];
-					GasGiant rg = new GasGiant(sob.Star);
+					GasGiant rg = new GasGiant(sob.StarId);
 					rg.OBID = Convert.ToInt32(dr["OBID"]);
 					rg.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 					rg.Class = (GasGiantClass)Convert.ToInt32(dr["Class"]);
@@ -270,7 +270,7 @@ namespace HOO.Admin
 				MySqlCommand com = new MySqlCommand("ADM_AddStarOrbitalBody", _dg.Connection);
 				com.CommandType = CommandType.StoredProcedure;
 
-				MySqlParameter spStarId = new MySqlParameter("pStarId", p.Star.OBID);
+				MySqlParameter spStarId = new MySqlParameter("pStarId", p.StarId);
 				MySqlParameter spOrbitNo = new MySqlParameter("pOrbitNo", p.OrbitNo);
 				MySqlParameter spBodyType = new MySqlParameter("pBodyType", 3);
 				MySqlParameter spSize = new MySqlParameter("pSize", p.Density);
@@ -282,7 +282,7 @@ namespace HOO.Admin
 				{
 					DataSet ds = _dg.GetDataSet(com);
 					DataRow dr = ds.Tables[0].Rows[0];
-					AsteroidBelt ra = new AsteroidBelt(sob.Star);
+					AsteroidBelt ra = new AsteroidBelt(sob.StarId);
 					ra.OBID = Convert.ToInt32(dr["OBID"]);
 					ra.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 					ra.Density = (AsteroidDensity)Convert.ToInt32(dr["Size"]);

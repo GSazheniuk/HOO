@@ -10,6 +10,6 @@ namespace HOO.Core.Model.Configuration
     {
         public const int MaxStarTemperatureLevel = 10;
         public const int MaxOrbitalBodiesForStar = 10; // value for MrRandom. Actual value = Max -1.
-		public const int MinDistanceBetweenStars = 10;
+		public const int MinDistanceBetweenStars = 5;
     }
 }

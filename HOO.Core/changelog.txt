@@ -18,3 +18,10 @@
 	-Now using Bootstrap for web-client. Looks much better!
 	-Created Register page, so players can be registered (although requires some tuning up for validations).
 	-Created Login page. Logged in Player stays within Session.
+01-Jan-2016
+	-Moved all the shit to MongoDB
+	-Back-service on air at last
+	-WebClient connects to WCF service which works with data loaded by Back-Service.
+	-Due to moving to MongoDB all the core model reworked a lot.
+	-Attributes are simpler now, hope it won't reflect on performance.
+	-Linked logging to Sematext online service.

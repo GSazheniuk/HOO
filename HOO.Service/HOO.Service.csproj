@@ -5,13 +5,15 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DD2CF3E1-6445-443C-87CE-61A330D63195}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HOO.Service</RootNamespace>
     <AssemblyName>HOO.Service</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProductVersion>12.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,11 +34,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,7 +61,16 @@
     <Compile Include="HOOCycleHandlerService.Designer.cs">
       <DependentUpon>HOOCycleHandlerService.cs</DependentUpon>
     </Compile>
+    <Compile Include="HOOInstanceProvider.cs" />
+    <Compile Include="HOOServiceHost.cs" />
+    <Compile Include="HOOServiceHostFactory.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,11 +80,26 @@
     <EmbeddedResource Include="HOOCycleHandlerService.resx">
       <DependentUpon>HOOCycleHandlerService.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.ComLib\HOO.ComLib.csproj">
       <Project>{5D59ED9C-C661-4154-879B-6C9F41395D1E}</Project>
       <Name>HOO.ComLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HOO.Core\HOO.Core.csproj">
+      <Project>{5928c43e-507a-4c68-847d-e0e64aa82bcc}</Project>
+      <Name>HOO.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HOO.DB\HOO.DB.csproj">
+      <Project>{860cc894-c73e-4f79-8bdb-686a526b2795}</Project>
+      <Name>HOO.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HOO.Log\HOO.Log.csproj">
+      <Project>{26db14d2-a5ac-4ce2-b2b3-9a9ae65b38e1}</Project>
+      <Name>HOO.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\HOO.SvcLib\HOO.SvcLib.csproj">
       <Project>{9D28E876-59AA-4FF6-90CC-300D18EF8C34}</Project>

@@ -12,6 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <ProductVersion>12.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -43,13 +47,22 @@
     <Content Include="Scripts\Tables\Stars.sql" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\..\..\..\..\Projects\Libs\MongoDB\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\..\..\..\..\Projects\Libs\MongoDB\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.2.0.249, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Projects\Libs\MongoDB\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="MySql.Data">
       <HintPath>..\..\Libs\MySql.NET\v4.0\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -62,6 +75,11 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="MongoDBHelper\MongoDBHelper_Galaxy.cs" />
+    <Compile Include="MongoDBHelper\MongoDBHelper_Player.cs" />
+    <Compile Include="MongoDBHelper\MongoDBHelper_SOB.cs" />
+    <Compile Include="MongoDBHelper\MongoDBHelper_Star.cs" />
+    <Compile Include="MongoDBHelper\MongoDBHelper_Universe.cs" />
     <Compile Include="MySqlDataGate.cs" />
     <Compile Include="DBCommandResult.cs" />
     <Compile Include="MySqlDBHelper_Universe.cs" />
@@ -69,6 +87,7 @@
     <Compile Include="MySqlDBHelper_OrbitalBody.cs" />
     <Compile Include="MySqlDBHelper_Player.cs" />
     <Compile Include="MySqlDBHelper_BaseObject.cs" />
+    <Compile Include="SensitiveData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOO.Core\HOO.Core.csproj">
@@ -76,7 +95,5 @@
       <Name>HOO.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\MySQL\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

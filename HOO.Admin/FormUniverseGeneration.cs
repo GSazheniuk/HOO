@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using System.Linq;
 using HOO.Core.Model.Configuration.Enums;
 using HOO.DB;
-using HOO.Core.Configuration;
 
 namespace HOO.Admin
 {
@@ -51,7 +50,7 @@ namespace HOO.Admin
                             switch (bodyType)
                             {
                                 case 0:
-                                    Planet p = new Planet(s);
+                                    Planet p = new Planet(s._id);
                                     p.Size = (PlanetSize)MrRandom.rnd.Next((int)PlanetSize.MrRandom);
                                     p.Type = (PlanetType)MrRandom.rnd.Next((int)PlanetType.MrRandom);
                                     p.OrbitNo = freeOrbits[MrRandom.rnd.Next(freeOrbits.Count)];
@@ -59,7 +58,7 @@ namespace HOO.Admin
                                     s.OrbitalBodies.Add(p);
                                     break;
 							case 1:
-								GasGiant gg = new GasGiant (s);
+								GasGiant gg = new GasGiant (s._id);
 									gg.Class = (GasGiantClass)MrRandom.rnd.Next ((int)GasGiantClass.MrRandom);
 									gg.Size = (GasGiantSize)MrRandom.rnd.Next ((int)GasGiantSize.MrRandom);
                                     gg.OrbitNo = freeOrbits[MrRandom.rnd.Next(freeOrbits.Count)];
@@ -67,7 +66,7 @@ namespace HOO.Admin
                                     s.OrbitalBodies.Add(gg);
                                     break;
                                 case 2:
-                                    AsteroidBelt a = new AsteroidBelt(s);
+                                    AsteroidBelt a = new AsteroidBelt(s._id);
                                     a.Density = (AsteroidDensity)MrRandom.rnd.Next((int)AsteroidDensity.MrRandom);
 									a.Type = (AsteroidType)MrRandom.rnd.Next((int)AsteroidType.MrRandom);
                                     a.OrbitNo = freeOrbits[MrRandom.rnd.Next(freeOrbits.Count)];
@@ -121,7 +120,7 @@ namespace HOO.Admin
                 Universe ru = (Universe)r.Tag;
                 foreach (Galaxy g in u.Galaxies)
                 {
-                    g.Universe = ru;
+                    g.UniverseId = ru._id;
                     r = dh.AddGalaxy(g);
                     if (r.ResultCode < 0)
                     {
@@ -133,7 +132,7 @@ namespace HOO.Admin
                         Galaxy rg = (Galaxy)r.Tag;
                         foreach (Star s in g.Stars)
                         {
-                            s.Galaxy = rg;
+                            s.GalaxyId = rg._id;
                             r = dh.AddStar(s);
                             if (r.ResultCode < 0)
                             {
@@ -145,7 +144,7 @@ namespace HOO.Admin
                                 Star rs = (Star)r.Tag;
                                 foreach (StarOrbitalBody sob in s.OrbitalBodies)
                                 {
-                                    sob.Star = rs;
+                                    sob.StarId = rs._id;
                                     r = dh.AddOrbitalBody(sob);
                                     if (r.ResultCode < 0)
                                     {

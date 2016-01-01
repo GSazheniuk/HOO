@@ -1,23 +1,30 @@
 ﻿using HOO.Core.Model.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace HOO.Core.Model.Universe
 {
     public class Galaxy : BaseObject
     {
-        public Universe Universe { get; set; }
+//        [BsonIgnore]
+//        private int _dummy;
+
+        //[BsonIgnore]
+        //internal Universe Universe { get; set; }
+
+        public long UniverseId { get; set; }
 
         public string Name { get; set; }
+
+        [BsonIgnore]
         public BlackHole BlackHole { get; set; }
 
         public int DimensionX { get; set; }
         public int DimensionY { get; set; }
         public int DimensionZ { get; set; }
 
+        [BsonIgnore]
         public List<Star> Stars { get; set; }
 
 		private void InitGalaxy()

@@ -28,9 +28,9 @@ namespace HOO.DB
 				sob.OBID = Convert.ToInt32(dr["OBID"]);
 				sob.OrbitNo = Convert.ToInt32(dr["OrbitNo"]);
 
-				sob.Attributes = new Attributes();
-				sob.Attributes.ParentObject = sob;
-				sob.Attributes.Load(LoadAttributes(ds.Tables[1]));
+                sob.Attributes = new List<OAttribute>();
+				//sob.Attributes.ParentObject = sob;
+				//sob.Attributes.Load(LoadAttributes(ds.Tables[1]));
 
 				res.Tag = sob;
 				res.ResultCode = 0;

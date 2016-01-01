@@ -4,6 +4,7 @@ namespace HOO.WebClient
 	using System.Web;
 	using System.Web.UI;
 	using HOO.Core.Model;
+    using System.Linq;
 
 	public partial class PlayerInfoPanel : System.Web.UI.UserControl
 	{
@@ -20,13 +21,21 @@ namespace HOO.WebClient
 		}
 
 		private void BindPlayerData(){
-			Player p = (Player)Session ["Player"];
+			OnlinePlayer p = (OnlinePlayer)Session ["Player"];
 			ltPlayerName.Text = String.Format ("<font style='color:{0}'>{1}</font>", p.Color, p.LeaderName);
-			if (p.Attributes.ContainsAttribute (ObjectAttribute.NativeCredits, AttributeTypes.Resource)) {
-				ltTotalCredits.Text = p.Attributes.ValueOf (ObjectAttribute.NativeCredits, AttributeTypes.Resource).ToString();
-			}
-			ltCreditsChange.Text = p.Attributes.ValueOf (ObjectAttribute.NativeCredits, AttributeTypes.ResourceFlatChange).ToString();
-		}
+            var nativeCredits = p.Attributes.FirstOrDefault(x => x.Attribute == ObjectAttribute.NativeCredits && x.AttributeType == AttributeType.Resource);
+            var ncIncome = p.Attributes.FirstOrDefault(x => x.Attribute == ObjectAttribute.NativeCredits && x.AttributeType == AttributeType.ResourceFlatChange);
+
+            if (nativeCredits != null)
+            {
+                ltTotalCredits.Text = nativeCredits.Value.ToString();
+            }
+
+            if (ncIncome != null)
+            {
+                ltCreditsChange.Text = ncIncome.Value.ToString();
+            }
+        }
 	}
 }
 

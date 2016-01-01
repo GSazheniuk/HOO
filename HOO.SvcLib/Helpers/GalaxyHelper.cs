@@ -1,6 +1,5 @@
 using System;
 using HOO.Core.Model.Universe;
-using HOO.Core.Configuration;
 using HOO.DB;
 
 namespace HOO.SvcLib.Helpers
@@ -9,34 +8,43 @@ namespace HOO.SvcLib.Helpers
 	{
 		public Galaxy Galaxy { get; set; }
 		private MySqlDBHelper _dh ;
+        private MongoDBHelper _mdh;
+        private Log.Logger log;
 
-		public GalaxyHelper ()
+        public GalaxyHelper ()
 		{
-			this._dh = new MySqlDBHelper(SensitiveData.ConnectionString);
-			this.Galaxy = new Galaxy ();
+            //			this._dh = new MySqlDBHelper(SensitiveData.ConnectionString);
+            this._mdh = new MongoDBHelper();
+            this.Galaxy = new Galaxy ();
+            this.log = new Log.Logger("HOO.SvcLib", typeof(GalaxyHelper));
+        }
+
+        private void InitDefaultParameters(){
+
 		}
 
-		private void InitDefaultParameters(){
+        public void Load()
+        {
+            log.Entry.MethodName = "Load";
+            DBCommandResult res = _mdh.LoadGalaxy(Galaxy);
+            if (res.ResultCode == 0 && res.Tag is Galaxy)
+                Galaxy = (Galaxy)res.Tag;
+            else
+                log.Error(new Exception(res.ResultMsg));
 
-		}
+            StarHelper sh = new StarHelper();
+            for (int i = 0; i < Galaxy.Stars.Count; i++)
+            {
+                sh.Star = Galaxy.Stars[i];
+                sh.LoadStar(sh.Star);
+                Galaxy.Stars[i] = sh.Star;
+            }
 
-		public void Load()
-		{
-			DBCommandResult res = _dh.LoadGalaxy (Galaxy);
-			if (res.ResultCode == 0) {
-				StarHelper sh = new StarHelper ();
-				foreach (Star s in Galaxy.Stars) {
-					sh.Star = s;
-//					sh.RefreshOrbitalBodies ();
-				}
-				this.Galaxy.IsLoaded = this.Galaxy.IsSaved = true;
-				if (this.Galaxy.Attributes.TotalAttributes == 0)
-					InitDefaultParameters ();
-				//ELSE add missing attributes, if any exists.
-			} else {
-				throw new Exception (res.ResultMsg);
-			}
-		}
+            this.Galaxy.IsLoaded = this.Galaxy.IsSaved = true;
+            if (this.Galaxy.Attributes.Count == 0)
+                InitDefaultParameters();
+            //ELSE add missing attributes, if any exists.
+        }
 	}
 }
 

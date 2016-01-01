@@ -68,10 +68,10 @@ namespace HOO.DB
 				p.Race = Convert.ToString(dr["Race"]);
 				p.Motto = Convert.ToString(dr["Motto"]);
 				p.Color = Convert.ToString(dr["Color"]);
-								
-				p.Attributes = new Attributes();
-				p.Attributes.ParentObject = p;
-				p.Attributes.Load(LoadAttributes(ds.Tables[1]));
+
+                p.Attributes = new List<OAttribute>();
+				//p.Attributes.ParentObject = p;
+				//p.Attributes.Load(LoadAttributes(ds.Tables[1]));
 
 				res.Tag = p;
 				res.ResultCode = 0;
