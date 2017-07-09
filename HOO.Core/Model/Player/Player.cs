@@ -15,7 +15,7 @@ namespace HOO.Core.Model
 
 		public Player():base()
 		{
-			this.ObjectType = (int)ObjectTypes.Player;
+
 		}
     }
 }

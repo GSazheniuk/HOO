@@ -12,7 +12,9 @@ namespace HOO.Core.Model
 		EternalRequisite , // 7,
 		FiniteRequisite , // 8,
 		EternalRequirement , // 9,
-		FiniteRequirement  // 10
-	}
+        FiniteRequirement,  // 10
+        NoDirectAccess,  // 11
+        RaceBonus,
+    }
 }
 

@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="MongoDBHelper\MongoDBHelper_Galaxy.cs" />
     <Compile Include="MongoDBHelper\MongoDBHelper_Player.cs" />
+    <Compile Include="MongoDBHelper\MongoDBHelper_Product.cs" />
     <Compile Include="MongoDBHelper\MongoDBHelper_SOB.cs" />
     <Compile Include="MongoDBHelper\MongoDBHelper_Star.cs" />
     <Compile Include="MongoDBHelper\MongoDBHelper_Universe.cs" />

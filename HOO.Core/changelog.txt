@@ -25,3 +25,18 @@
 	-Due to moving to MongoDB all the core model reworked a lot.
 	-Attributes are simpler now, hope it won't reflect on performance.
 	-Linked logging to Sematext online service.
+19-May-2016
+	-Star names are now unique
+	-Generation is limited to 25,000 Stars per Galaxy, so it would save some space in DB and also take less time to process everything.
+	-Added Helpers to architecture to use in Back-End.
+	-Defined basic extraction/mining attributes for Gas Giants and Asteroid Belts.
+02-Jun-2016
+	-Basic Products model
+	-Added two Products - Capitol and Initial Resources.
+	-Three.js + Shaders - Fancy animated Star views.
+13-Sep-2016
+	-Rest Service up and running
+	-Started JQuery+Ajax using Rest service Web Client
+	-Added Simple Master page, default page
+	-Added Tools.js library for different useful functions (generateUUID function)
+	-Added Player.js for Player entity (basic prototype, authPlayer method, refreshPlayer method available and working)

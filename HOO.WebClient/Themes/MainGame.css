@@ -1,0 +1,103 @@
+﻿.mainHeader {
+    height: 5vh;
+}
+
+.mainViewport {
+    height: 80vh;
+}
+
+.mainFooter {
+    height: 15vh;
+}
+
+.text-lightred, .text-lightred:hover{
+    color:lightcoral;
+}
+
+.text-red, .text-red:hover{
+    color:red;
+}
+
+.text-lightgreen, .text-lightgreen:hover{
+    color:darkseagreen;
+}
+
+.text-green, .text-green:hover{
+    color:yellowgreen;
+}
+
+.popup {
+    width:100%;
+    height:100%;
+    display:none;
+    position:fixed;
+    top:0px;
+    left:0px;
+    background:rgba(0,0,0,0.75);
+}
+ 
+.popup-inner {
+    max-width:800px;
+    width:90%;
+    padding:20px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
+    box-shadow:0px 2px 6px rgba(0,0,0,1);
+    border-radius:3px;
+}
+ 
+.popup-close {
+    width:30px;
+    height:30px;
+    padding-top:4px;
+    display:inline-block;
+    position:absolute;
+    top:0px;
+    right:0px;
+    transition:ease 0.25s all;
+    -webkit-transform:translate(50%, -50%);
+    transform:translate(50%, -50%);
+    border-radius:1000px;
+    background:rgba(0,0,0,0.8);
+    font-family:Arial, Sans-Serif;
+    font-size:20px;
+    text-align:center;
+    line-height:100%;
+    color:#fff;
+}
+ 
+.popup-close:hover {
+    -webkit-transform:translate(50%, -50%) rotate(180deg);
+    transform:translate(50%, -50%) rotate(180deg);
+    background:rgba(0,0,0,1);
+    text-decoration:none;
+}
+
+.class-0 {
+    color:#3366FF;
+}
+.class-1 {
+    color:#6699FF;
+}
+.class-2 {
+    color:#99CCFF;
+}
+.class-3 {
+    color:#66FFFF;
+}
+.class-4 {
+    color:#FFFF66;
+}
+.class-5 {
+    color:#FFCC00;
+}
+.class-6 {
+    color:#FF9900;
+}
+
+.orbit {
+    height: 32px;
+}

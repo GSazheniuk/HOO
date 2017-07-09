@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace HOO.Core.Model.Universe
 {
-    [Serializable]
+    [DataContract]
     [KnownType(typeof(Planet))]
     [KnownType(typeof(GasGiant))]
     [KnownType(typeof(AsteroidBelt))]
@@ -13,14 +13,34 @@ namespace HOO.Core.Model.Universe
     [BsonKnownTypes(typeof(AsteroidBelt))]
     public class StarOrbitalBody : BaseObject
     {
+        [IgnoreDataMember]
+        private string _dummy;
+
+        [DataMember]
         public int OrbitNo { get; set; }
+
+        [DataMember]
         public long StarId { get; set; }
+
+        [DataMember]
         public string StarSystemName { get; set; }
 
-        public StarOrbitalBody(long sId):base()
-		{
-			this.StarId = sId;
-			this.ObjectType = 4;
+        //[BsonIgnore]
+        [DataMember]
+        public string OrbitalBodyType
+        {
+            get { return this.GetType().ToString(); }
+            set { this._dummy = value; }
+        }
+
+        public StarOrbitalBody() : base()
+        {
+
+        }
+
+        public StarOrbitalBody(long sId) : base()
+        {
+            this.StarId = sId;
         }
     }
 }

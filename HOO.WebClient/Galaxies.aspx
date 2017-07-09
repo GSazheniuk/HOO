@@ -1,4 +1,5 @@
 <%@ Page Language="C#" Inherits="HOO.WebClient.Galaxies"  MasterPageFile="~/Main.master" %>
+
 <asp:Content ContentPlaceHolderID="cphBody" id="defBody" runat="server">
 
 <asp:GridView id="gvGalaxies" runat="server" AutoGenerateColumns="false" OnRowCreated="gvGalaxies_OnRowCreated" CssClass="table">
@@ -19,5 +20,5 @@
 	</asp:TemplateField>
 </Columns>
 </asp:GridView>
-
+<asp:Button ID="btnNewGalaxy" runat="server" Text="New Galaxy" OnClick="btnNewGalaxy_Click" />
 </asp:Content>

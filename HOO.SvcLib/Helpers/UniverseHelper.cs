@@ -71,18 +71,18 @@ namespace HOO.SvcLib.Helpers
         public void Save()
 		{
 			if (this.Universe.IsLoaded && !this.Universe.IsSaved) {
-				DBCommandResult res = _dh.SaveUniverse (Universe);
+				DBCommandResult res = _mdh.SaveUniverse (Universe);
 				if (res.ResultCode == 0)
 					this.Universe.IsSaved = true;
 			}
 
-			if (this.Universe.Galaxies.Exists (g => g.Stars.Exists (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved)))) {
-				Galaxy gal = this.Universe.Galaxies.First (g => g.Stars.Exists (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved)));
-				Star st = gal.Stars.First (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved));
-				StarOrbitalBody sob = st.OrbitalBodies.First (ob => !ob.IsSaved);
-				StarOrbitalBodyHelper sobh = new StarOrbitalBodyHelper (sob);
-				sobh.Save ();
-			}
+			//if (this.Universe.Galaxies.Exists (g => g.Stars.Exists (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved)))) {
+			//	Galaxy gal = this.Universe.Galaxies.First (g => g.Stars.Exists (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved)));
+			//	Star st = gal.Stars.First (s => s.OrbitalBodies.Exists (ob => !ob.IsSaved));
+			//	StarOrbitalBody sob = st.OrbitalBodies.First (ob => !ob.IsSaved);
+			//	StarOrbitalBodyHelper sobh = new StarOrbitalBodyHelper (sob);
+			//	sobh.Save ();
+			//}
 		}
 
         public void Load()
@@ -112,16 +112,16 @@ namespace HOO.SvcLib.Helpers
 		public void Tick()
 		{
 			if (this.Universe.IsLoaded) {
-				this.Universe.IsSaved = false;
 				this.Universe.CurrentTick = (this.Universe.CurrentTick + 1) % 10;
 				if (this.Universe.CurrentTick == 0) {
 					this.Universe.CurrentTurn = (this.Universe.CurrentTurn + 1) % 100;
 					if (this.Universe.CurrentTurn == 0) {
 						this.Universe.CurrentPeriod++;
 					}
-					Save ();
+//					Save ();
 				}
-			}
-		}
+                this.Universe.IsSaved = false;
+            }
+        }
 	}
 }

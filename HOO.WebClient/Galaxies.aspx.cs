@@ -22,6 +22,24 @@ namespace HOO.WebClient
             }
 		}
 
+        protected void btnNewGalaxy_Click(object sender, EventArgs e)
+        {
+            IHOOService Channel = BackServiceHelper.ConnectToBackService();
+
+            Log.Logger log = new Log.Logger("HOO.WebClient", this.GetType());
+            log.Entry.MethodName = "Page_Load";
+
+            log.Entry.StepName = "Loading Universes from DB.";
+            try
+            {
+                Channel.AddNewGalaxy();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             int uid = 0;

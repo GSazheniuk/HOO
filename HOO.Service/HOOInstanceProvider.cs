@@ -1,5 +1,8 @@
-﻿using HOO.SvcLib;
+﻿using HOO.Core.Model;
+using HOO.Core.Model.Universe;
+using HOO.SvcLib;
 using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
@@ -9,16 +12,15 @@ namespace HOO.Service
 {
     public class HOOInstanceProvider : IInstanceProvider, IContractBehavior
     {
-        private readonly object dep;
+        private readonly List<Universe> World;
+        private readonly List<Player> Players;
+        private readonly List<Product> AllProducts;
 
-        public HOOInstanceProvider(object dep)
+        public HOOInstanceProvider(List<Universe> world, List<Player> players, List<Product> allProducts)
         {
-            if (dep == null)
-            {
-                throw new ArgumentNullException("dep");
-            }
-
-            this.dep = dep;
+            this.World = world;
+            this.Players = players;
+            this.AllProducts = allProducts;
         }
 
         public void AddBindingParameters(ContractDescription contractDescription, ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
@@ -36,7 +38,7 @@ namespace HOO.Service
 
         public object GetInstance(InstanceContext instanceContext)
         {
-            return new HOOService(dep);
+            return new HOOService(World, Players, AllProducts);
         }
 
         public object GetInstance(InstanceContext instanceContext, Message message)

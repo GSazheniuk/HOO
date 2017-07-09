@@ -47,27 +47,29 @@ namespace HOO.SvcLib.Helpers
 		private void InitDefaultParameters()
 		{
             List<OAttribute> attr = new List<OAttribute>();
-			if (OrbitalBody is Planet) {
-				Planet p = (Planet)OrbitalBody;
+            if (OrbitalBody is Planet)
+            {
+                Planet p = (Planet)OrbitalBody;
 
-				//Population
-				switch ((int)p.Size) {
-				case 0://Tiny
+                //Population
+                switch ((int)p.Size)
+                {
+                    case 0://Tiny
                         attr.Add(new OAttribute() { Attribute = ObjectAttribute.BasePopulation, AttributeType = AttributeType.Attribute, Value = 2 });
                         break;
-				case 1://Small
+                    case 1://Small
                         attr.Add(new OAttribute() { Attribute = ObjectAttribute.BasePopulation, AttributeType = AttributeType.Attribute, Value = 3 });
                         break;
-				case 2://Medium
+                    case 2://Medium
                         attr.Add(new OAttribute() { Attribute = ObjectAttribute.BasePopulation, AttributeType = AttributeType.Attribute, Value = 5 });
                         break;
-				case 3://Large
+                    case 3://Large
                         attr.Add(new OAttribute() { Attribute = ObjectAttribute.BasePopulation, AttributeType = AttributeType.Attribute, Value = 8 });
                         break;
-				case 4://Huge
+                    case 4://Huge
                         attr.Add(new OAttribute() { Attribute = ObjectAttribute.BasePopulation, AttributeType = AttributeType.Attribute, Value = 13 });
                         break;
-				}
+                }
 
                 //Farming
                 switch ((int)p.Type)
@@ -103,8 +105,56 @@ namespace HOO.SvcLib.Helpers
 
                 //Research
                 attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseResearch, AttributeType = AttributeType.Attribute, Value = HOO.Core.Model.Configuration.MrRandom.rnd.Next(6) / 2.0 });
-			}
-//			this.OrbitalBody.Attributes.Load (attr);
+            }
+
+            if (OrbitalBody is AsteroidBelt)
+            {
+                AsteroidBelt a = (AsteroidBelt)OrbitalBody;
+
+                switch ((int)a.Type)
+                {
+                    case 0://C_Type
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseCarbonMining, AttributeType = AttributeType.Attribute, Value = 0.3 * (int)a.Density * (9 - a.OrbitNo) });
+                        break;
+                    case 1://S_Type
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseSilicateMining, AttributeType = AttributeType.Attribute, Value = 0.3 * (int)a.Density * (9 - a.OrbitNo) });
+                        break;
+                    case 2://M_Type
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseMetalMining, AttributeType = AttributeType.Attribute, Value = 0.3 * (int)a.Density * (9 - a.OrbitNo) });
+                        break;
+                    case 3://V_Type
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseBasaltMining, AttributeType = AttributeType.Attribute, Value = 0.3 * (int)a.Density * (9 - a.OrbitNo) });
+                        break;
+                }
+            }
+
+            if (OrbitalBody is GasGiant)
+            {
+                GasGiant g = (GasGiant)OrbitalBody;
+
+                switch ((int)g.Class)
+                {
+                    case 0://AmmoniaClouds
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseAmoniaExtraction, AttributeType = AttributeType.Attribute, Value = 0.3 * (int)g.Size * g.OrbitNo });
+                        break;
+                    case 1://WaterClouds
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseWaterExtraction, AttributeType = AttributeType.Attribute, Value = 0.3 * (int)g.Size * g.OrbitNo });
+                        break;
+                    case 2://Cloudless
+                        //attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseAmoniaExtraction, AttributeType = AttributeType.Attribute, Value = 0.3 * (int)g.Size * g.OrbitNo });
+                        break;
+                    case 3://AlkaliMetals
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseCarbonExtraction, AttributeType = AttributeType.Attribute, Value = 0.1 * (int)g.Size * (9 - g.OrbitNo) });
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseMetalExtraction, AttributeType = AttributeType.Attribute, Value = 0.1 * (int)g.Size * (9 - g.OrbitNo) });
+                        break;
+                    case 4://SilicateClouds
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseSilicateExtraction, AttributeType = AttributeType.Attribute, Value = 0.1 * (int)g.Size * (9 - g.OrbitNo) });
+                        attr.Add(new OAttribute() { Attribute = ObjectAttribute.BaseMetalExtraction, AttributeType = AttributeType.Attribute, Value = 0.1 * (int)g.Size * (9 - g.OrbitNo) });
+                        break;
+                }
+            }
+            
+            //			this.OrbitalBody.Attributes.Load (attr);
             this.OrbitalBody.Attributes = attr;
 			this.OrbitalBody.IsSaved = false;
 		}
@@ -123,6 +173,7 @@ namespace HOO.SvcLib.Helpers
                 if (res.ResultCode != 0)
                 {
                     log.Error(new Exception(res.ResultMsg));
+                    this.OrbitalBody = (StarOrbitalBody)res.Tag;
                 }
             }
 		}

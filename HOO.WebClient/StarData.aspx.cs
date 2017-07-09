@@ -45,6 +45,9 @@ namespace HOO.WebClient
 				ltZ.Text = s2.Coordinates.Z.ToString();
 				Literal ltD = (Literal)e.Row.FindControl("ltDistance");
 				ltD.Text = dist.ToString();
+
+                ltScript.Text += String.Format("x{0} = {1}*10; y{0} = {2}*10; z{0} = {3}*10; m{0} = \"{4}\"; \r\n", e.Row.RowIndex + 2, s.Coordinates.X - s2.Coordinates.X
+                    , s.Coordinates.Y - s2.Coordinates.Y, s.Coordinates.Z - s2.Coordinates.Z, s2.Class);
 			}
 		}
 
@@ -106,30 +109,86 @@ namespace HOO.WebClient
                     }
 
 					if (e.Row.DataItem is GasGiant) {
-						ltName.Text = "Gas Giant";
-						ltSize.Text = ((GasGiant)e.Row.DataItem).Size.ToString();
-						ltClass.Text = ((GasGiant)e.Row.DataItem).Class.ToString();
-					}
+                        var g = (GasGiant)e.Row.DataItem;
+                        ltName.Text = "Gas Giant";
+						ltSize.Text = g.Size.ToString();
+						ltClass.Text = g.Class.ToString();
 
-					if (e.Row.DataItem is AsteroidBelt) {
-						ltName.Text = "Asteroid Belt";
-						ltSize.Text = ((AsteroidBelt)e.Row.DataItem).Density.ToString();
-						ltClass.Text = ((AsteroidBelt)e.Row.DataItem).Type.ToString();
-					}
-				}
+                        string attributes = "";
+                        foreach (OAttribute oa in g.Attributes)
+                        {
+                            if (oa.AttributeType == AttributeType.Attribute)
+                                switch (oa.Attribute)
+                                {
+                                    case ObjectAttribute.BaseAmoniaExtraction:
+                                        attributes += String.Format("<font style='color:DarkGreen'>{0}</font>,", oa.Value);
+                                        break;
+                                    case ObjectAttribute.BaseCarbonExtraction:
+                                        attributes += String.Format("<font style='color:DarkGrey'>{0}</font>,", oa.Value);
+                                        break;
+                                    case ObjectAttribute.BaseMetalExtraction:
+                                        attributes += String.Format("<font style='color:Grey'>{0}</font>,", oa.Value);
+                                        break;
+                                    case ObjectAttribute.BaseSilicateExtraction:
+                                        attributes += String.Format("<font style='color:Silver'>{0}</font>,", oa.Value);
+                                        break;
+                                    case ObjectAttribute.BaseWaterExtraction:
+                                        attributes += String.Format("<font style='color:Blue'>{0}</font>,", oa.Value);
+                                        break;
+                                }
+                        }
+                        attributes = "(" + (String.IsNullOrEmpty(attributes) ? "-" : attributes.Remove(attributes.Length - 1)) + ")";
+                        ltBaseAttrs.Text = attributes;
+                    }
+
+                    if (e.Row.DataItem is AsteroidBelt) {
+                        var a = (AsteroidBelt)e.Row.DataItem;
+                        ltName.Text = "Asteroid Belt";
+						ltSize.Text = a.Density.ToString();
+						ltClass.Text = a.Type.ToString();
+
+                        string attributes = "";
+                        foreach (OAttribute oa in a.Attributes)
+                        {
+                            if (oa.AttributeType == AttributeType.Attribute)
+                                switch (oa.Attribute)
+                                {
+                                    case ObjectAttribute.BaseBasaltMining:
+                                        attributes += String.Format("<font style='color:DarkRed'>{0}</font>,", oa.Value);
+                                        break;
+                                    case ObjectAttribute.BaseCarbonMining:
+                                        attributes += String.Format("<font style='color:DarkGrey'>{0}</font>,", oa.Value);
+                                        break;
+                                    case ObjectAttribute.BaseMetalMining:
+                                        attributes += String.Format("<font style='color:Grey'>{0}</font>,", oa.Value);
+                                        break;
+                                    case ObjectAttribute.BaseSilicateMining:
+                                        attributes += String.Format("<font style='color:Silver'>{0}</font>,", oa.Value);
+                                        break;
+                                }
+                        }
+                        attributes = "(" + (String.IsNullOrEmpty(attributes) ? "-" : attributes.Remove(attributes.Length - 1)) + ")";
+                        ltBaseAttrs.Text = attributes;
+                    }
+                }
 			}
 		}
 
+        protected void btnNewStar_Click(object sender, EventArgs e)
+        {
+            LoadStarData(true);
+        }
+
 		protected void btnTurn_Click(object sender, EventArgs e)
 		{
-			UniverseHelper uh = new UniverseHelper ();
-			uh.Universe = ActiveUniverse;
-			uh.Tick ();
-			PlayerHelper ph = new PlayerHelper ();
-			ph.Player = ActivePlayer;
-			ph.Tick ();
+			//UniverseHelper uh = new UniverseHelper ();
+			//uh.Universe = ActiveUniverse;
+			//uh.Tick ();
+			//PlayerHelper ph = new PlayerHelper ();
+			//ph.Player = ActivePlayer;
+			//ph.Tick ();
 //			Star st = uh.Universe.Galaxies [0].Stars.First (s => s.OrbitalBodies.Exists(ob => !ob.IsSaved));
-			LoadStarData ();
+			LoadStarData (false);
 //			DBCommandResult res = dh.EndTurn (7);
 //			if (res.ResultCode == 0) {
 //				Galaxy g = new Galaxy ();
@@ -138,7 +197,7 @@ namespace HOO.WebClient
 
 		protected void btnNextStar_Click(object sender, EventArgs e)
 		{
-			LoadStarData ();
+			LoadStarData (false);
 		}
 
 		protected override void OnInit (EventArgs e)
@@ -158,17 +217,23 @@ namespace HOO.WebClient
 
             Channel = BackServiceHelper.ConnectToBackService();
             log = new Log.Logger("HOO.WebClient", this.GetType());
+            ltScript.Text = "<script>\r\n";
         }
 
-        private void LoadStarData(){
+        private void LoadStarData(bool newStar){
 			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ();
 			sw.Start ();
 			if (this.ActiveUniverse != null && this.ActiveUniverse.Galaxies != null) {
-                //				var g = ActiveUniverse.Galaxies.Single (x => x.OBID == _gid);
-                //Galaxy g = new Galaxy();
-				//List<Star> stars = g.Stars;
-				//s = stars.ToArray () [MrRandom.rnd.Next (stars.Count)];
-                s = Channel.GenerateNewStar(ActiveUniverse._id, this._gid);
+                var g = ActiveUniverse.Galaxies.Single(x => x.OBID == _gid);
+                if (newStar)
+                {
+                    s = Channel.GenerateNewStar(ActiveUniverse._id, this._gid);
+                }
+                else
+                {
+                    List<Star> stars = g.Stars;
+                    s = stars.ToArray()[MrRandom.rnd.Next(stars.Count)];
+                }
 				ltStarName.Text = String.Format("<font style='color:{0}'>{1}</font>", _starColors[(int)s.Class], s.StarSystemName);
 				ltStarClass.Text = s.ClassName;
 				ltX.Text = s.Coordinates.X.ToString ();
@@ -180,7 +245,8 @@ namespace HOO.WebClient
 				ltUniverseTick.Text = ActiveUniverse.CurrentTick.ToString ();
 				ltUniverseTurn.Text = ActiveUniverse.CurrentTurn.ToString ();
 				ltUniversePeriod.Text = ActiveUniverse.CurrentPeriod.ToString ();
-                ltGalaxy.Text = "Unknown";//g.Name;
+                ltGalaxy.Text = g.Name;
+                ltScript.Text += String.Format("m1 = \"{0}\"; c1 = '{1}';\r\n", s.Class, _starColors[(int)s.Class]);
 
                 gvNearestStars.DataSource = ActiveUniverse.Galaxies[0].Stars.Where (p => p._id != s._id).OrderBy (p => Math.Sqrt (Math.Pow (s.Coordinates.X - p.Coordinates.X, 2) + Math.Pow (s.Coordinates.Y - p.Coordinates.Y, 2) + Math.Pow (s.Coordinates.Z - p.Coordinates.Z, 2))).Take (5);
                 gvNearestStars.DataBind ();
@@ -205,12 +271,13 @@ namespace HOO.WebClient
 			sw.Stop ();
 			TimeSpan ts = sw.Elapsed;
 			ltLoadTime.Text = String.Format ("loaded in {0}ms", ts);
-		}
+            ltScript.Text += "</script>\r\n";
+        }
 
-		protected void Page_Load (object sender, EventArgs e)
+        protected void Page_Load (object sender, EventArgs e)
 		{
 			if (!IsPostBack) {
-				LoadStarData ();
+				LoadStarData (false);
 			}
 		}
 	}

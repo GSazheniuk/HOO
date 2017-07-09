@@ -33,7 +33,7 @@ namespace HOO.SvcLib.Helpers
                 log.Error(new Exception(res.ResultMsg));
 
             StarHelper sh = new StarHelper();
-            for (int i = 0; i < Galaxy.Stars.Count; i++)
+            for (int i = 0; i < Galaxy.Stars.Count && i < 100; i++)
             {
                 sh.Star = Galaxy.Stars[i];
                 sh.LoadStar(sh.Star);
@@ -45,6 +45,24 @@ namespace HOO.SvcLib.Helpers
                 InitDefaultParameters();
             //ELSE add missing attributes, if any exists.
         }
-	}
+
+        public void Save()
+        {
+            log.Entry.MethodName = "NewGalaxy";
+
+            DBCommandResult res = _mdh.SaveGalaxy(this.Galaxy);
+
+            if (res.ResultCode == 0 && res.Tag is Galaxy)
+                Galaxy = (Galaxy)res.Tag;
+            else
+                log.Error(new Exception(res.ResultMsg));
+
+            this.Galaxy.IsLoaded = this.Galaxy.IsSaved = true;
+            if (this.Galaxy.Attributes.Count == 0)
+                InitDefaultParameters();
+            //ELSE add missing attributes, if any exists.
+        }
+
+    }
 }
 

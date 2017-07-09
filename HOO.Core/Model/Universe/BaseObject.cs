@@ -5,21 +5,30 @@ using System.Collections.Generic;
 
 namespace HOO.Core.Model.Universe
 {
-    [Serializable]
+    [DataContract]
     public class BaseObject
 	{
         [BsonId]
+        [DataMember]
         public long _id { get; set; }
 
-        public int OBID { get; set; }
-		public List<OAttribute> Attributes;
+        [DataMember]
+        public List<OAttribute> Attributes;
 
+        [IgnoreDataMember]
+        [BsonIgnore]
+        public int OBID { get; set; }
+
+        [IgnoreDataMember]
         [BsonIgnore]
         public bool IsLoaded { get; set; }
 
+        [IgnoreDataMember]
         [BsonIgnore]
         public bool IsSaved { get; set; }
 
+        [IgnoreDataMember]
+        [BsonIgnore]
         public int ObjectType { get; set; }
 
 		public BaseObject ()

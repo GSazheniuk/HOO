@@ -38,6 +38,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tsbAddProduct = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -72,7 +73,8 @@
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsNewWorld});
+            this.tsNewWorld,
+            this.tsbAddProduct});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(632, 25);
@@ -105,6 +107,16 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
+            // 
+            // tsbAddProduct
+            // 
+            this.tsbAddProduct.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAddProduct.Image = ((System.Drawing.Image)(resources.GetObject("tsbAddProduct.Image")));
+            this.tsbAddProduct.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAddProduct.Name = "tsbAddProduct";
+            this.tsbAddProduct.Size = new System.Drawing.Size(23, 22);
+            this.tsbAddProduct.Text = "Add Default Product";
+            this.tsbAddProduct.Click += new System.EventHandler(this.tsbAddProduct_Click);
             // 
             // FormAdminModule
             // 
@@ -140,6 +152,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripButton tsNewWorld;
+        private System.Windows.Forms.ToolStripButton tsbAddProduct;
     }
 }
 

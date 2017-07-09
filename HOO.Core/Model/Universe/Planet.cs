@@ -1,10 +1,10 @@
 ﻿using HOO.Core.Model.Configuration.Enums;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Runtime.Serialization;
 
 namespace HOO.Core.Model.Universe
 {
-    [DataContract]
     public class Planet : StarOrbitalBody
     {
         [IgnoreDataMember]
@@ -19,6 +19,12 @@ namespace HOO.Core.Model.Universe
 
         [DataMember]
         public PlanetType Type { get; set; }
+
+        public Planet()
+            : base()
+        {
+
+        }
 
         public Planet(long sId)
             : base(sId)

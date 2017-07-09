@@ -121,7 +121,7 @@ namespace HOO.SvcLib.Helpers
             {
                 List<StarName> starNames = (List<StarName>)res.Tag;
                 string randomName = starNames[MrRandom.rnd.Next(starNames.Count)].Name;
-                return pref + randomName + suff;
+                return _mdh.CheckStarName(pref + randomName + suff).Tag.ToString();
             }
             else
             {
@@ -134,19 +134,32 @@ namespace HOO.SvcLib.Helpers
             Star s = new Star();
             s._id = g.Stars.Count;
 
-            while (!g.AddStar(s, ConstantParameters.MinDistanceBetweenStars))
+            int i = 0;
+            while (!g.AddStar(s, ConstantParameters.MinDistanceBetweenStars) && i < 100)
             {
-
+                i++;
             }
 
-            s.StarSystemName = this.GenerateStarName();
+            if (i == 100)
+                return new Star();
+
+            i = 0;
+            while (s.StarSystemName == "" && i < 100)
+            {
+                s.StarSystemName = this.GenerateStarName();
+                i++;
+            }
+
+            if (s.StarSystemName == "")
+                return new Star();
+
             StarOrbitalBodyHelper sobHelper = new StarOrbitalBodyHelper();
 
             //s.Coordinates = new Point3D() { X = MrRandom.rnd.Next(1000), Y = MrRandom.rnd.Next(800), Z = MrRandom.rnd.Next(600) };
             int orbits = MrRandom.rnd.Next(ConstantParameters.MaxOrbitalBodiesForStar);
             s.OrbitalIDs = new long[orbits];
             List<int> freeOrbits = new List<int>();
-            freeOrbits.AddRange(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+            freeOrbits.AddRange(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
             for (int k = 0; k < orbits; k++)
             {
                 int bodyType = MrRandom.rnd.Next(3);

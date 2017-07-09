@@ -1,0 +1,63 @@
+﻿<div class="row">
+    <div class="col-lg-4"><label for="tbUsername">Username : </label></div>
+    <div class="col-lg-8"><input type="text" id="tbUsername" placeholder="Enter username..." class="form-control" /></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-4"><label for="tbPassword">Password : </label></div>
+    <div class="col-lg-8"><input type="text" id="tbPassword" placeholder="Enter password..." TextMode="Password" class="form-control" /></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-4"><label for="tbPassword2">Confirm Password : </label></div>
+    <div class="col-lg-8"><input type="text" id="tbPassword2" placeholder="Repeat password..." TextMode="Password" class="form-control" /></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-4"><label for="tbEmail">E-Mail : </label></div>
+    <div class="col-lg-8"><input type="text" id="tbEmail" placeholder="Enter E-Mail..." class="form-control" /></div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-4"><label for="tbLeaderName">Leader Name : </label></div>
+    <div class="col-lg-8"><input type="text" id="tbLeaderName" placeholder="Enter Leader Name..." class="form-control" /></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-4"><label for="tbRace">Race Name : </label></div>
+    <div class="col-lg-8"><input type="text" id="tbRace" placeholder="Enter Race Name..." class="form-control" /></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-4"><label for="tbMotto">Your Motto : </label></div>
+    <div class="col-lg-8"><input type="text" id="tbMotto" placeholder="Enter Your Motto..." class="form-control" /></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-4"><label for="tbColor">Player Color : </label></div>
+    <div class="col-lg-8"><input type="text" id="tbColor" placeholder="Enter Color Code..." class="form-control" /></div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-12">
+        <input type="button" id="btnRegister" class="btn btn-success" value="Register" />
+        Already registered? Login <a href="#" id="btnLogin">here</a>.
+    </div>
+</div>
+
+<script type="text/javascript">
+    function register()
+    {
+        if (p == null)
+        {
+            location.reload(true);
+        }
+        else
+        {
+            p.registerNewPlayer($("#tbLeaderName").val(), $("#tbRace").val(), $("#tbMotto").val(), $("#tbColor").val(), $("#tbUsername").val(), $("#tbPassword").val(), $("#tbEmail").val());
+        }
+    }
+
+    $("#btnLogin").click(MainGame.showLoginDialog);
+    $("#btnRegister").click(register);
+</script>

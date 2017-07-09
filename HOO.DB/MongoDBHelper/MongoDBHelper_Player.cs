@@ -57,5 +57,46 @@ namespace HOO.DB
             }
             return res;
         }
+
+        public DBCommandResult AllPlayers()
+        {
+            DBCommandResult res = new DBCommandResult();
+
+            try
+            {
+                var players = db.GetCollection<Player>("Players").Find(new BsonDocument()).ToList();
+
+                res.Tag = players;
+                res.ResultCode = 0;
+                res.ResultMsg = "Ok";
+            }
+            catch (Exception ex)
+            {
+                res.ResultCode = -2;
+                res.ResultMsg = String.Format("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
+            }
+
+            return res;
+        }
+
+        public DBCommandResult SavePlayer(Player p)
+        {
+            DBCommandResult res = new DBCommandResult();
+
+            try
+            {
+                var players = db.GetCollection<Player>("Players");
+
+                res.Tag = players.ReplaceOne(new BsonDocument("_id", p._id), p, new UpdateOptions { IsUpsert = false });
+                res.ResultCode = 0;
+                res.ResultMsg = "Ok";
+            }
+            catch (Exception ex)
+            {
+                res.ResultCode = -2;
+                res.ResultMsg = String.Format("{0} ----> {1}", ex.Message, (ex.InnerException != null) ? ex.InnerException.Message : "");
+            }
+            return res;
+        }
     }
 }

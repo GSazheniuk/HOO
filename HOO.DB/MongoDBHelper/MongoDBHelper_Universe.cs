@@ -41,9 +41,17 @@ namespace HOO.DB
             try
             {
                 var us = db.GetCollection<Universe>("Universe");
-                res.Tag = us.ReplaceOne(new BsonDocument("_id", u._id), u, new UpdateOptions { IsUpsert = true });
-                res.ResultCode = 0;
-                res.ResultMsg = "Ok";
+                if (us.ReplaceOne(new BsonDocument("_id", u._id), u, new UpdateOptions { IsUpsert = true }).IsAcknowledged)
+                {
+                    res.Tag = u;
+                    res.ResultCode = 0;
+                    res.ResultMsg = "Ok";
+                }
+                else
+                {
+                    res.ResultCode = -1;
+                    res.ResultMsg = String.Format("Universe {0} could not be saved.", u.Name);
+                }
             }
             catch (Exception ex)
             {

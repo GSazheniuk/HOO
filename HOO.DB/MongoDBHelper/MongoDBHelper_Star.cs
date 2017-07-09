@@ -45,6 +45,25 @@ namespace HOO.DB
             return res;
         }
 
+        public DBCommandResult CheckStarName(string name)
+        {
+            DBCommandResult res = new DBCommandResult();
+            var snames = db.GetCollection<Star>("Stars").Find(new BsonDocument("StarSystemName", name)).ToList();
+            if (snames.Count == 0)
+            {
+                res.Tag = name;
+                res.ResultCode = 0;
+                res.ResultMsg = "Ok";
+            }
+            else
+            {
+                res.Tag = "";
+                res.ResultCode = -1;
+                res.ResultMsg = String.Format("Star with name \"{0}\" already exists.", name);
+            }
+            return res;
+        }
+
         public DBCommandResult GetAllStars(long galaxyId)
         {
             DBCommandResult res = new DBCommandResult();

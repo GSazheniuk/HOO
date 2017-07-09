@@ -47,7 +47,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -87,13 +89,28 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
+    <Content Include="Images\tex09.jpg" />
+    <Content Include="Images\Creds.png" />
     <Content Include="Main.master" />
     <Content Include="Default.aspx" />
     <Content Include="Galaxies.aspx" />
+    <Content Include="MainJQuery.aspx" />
+    <Content Include="Scripts\CoreEnums.js" />
+    <Content Include="Scripts\MainGame.js" />
+    <Content Include="Scripts\Player.js" />
+    <Content Include="Scripts\ShaderToy.js" />
+    <Content Include="Scripts\SunShader.js" />
+    <Content Include="Scripts\Tools.js" />
     <Content Include="StarData.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Templates\InitialAttributes.html" />
+    <Content Include="Templates\Login.html" />
+    <Content Include="Templates\MainView.html" />
+    <Content Include="Templates\Register.html" />
+    <Content Include="Templates\StarSystemView.html" />
     <Content Include="Themes\black.min.css" />
+    <Content Include="Themes\MainGame.css" />
     <Content Include="Themes\slate.min.css" />
     <Content Include="Images\Stars\A.png" />
     <Content Include="Images\Stars\B.png" />
@@ -125,6 +142,20 @@
     </Compile>
     <Compile Include="Galaxies.aspx.designer.cs">
       <DependentUpon>Galaxies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MainJQuery.aspx.cs">
+      <DependentUpon>MainJQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MainJQuery.aspx.designer.cs">
+      <DependentUpon>MainJQuery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Simple.Master.cs">
+      <DependentUpon>Simple.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Simple.Master.designer.cs">
+      <DependentUpon>Simple.Master</DependentUpon>
     </Compile>
     <Compile Include="StarData.aspx.cs">
       <DependentUpon>StarData.aspx</DependentUpon>
@@ -179,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
+    <Content Include="Simple.Master" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

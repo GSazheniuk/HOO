@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Runtime.Serialization;
 
 namespace HOO.Core.Model.Universe
 {
@@ -22,9 +23,9 @@ namespace HOO.Core.Model.Universe
         [BsonIgnore]
         public int CurrentPeriod { get; set; }
 
-        public int Tick { get; set; }
-        public int Turn { get; set; }
-        public int Period { get; set; }
+        public int Tick { get { return this.CurrentTick; } set { this.CurrentTick = value; } }
+        public int Turn { get { return this.CurrentTurn; } set { this.CurrentTurn = value; } }
+        public int Period { get { return this.CurrentPeriod; } set { this.CurrentPeriod = value; } }
 
         [BsonIgnore]
         public List<Galaxy> Galaxies { get; set; }

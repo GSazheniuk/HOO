@@ -1,0 +1,162 @@
+﻿<div class="row">
+    Please select initial attributes for your race.
+</div>
+<div class="row">
+    <hr />
+</div>
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-4">Base Farming</div>
+    <div class="col-lg-4">Base Production</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-4">
+        <label class="radio-inline text-red">
+            <input type="radio" name="bFarm" id="bFarm1" value="-2"><span class="color-red">-1</span>
+        </label>
+        <label class="radio-inline text-lightred">
+            <input type="radio" name="bFarm" id="bFarm2" value="-1">-0.5
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="bFarm" id="bFarm3" checked value="0"> 0
+        </label>
+        <label class="radio-inline text-lightgreen">
+            <input type="radio" name="bFarm" id="bFarm1" value="1">+0.5
+        </label>
+        <label class="radio-inline text-green">
+            <input type="radio" name="bFarm" id="bFarm2" value="2">+1
+        </label>
+    </div>
+    <div class="col-lg-4">
+        <label class="radio-inline text-red">
+            <input type="radio" name="bProd" id="bProd1" value="-2">-1
+        </label>
+        <label class="radio-inline text-lightred">
+            <input type="radio" name="bProd" id="bProd2" value="-1">-0.5
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="bProd" id="bProd3" checked value="0"> 0
+        </label>
+        <label class="radio-inline text-lightgreen">
+            <input type="radio" name="bProd" id="bProd1" value="1">+0.5
+        </label>
+        <label class="radio-inline text-green">
+            <input type="radio" name="bProd" id="bProd2" value="2">+1
+        </label>
+    </div>
+</div>
+<div class="row">
+    <br />
+</div>
+
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-4">Base Research</div>
+    <div class="col-lg-4">Base Population Growth Rate</div>
+</div>
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-4">
+        <label class="radio-inline text-red">
+            <input type="radio" name="bRes" id="bRes1" value="-2"><span class="color-red">-1</span>
+        </label>
+        <label class="radio-inline text-lightred">
+            <input type="radio" name="bRes" id="bRes2" value="-1">-0.5
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="bRes" id="bRes3" checked value="0"> 0
+        </label>
+        <label class="radio-inline text-lightgreen">
+            <input type="radio" name="bRes" id="bRes1" value="1">+0.5
+        </label>
+        <label class="radio-inline text-green">
+            <input type="radio" name="bRes" id="bRes2" value="2">+1
+        </label>
+    </div>
+    <div class="col-lg-4">
+        <label class="radio-inline text-red">
+            <input type="radio" name="bGrow" id="bGrow1" value="-2">-50%
+        </label>
+        <label class="radio-inline text-lightred">
+            <input type="radio" name="bGrow" id="bGrow2" value="-1">-25%
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="bGrow" id="bGrow3" checked value="0"> 0
+        </label>
+        <label class="radio-inline text-lightgreen">
+            <input type="radio" name="bGrow" id="bGrow1" value="1">+25%
+        </label>
+        <label class="radio-inline text-green">
+            <input type="radio" name="bGrow" id="bGrow2" value="2">+50%
+        </label>
+    </div>
+</div>
+<div class="row">
+    <hr />
+</div>
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-4">Points Available: <span id="spTotalPoints">0</span></div>
+    <div class="col-lg-4"><a href="#" id="aNext" class="text-green">Continue...</a></div>
+</div>
+<script type="text/javascript">
+    $(".radio-inline").click(function () {
+        var totalPoints = 0;
+        var radios = $(".radio-inline");
+
+        for (var i = 0; i < radios.length; i++) {
+            var y = $(radios[i]).find("input");
+            if (y != null && y.length > 0 && y[0].checked)
+                totalPoints = totalPoints - parseFloat($(y).val());
+        }
+
+        $("#spTotalPoints").text(totalPoints);
+        $("#spTotalPoints").removeClass();
+
+        if (totalPoints > 0) {
+            $("#spTotalPoints").addClass("text-green");
+        }
+
+        if (totalPoints < 0) {
+            $("#spTotalPoints").addClass("text-red");
+            $("#spTotalPoints").text(totalPoints + " (You can not select that much positive bonuses!)");
+        }
+    });
+
+    function next() {
+        var totalPoints = 0;
+        var radios = $("input[type=radio]:checked");
+
+        for (var i = 0; i < radios.length; i++) {
+            totalPoints = totalPoints - parseFloat($(radios[i]).val());
+        }
+
+        if (totalPoints < 0)
+            return;
+
+        var prodAttr = p.attributes.find(x=> x.AttributeType === EnumAttributeTypes.RaceBonus && x.Attribute === EnumObjectAttribute.BaseProduction);
+        if (prodAttr == null)
+            p.attributes.push({ Attribute: EnumObjectAttribute.BaseProduction, AttributeType: EnumAttributeTypes.RaceBonus, Value: $("input[name=bProd]:checked").val() * 0.5 });
+        else
+            prodAttr.Value = $("input[name=bProd]:checked").val() * 0.5;
+
+        var farmAttr = p.attributes.find(x=> x.AttributeType === EnumAttributeTypes.RaceBonus && x.Attribute === EnumObjectAttribute.BaseFarming);
+        if (farmAttr == null)
+            p.attributes.push({ Attribute: EnumObjectAttribute.BaseFarming, AttributeType: EnumAttributeTypes.RaceBonus, Value: $("input[name=bFarm]:checked").val() * 0.5 });
+        else
+            farmAttr.Value = $("input[name=bFarm]:checked").val() * 0.5;
+
+        var resAttr = p.attributes.find(x=> x.AttributeType === EnumAttributeTypes.RaceBonus && x.Attribute === EnumObjectAttribute.BaseResearch);
+        if (resAttr == null)
+            p.attributes.push({ Attribute: EnumObjectAttribute.BaseResearch, AttributeType: EnumAttributeTypes.RaceBonus, Value: $("input[name=bRes]:checked").val() * 0.5 });
+        else
+            resAttr.Value = $("input[name=bRes]:checked").val() * 0.5;
+
+        var growAttr = p.attributes.find(x=> x.AttributeType === EnumAttributeTypes.RaceBonus && x.Attribute === EnumObjectAttribute.BasePopulationGrowth);
+        if (growAttr == null)
+            p.attributes.push({ Attribute: EnumObjectAttribute.BasePopulationGrowth, AttributeType: EnumAttributeTypes.RaceBonus, Value: $("input[name=bGrow]:checked").val() * 0.25 });
+        else
+            growAttr.Value = $("input[name=bGrow]:checked").val() * 0.25;
+
+        p.setInitialAttrs();
+    }
+
+    $("#aNext").click(next);
+</script>

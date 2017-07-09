@@ -15,5 +15,14 @@ namespace HOO.ComLib
             //dhCng.HashAlgorithm = CngAlgorithm.ECDiffieHellmanP256;
             //dhCng.
         }
+
+        public static string GetMD5Hash(string source)
+        {
+            byte[] encodedSource = new UTF8Encoding().GetBytes(source);
+
+            byte[] hash = ((HashAlgorithm)CryptoConfig.CreateFromName("MD5")).ComputeHash(encodedSource);
+
+            return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
+        }
     }
 }

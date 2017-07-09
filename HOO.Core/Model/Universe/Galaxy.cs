@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Runtime.Serialization;
 
 namespace HOO.Core.Model.Universe
 {

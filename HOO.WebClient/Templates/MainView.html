@@ -1,0 +1,48 @@
+﻿<div class="row mainHeader">
+    <div class="col-lg-8"><span id="spMessage"></span></div>
+    <div class="col-lg-2"><span id="spCredSign">֎</span><span id="spWealth"></span></div>
+    <div class="col-lg-2"><span id="spTime"></span></div>
+</div>
+<div class="row mainViewport">
+    <div class="col-lg-10"><span id="spViewPort"></span></div>
+    <div class="col-lg-2"><span id="spRightPanel"></span></div>
+</div>
+<div class="row mainFooter">
+    <div class="col-lg-12"><span id="spBottomPanel"></span></div>
+</div>
+<script>
+    function updatePlayer() {
+        $("#spWealth").text(p.getAttributeValue(EnumAttributeTypes.Resource, EnumObjectAttribute.NativeCredits));
+    }
+
+    function updateTimer() {
+        $("#spTime").text("Period: "+MainGame.WorldPeriod+" Turn: "+MainGame.WorldTurn+" Tick: "+MainGame.WorldTick);
+    }
+
+    function InitPlayer() {
+
+        if (p.tokenId == null) {
+            MainGame.loginSuccessCallBack = InitPlayer;
+            MainGame.showLoginDialog();
+            return;
+        }
+
+        $("#spMessage").text(p.motto);
+        $("#spCredSign").css("color", p.color);
+
+        if (p.getAttributeValue(EnumAttributeTypes.RaceBonus, EnumObjectAttribute.BaseFarming) == null) {
+            MainGame.setInitialAttrsCallback = InitPlayer;
+            MainGame.showInitAttrsDialog();
+            return;
+        }
+
+        updatePlayer();
+        p.refreshPlayerCallback = updatePlayer;
+        MainGame.setTimer("RefreshPlayer", p.refreshPlayer, 30000, p);
+    }
+
+    MainGame.refreshWorldTimeCallback = updateTimer;
+    MainGame.refreshWorldTime(MainGame);
+    MainGame.setTimer("WorldTimer", MainGame.refreshWorldTime, 10000, MainGame);
+    InitPlayer();
+</script>

@@ -68,5 +68,7 @@ namespace HOO.WebClient {
 		protected System.Web.UI.WebControls.Literal ltDistance;
 		
 		protected System.Web.UI.WebControls.Literal ltLoadTime;
-	}
+
+        protected System.Web.UI.WebControls.Literal ltScript;
+    }
 }
